@@ -109,9 +109,10 @@ export default function DashboardPage() {
       label: 'Pending Approvals',
       value: pendingApprovals.toLocaleString(),
       icon: ClipboardCheckIcon,
-      tint: isDark ? 'bg-[#F59E0B]/20' : 'bg-[#FEF3C7]',
-      iconColor: '#F59E0B',
-      labelColor: isDark ? 'text-[#FBBF6B]' : 'text-[#92400E]',
+      // Complementary accent: Purple
+      tint: isDark ? 'bg-[#5E93FF]/20' : 'bg-[#5E93FF]/15',
+      iconColor: '#5E93FF',
+      labelColor: isDark ? 'text-[#B4C6FF]' : 'text-[#1E3A8A]',
       trend: 12.1,
       trendUp: false,
       spark: sparklineData.pendingApprovals,
@@ -121,9 +122,11 @@ export default function DashboardPage() {
       label: 'Payroll This Month',
       value: `₹${payrollThisMonth.toFixed(1)}L`,
       icon: WalletIcon,
-      tint: isDark ? 'bg-[#EC4899]/20' : 'bg-[#FCE7F3]',
-      iconColor: '#EC4899',
-      labelColor: isDark ? 'text-[#F5A8C8]' : 'text-[#9D174D]',
+      // Complementary accent: Lime — icon/text use a darkened shade of the
+      // accent since the raw lime (#D0FF71) is too pale to read as text/icon fill
+      tint: isDark ? 'bg-[#D0FF71]/20' : 'bg-[#D0FF71]/25',
+      iconColor: '#7A9A1E',
+      labelColor: isDark ? 'text-[#E3FFAE]' : 'text-[#4D6612]',
       trend: 6.3,
       trendUp: true,
       spark: sparklineData.payroll,
