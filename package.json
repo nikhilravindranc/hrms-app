@@ -1,0 +1,36 @@
+{
+  "name": "hrms-app",
+  "version": "1.0.0",
+  "description": "EVOQ HRMS - Human Resource Management System",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "^15.0.3",
+    "@mui/material": "^6.1.6",
+    "@mui/icons-material": "^6.1.6",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "recharts": "^2.13.3",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.3.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^15.0.3"
+  }
+}
