@@ -114,7 +114,7 @@ export function Sidebar() {
           </div>
         </Link>
 
-        <div className={`flex items-center gap-3 px-3 py-2.5 rounded-lg ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#F0FBF7]'}`}>
+        <div className={`flex items-center gap-3 px-3 py-2.5 rounded-lg ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#E8EFF6]'}`}>
           <div className="w-9 h-9 rounded-full bg-[#004D43] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             {user?.firstName?.[0]}
             {user?.lastName?.[0]}

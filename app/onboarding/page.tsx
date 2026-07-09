@@ -27,8 +27,8 @@ const Step1Organization = ({ onNext }: { onNext: () => void }) => {
     currency: '',
   })
 
-  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4F4EA]'
+  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
 
   return (
@@ -119,7 +119,7 @@ const Step1Organization = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -130,8 +130,8 @@ const Step1Organization = ({ onNext }: { onNext: () => void }) => {
 const Step2HRSettings = ({ onNext }: { onNext: () => void }) => {
   const { isDark } = useTheme()
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
-  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4F4EA]'
+  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
 
   return (
     <div className="space-y-6">
@@ -177,7 +177,7 @@ const Step2HRSettings = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -200,7 +200,7 @@ const Step3Structure = ({ onNext }: { onNext: () => void }) => {
         <h3 className={`text-lg font-bold ${textColor} mb-4`}>Default Departments</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {defaultDepts.map(dept => (
-            <div key={dept} className={`p-3 rounded-lg border border-[#0B5B47] bg-[#0B5B47] bg-opacity-10`}>
+            <div key={dept} className={`p-3 rounded-lg border border-[#004D43] bg-[#004D43] bg-opacity-10`}>
               <p className={`font-medium ${textColor}`}>{dept}</p>
             </div>
           ))}
@@ -212,7 +212,7 @@ const Step3Structure = ({ onNext }: { onNext: () => void }) => {
         <h3 className={`text-lg font-bold ${textColor} mb-2`}>Locations</h3>
         <div className="grid grid-cols-3 gap-3">
           {['Bangalore', 'Delhi', 'Mumbai'].map(loc => (
-            <div key={loc} className={`p-3 rounded-lg border border-[#0B5B47] bg-[#0B5B47] bg-opacity-10`}>
+            <div key={loc} className={`p-3 rounded-lg border border-[#004D43] bg-[#004D43] bg-opacity-10`}>
               <p className={`font-medium ${textColor}`}>{loc}</p>
             </div>
           ))}
@@ -221,7 +221,7 @@ const Step3Structure = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -241,17 +241,17 @@ const Step4Employees = ({ onNext }: { onNext: () => void }) => {
         <p className={`text-sm ${isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'}`}>
           You can invite employees now or skip this step and add them later.
         </p>
-        <button className="w-full py-2 rounded-lg border border-[#0B5B47] text-[#0B5B47] hover:bg-[#0B5B47] hover:bg-opacity-10 font-medium transition-colors">
+        <button className="w-full py-2 rounded-lg border border-[#004D43] text-[#004D43] hover:bg-[#004D43] hover:bg-opacity-10 font-medium transition-colors">
           📤 Upload CSV File
         </button>
-        <button className="w-full py-2 rounded-lg border border-[#0B5B47] text-[#0B5B47] hover:bg-[#0B5B47] hover:bg-opacity-10 font-medium transition-colors">
+        <button className="w-full py-2 rounded-lg border border-[#004D43] text-[#004D43] hover:bg-[#004D43] hover:bg-opacity-10 font-medium transition-colors">
           ➕ Add Manually
         </button>
       </div>
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Skip for Now →
       </button>
@@ -289,7 +289,7 @@ const Step5Policies = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -316,7 +316,7 @@ const Step6Integrations = ({ onNext }: { onNext: () => void }) => {
         {integrations.map(int => (
           <button
             key={int}
-            className={`p-3 rounded-lg border border-[#D4F4EA] hover:border-[#0B5B47] transition-colors`}
+            className={`p-3 rounded-lg border border-[#D4E8E0] hover:border-[#004D43] transition-colors`}
           >
             <p className={`font-medium ${textColor}`}>{int}</p>
             <p className={`text-xs ${textSecondary} mt-1`}>Integrate Now</p>
@@ -326,7 +326,7 @@ const Step6Integrations = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -352,7 +352,7 @@ const Step7Finish = ({ onFinish }: { onFinish: () => void }) => {
 
       <button
         onClick={onFinish}
-        className="w-full py-2 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white font-medium transition-colors text-lg"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors text-lg"
       >
         Go to Dashboard →
       </button>
@@ -371,9 +371,9 @@ export default function OnboardingPage() {
 
   const stepPercentage = (currentStep / 7) * 100
 
-  const containerBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#F0FBF7]'
+  const containerBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#E8EFF6]'
   const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
-  const progressBg = isDark ? 'bg-[#27272A]' : 'bg-[#D4F4EA]'
+  const progressBg = isDark ? 'bg-[#27272A]' : 'bg-[#D4E8E0]'
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
 
@@ -394,7 +394,7 @@ export default function OnboardingPage() {
           </div>
           <div className={`w-full h-2 rounded-full ${progressBg} overflow-hidden`}>
             <div
-              className="h-full bg-[#0B5B47] transition-all duration-300"
+              className="h-full bg-[#004D43] transition-all duration-300"
               style={{ width: `${stepPercentage}%` }}
             />
           </div>
@@ -414,7 +414,7 @@ export default function OnboardingPage() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className={`text-sm ${textSecondary}`}>
-            Already set up? <a href="/dashboard" className="text-[#0B5B47] hover:underline font-medium">Go to Dashboard</a>
+            Already set up? <a href="/dashboard" className="text-[#004D43] hover:underline font-medium">Go to Dashboard</a>
           </p>
         </div>
       </div>

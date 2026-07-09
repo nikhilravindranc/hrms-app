@@ -71,7 +71,7 @@ export function TopBar() {
 
         {/* Primary Action — 14px/600, padding 10px 20px per Primary Button spec */}
         <Link href="/people/employees/new">
-          <button className="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#004D43] hover:bg-[#24A576] text-white text-button transition-colors">
+          <button className="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white text-button transition-colors">
             <PlusIcon size={16} />
             New Employee
           </button>

@@ -277,7 +277,7 @@ export default function DashboardPage() {
                     <span className={`text-xs font-medium ${textColor}`}>{dept.name}</span>
                     <span className={`text-xs font-semibold ${textSecondary}`}>{dept.count}</span>
                   </div>
-                  <div className={`h-2 rounded-full ${isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'} overflow-hidden`}>
+                  <div className={`h-2 rounded-full ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'} overflow-hidden`}>
                     <div
                       className="h-full rounded-full transition-all"
                       style={{
@@ -369,7 +369,7 @@ export default function DashboardPage() {
                 const Icon = activityIconMap[activity.icon]
                 return (
                   <div key={activity.id} className="flex items-start gap-3">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'}`}>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
                       <Icon size={15} className="text-[#004D43]" />
                     </div>
                     <div className="min-w-0">

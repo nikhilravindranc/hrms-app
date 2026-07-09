@@ -35,18 +35,18 @@ export default function LoginPage() {
   }
 
   const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
-  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4F4EA]'
+  const inputBg = isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
-  const buttonBg = 'bg-[#0B5B47] hover:bg-[#24A576] text-white'
+  const buttonBg = 'bg-[#004D43] hover:bg-[#27EAA6] text-white'
 
   return (
-    <div className={`flex items-center justify-center min-h-screen ${isDark ? 'bg-[#0A0A0A]' : 'bg-[#F0FBF7]'}`}>
+    <div className={`flex items-center justify-center min-h-screen ${isDark ? 'bg-[#0A0A0A]' : 'bg-[#E8EFF6]'}`}>
       <div className={`w-full max-w-md p-8 rounded-lg border ${borderColor} ${cardBg}`}>
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-lg bg-[#0B5B47] flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-lg bg-[#004D43] flex items-center justify-center mx-auto mb-4">
             <span className="text-white text-2xl font-bold">E</span>
           </div>
           <h1 className={`text-2xl font-bold ${textColor}`}>EVOQ HRMS</h1>
@@ -68,7 +68,7 @@ export default function LoginPage() {
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
                   placeholder="John"
-                  className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#0B5B47]`}
+                  className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#004D43]`}
                 />
               </div>
 
@@ -79,7 +79,7 @@ export default function LoginPage() {
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   placeholder="Doe"
-                  className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#0B5B47]`}
+                  className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#004D43]`}
                 />
               </div>
             </>
@@ -92,7 +92,7 @@ export default function LoginPage() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder={isSignup ? 'you@company.com' : 'admin@evoq.com'}
-              className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#0B5B47]`}
+              className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#004D43]`}
             />
           </div>
 
@@ -103,7 +103,7 @@ export default function LoginPage() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
-              className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#0B5B47]`}
+              className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#004D43]`}
             />
           </div>
 
@@ -122,7 +122,7 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => setIsSignup(!isSignup)}
-            className="text-[#0B5B47] hover:underline font-medium"
+            className="text-[#004D43] hover:underline font-medium"
           >
             {isSignup ? 'Login' : 'Sign up'}
           </button>
@@ -130,7 +130,7 @@ export default function LoginPage() {
 
         {/* Demo Credentials */}
         {!isSignup && (
-          <div className={`mt-6 p-3 rounded-lg border ${borderColor} ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#F0FBF7]'}`}>
+          <div className={`mt-6 p-3 rounded-lg border ${borderColor} ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#E8EFF6]'}`}>
             <p className={`text-xs ${textSecondary} font-medium`}>Demo Credentials:</p>
             <p className={`text-xs ${textSecondary}`}>Email: admin@evoq.com</p>
             <p className={`text-xs ${textSecondary}`}>Password: password</p>

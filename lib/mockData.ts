@@ -183,10 +183,10 @@ export const recentActivity = [
 // DEPARTMENT BAR COLORS (for distribution chart)
 // ============================================================================
 export const departmentColors: Record<string, string> = {
-  HR: '#0B5B47',
-  Finance: '#0F7C63',
-  Sales: '#24A576',
-  Marketing: '#3B82F6',
+  HR: '#003D2E',
+  Finance: '#004D43',
+  Sales: '#00755A',
+  Marketing: '#5E93FF',
   Operations: '#F59E0B',
   Support: '#EC4899',
   IT: '#8B5CF6',
