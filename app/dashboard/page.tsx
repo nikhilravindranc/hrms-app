@@ -68,10 +68,10 @@ export default function DashboardPage() {
     .slice(0, 5)
 
   const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#E3F2F0]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
-  const gridColor = isDark ? '#27272A' : '#F0FBF7'
+  const gridColor = isDark ? '#27272A' : '#ABE6D1'
 
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -85,8 +85,8 @@ export default function DashboardPage() {
       label: 'Total Employees',
       value: totalEmployees.toLocaleString(),
       icon: UsersIcon,
-      tint: isDark ? 'bg-[#0B5B47]/20' : 'bg-[#D4F4EA]',
-      iconColor: '#0B5B47',
+      tint: isDark ? 'bg-[#004D43]/20' : 'bg-[#ABE6D1]/40',
+      iconColor: '#004D43',
       trend: 8.2,
       trendUp: true,
       spark: sparklineData.totalEmployees,
@@ -96,8 +96,8 @@ export default function DashboardPage() {
       label: 'Active Employees',
       value: activeEmployees.toLocaleString(),
       icon: CheckCircleIcon,
-      tint: isDark ? 'bg-[#0F7C63]/20' : 'bg-[#D1FAE5]',
-      iconColor: '#0F7C63',
+      tint: isDark ? 'bg-[#00755A]/20' : 'bg-[#ABE6D1]/50',
+      iconColor: '#00755A',
       trend: 4.7,
       trendUp: true,
       spark: sparklineData.activeEmployees,
@@ -140,7 +140,7 @@ export default function DashboardPage() {
         {/* Welcome Banner */}
         <div
           className="relative overflow-hidden rounded-xl p-8 text-white"
-          style={{ background: 'linear-gradient(135deg, #0F7C63 0%, #003D2E 100%)' }}
+          style={{ background: 'linear-gradient(135deg, #00755A 0%, #003D2E 100%)' }}
         >
           <div className="absolute -top-10 -right-10 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
           <div className="absolute bottom-0 right-24 w-32 h-32 rounded-full bg-white/10 blur-xl" />
@@ -223,8 +223,8 @@ export default function DashboardPage() {
                 <AreaChart data={headcountTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="headcountGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#0B5B47" stopOpacity={0.3} />
-                      <stop offset="100%" stopColor="#0B5B47" stopOpacity={0} />
+                      <stop offset="0%" stopColor="#004D43" stopOpacity={0.3} />
+                      <stop offset="100%" stopColor="#004D43" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis
@@ -249,7 +249,7 @@ export default function DashboardPage() {
                   <Area
                     type="monotone"
                     dataKey="count"
-                    stroke="#0B5B47"
+                    stroke="#004D43"
                     strokeWidth={2.5}
                     fill="url(#headcountGradient)"
                   />
@@ -275,7 +275,7 @@ export default function DashboardPage() {
                       className="h-full rounded-full transition-all"
                       style={{
                         width: `${(dept.count / maxDeptCount) * 100}%`,
-                        backgroundColor: departmentColors[dept.name] || '#0B5B47',
+                        backgroundColor: departmentColors[dept.name] || '#004D43',
                       }}
                     />
                   </div>
@@ -294,7 +294,7 @@ export default function DashboardPage() {
                 <h2 className={`text-base font-bold ${textColor}`}>Recent Employees</h2>
                 <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>{recentEmployees.length} latest joiners</p>
               </div>
-              <Link href="/people/employees" className={`flex items-center gap-1 text-sm font-semibold text-[#0B5B47] hover:underline`}>
+              <Link href="/people/employees" className={`flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline`}>
                 View All
                 <ExternalLinkIcon size={13} />
               </Link>
@@ -315,7 +315,7 @@ export default function DashboardPage() {
                     <tr key={emp.id} className={`border-b ${borderColor} last:border-0`}>
                       <td className="py-3 pr-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-full bg-[#0B5B47] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-[#004D43] flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
                             {emp.firstName[0]}{emp.lastName[0]}
                           </div>
                           <div>
@@ -363,7 +363,7 @@ export default function DashboardPage() {
                 return (
                   <div key={activity.id} className="flex items-start gap-3">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'}`}>
-                      <Icon size={15} className="text-[#0B5B47]" />
+                      <Icon size={15} className="text-[#004D43]" />
                     </div>
                     <div className="min-w-0">
                       {/* Body/Value tier: 14px / 600 */}
@@ -375,7 +375,7 @@ export default function DashboardPage() {
               })}
             </div>
 
-            <Link href="/reports" className="flex items-center gap-1 text-sm font-semibold text-[#0B5B47] hover:underline mt-5">
+            <Link href="/reports" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-5">
               View all activity →
             </Link>
           </div>

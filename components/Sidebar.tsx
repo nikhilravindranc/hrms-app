@@ -41,16 +41,16 @@ export function Sidebar() {
     requests: pendingApprovals,
   }
 
-  const sidebarBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#F0FBF7]'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#E3F2F0]'
-  const textActive = 'text-[#0B5B47]'
+  const sidebarBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#E8EFF6]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
+  const textActive = 'text-[#004D43]'
   // Nav item default color = Primary text (navy/light-gray), per typography spec
   const textInactive = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const iconInactive = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-white'
-  const activeBg = isDark ? 'bg-[#0B5B47]/15' : 'bg-[#D4F4EA]'
+  const activeBg = isDark ? 'bg-[#004D43]/15' : 'bg-[#ABE6D1]/30'
   // Count badge = 10px/700/white on app primary, per Component Typography spec
-  const badgeBg = 'bg-[#0B5B47] text-white'
+  const badgeBg = 'bg-[#004D43] text-white'
 
   return (
     <aside
@@ -90,7 +90,7 @@ export function Sidebar() {
                       {badgeValue}
                     </span>
                   )}
-                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#0B5B47]" />}
+                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#004D43]" />}
                 </div>
               </div>
             </Link>
@@ -115,7 +115,7 @@ export function Sidebar() {
         </Link>
 
         <div className={`flex items-center gap-3 px-3 py-2.5 rounded-lg ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#F0FBF7]'}`}>
-          <div className="w-9 h-9 rounded-full bg-[#0B5B47] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-[#004D43] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
             {user?.firstName?.[0]}
             {user?.lastName?.[0]}
           </div>

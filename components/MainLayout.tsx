@@ -7,7 +7,7 @@ import { useTheme } from '@/context/ThemeContext'
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const { isDark } = useTheme()
-  const mainBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#F0FBF7]'
+  const mainBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#E8EFF6]'
 
   return (
     <div className={`flex h-screen ${mainBg}`}>

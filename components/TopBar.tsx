@@ -13,10 +13,10 @@ export function TopBar() {
   const [showNotifications, setShowNotifications] = useState(false)
 
   const topbarBg = isDark ? 'bg-[#0A0A0A]' : 'bg-white'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#E3F2F0]'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
-  const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-[#F0FBF7]'
+  const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-[#E8EFF6]'
   const iconColor = isDark ? 'text-[#D4D4D8]' : 'text-[#334155]'
 
   const notifications = [
@@ -41,7 +41,7 @@ export function TopBar() {
         </button>
 
         <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-[#0B5B47] flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 rounded-lg bg-[#004D43] flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-sm">E</span>
           </div>
           <span className={`text-sm font-bold ${textColor}`}>EVOQ HRMS</span>
@@ -53,7 +53,7 @@ export function TopBar() {
         {/* Search */}
         <div className={`
           hidden md:flex items-center gap-2 px-3 py-2 rounded-lg w-72
-          ${isDark ? 'bg-[#27272A]' : 'bg-[#F0FBF7]'}
+          ${isDark ? 'bg-[#27272A]' : 'bg-[#ABE6D1]/30'}
         `}>
           <SearchIcon size={16} className={textSecondary} />
           <input
@@ -71,7 +71,7 @@ export function TopBar() {
 
         {/* Primary Action — 14px/600, padding 10px 20px per Primary Button spec */}
         <Link href="/people/employees/new">
-          <button className="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#0B5B47] hover:bg-[#24A576] text-white text-button transition-colors">
+          <button className="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#004D43] hover:bg-[#24A576] text-white text-button transition-colors">
             <PlusIcon size={16} />
             New Employee
           </button>
@@ -122,7 +122,7 @@ export function TopBar() {
         <div className="relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className="w-8 h-8 rounded-full bg-[#0B5B47] flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+            className="w-8 h-8 rounded-full bg-[#004D43] flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
           >
             {user?.firstName?.[0]}
             {user?.lastName?.[0]}

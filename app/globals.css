@@ -3,14 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --color-hrms-primary: #0B5B47;
-  --color-hrms-action: #0F7C63;
-  --color-hrms-hover: #24A576;
-  --color-hrms-surface: #F0FBF7;
+  /* Color Palette - Full stop progression from teal base */
+  --color-hrms-depth: #003D2E;
+  --color-hrms-primary: #004D43;
+  --color-hrms-action: #00755A;
+  --color-hrms-hover: #27EAA6;
+  --color-hrms-soft: #ABE6D1;
+  --color-hrms-surface: #E8EFF6;
+
+  /* Complementary Accents */
+  --color-hrms-accent-purple: #5E93FF;
+  --color-hrms-accent-lime: #D0FF71;
+
+  /* Text Colors */
   --color-text-primary: #0C2472;
   --color-text-secondary: #334155;
   --color-text-tertiary: #94A3B8;
   --color-text-hero: #0C2472;
+
+  /* Semantic Colors */
   --color-semantic-success: #10B981;
   --color-semantic-warning: #F59E0B;
   --color-semantic-error: #EF4444;
