@@ -342,7 +342,7 @@ export default function DashboardPage() {
                               : emp.status === 'On Leave'
                               ? 'bg-[#F59E0B]/15 text-[#F59E0B]'
                               : emp.status === 'Probation'
-                              ? 'bg-[#3B82F6]/15 text-[#3B82F6]'
+                              ? 'bg-[#5E93FF]/15 text-[#5E93FF]'
                               : 'bg-[#94A3B8]/15 text-[#94A3B8]'
                           }`}
                         >

@@ -186,8 +186,8 @@ export const departmentColors: Record<string, string> = {
   HR: '#003D2E',
   Finance: '#004D43',
   Sales: '#00755A',
-  Marketing: '#5E93FF',
-  Operations: '#F59E0B',
-  Support: '#EC4899',
-  IT: '#8B5CF6',
+  Marketing: '#27EAA6',
+  Operations: '#7A9A1E',
+  Support: '#5E93FF',
+  IT: '#2E4A99',
 }
