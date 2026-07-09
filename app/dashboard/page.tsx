@@ -87,6 +87,7 @@ export default function DashboardPage() {
       icon: UsersIcon,
       tint: isDark ? 'bg-[#004D43]/20' : 'bg-[#ABE6D1]/40',
       iconColor: '#004D43',
+      labelColor: isDark ? 'text-[#8FD9C4]' : 'text-[#004D43]',
       trend: 8.2,
       trendUp: true,
       spark: sparklineData.totalEmployees,
@@ -98,6 +99,7 @@ export default function DashboardPage() {
       icon: CheckCircleIcon,
       tint: isDark ? 'bg-[#00755A]/20' : 'bg-[#ABE6D1]/50',
       iconColor: '#00755A',
+      labelColor: isDark ? 'text-[#8FD9C4]' : 'text-[#00543F]',
       trend: 4.7,
       trendUp: true,
       spark: sparklineData.activeEmployees,
@@ -109,6 +111,7 @@ export default function DashboardPage() {
       icon: ClipboardCheckIcon,
       tint: isDark ? 'bg-[#F59E0B]/20' : 'bg-[#FEF3C7]',
       iconColor: '#F59E0B',
+      labelColor: isDark ? 'text-[#FBBF6B]' : 'text-[#92400E]',
       trend: 12.1,
       trendUp: false,
       spark: sparklineData.pendingApprovals,
@@ -120,6 +123,7 @@ export default function DashboardPage() {
       icon: WalletIcon,
       tint: isDark ? 'bg-[#EC4899]/20' : 'bg-[#FCE7F3]',
       iconColor: '#EC4899',
+      labelColor: isDark ? 'text-[#F5A8C8]' : 'text-[#9D174D]',
       trend: 6.3,
       trendUp: true,
       spark: sparklineData.payroll,
@@ -174,7 +178,7 @@ export default function DashboardPage() {
                 <div className={`p-5 rounded-xl border ${borderColor} ${kpi.tint} cursor-pointer transition-transform hover:-translate-y-0.5`}>
                   <div className="flex items-start justify-between mb-3">
                     {/* Field Label tier: 11.5px / 600 / uppercase / 0.05em tracking */}
-                    <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{kpi.label}</p>
+                    <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${kpi.labelColor}`}>{kpi.label}</p>
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                       style={{ backgroundColor: `${kpi.iconColor}22`, color: kpi.iconColor }}
