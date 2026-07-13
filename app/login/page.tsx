@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('admin@evoq.com')
-  const [password, setPassword] = useState('password')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [isSignup, setIsSignup] = useState(false)
   const [firstName, setFirstName] = useState('')
@@ -91,7 +91,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder={isSignup ? 'you@company.com' : 'admin@evoq.com'}
+              placeholder={isSignup ? 'you@company.com' : 'tech@evoq.one'}
               className={`w-full px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} outline-none focus:border-[#004D43]`}
             />
           </div>
@@ -127,15 +127,6 @@ export default function LoginPage() {
             {isSignup ? 'Login' : 'Sign up'}
           </button>
         </p>
-
-        {/* Demo Credentials */}
-        {!isSignup && (
-          <div className={`mt-6 p-3 rounded-lg border ${borderColor} ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#E8EFF6]'}`}>
-            <p className={`text-xs ${textSecondary} font-medium`}>Demo Credentials:</p>
-            <p className={`text-xs ${textSecondary}`}>Email: admin@evoq.com</p>
-            <p className={`text-xs ${textSecondary}`}>Password: password</p>
-          </div>
-        )}
       </div>
     </div>
   )
