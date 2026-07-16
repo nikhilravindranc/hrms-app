@@ -1,9 +1,16 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/context/AuthContext'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { EmployeeProvider } from '@/context/EmployeeContext'
 import { mockEmployees } from '@/lib/mockData'
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'EVOQ HRMS - Human Resource Management System',
@@ -31,7 +38,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body suppressHydrationWarning>
+      <body className={inter.variable} suppressHydrationWarning>
         <AuthProvider>
           <ThemeProvider>
             <EmployeeProvider initialEmployees={mockEmployees}>
