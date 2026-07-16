@@ -76,19 +76,19 @@ type DistributionTab = 'department' | 'location' | 'employmentType'
 type IconComponent = React.FC<{ size?: number; className?: string }>
 
 export default function DashboardPage() {
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, isLoading } = useAuth()
   const { employees } = useEmployee()
   const router = useRouter()
   const { isDark } = useTheme()
   const [distributionTab, setDistributionTab] = useState<DistributionTab>('department')
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push('/login')
     }
-  }, [isAuthenticated, router])
+  }, [isLoading, isAuthenticated, router])
 
-  if (!isAuthenticated || !user) {
+  if (isLoading || !isAuthenticated || !user) {
     return null
   }
 
