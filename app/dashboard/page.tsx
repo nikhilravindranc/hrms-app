@@ -284,8 +284,8 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14 mt-4">
-              <div className="relative w-44 h-44 flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-center gap-8 mt-4">
+              <div className="relative w-48 h-48 flex-shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -318,14 +318,19 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="w-full sm:w-auto grid grid-cols-2 sm:grid-cols-1 gap-x-8 gap-y-3">
-                {todaysWorkforce.map(w => (
-                  <div key={w.label} className="flex items-center gap-4 sm:justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: w.color }} />
-                      <span className={`text-sm font-medium ${textColor}`}>{w.label}</span>
+              <div className="flex-1 w-full grid grid-cols-2 gap-3">
+                {todaysWorkforce.map((w, idx) => (
+                  <div
+                    key={w.label}
+                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#F7FAF9]'} ${
+                      idx === todaysWorkforce.length - 1 && todaysWorkforce.length % 2 === 1 ? 'col-span-2' : ''
+                    }`}
+                  >
+                    <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: w.color }} />
+                    <div className="min-w-0 flex-1">
+                      <p className={`text-[11.5px] font-medium truncate ${textSecondary}`}>{w.label}</p>
+                      <p className={`text-base font-bold ${textColor}`}>{w.count}</p>
                     </div>
-                    <span className={`text-sm font-bold ${textColor} ml-auto sm:ml-0`}>{w.count}</span>
                   </div>
                 ))}
               </div>
