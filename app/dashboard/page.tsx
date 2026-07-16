@@ -270,7 +270,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 2: Today's Workforce + Pending Approvals */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
           {/* Today's Workforce */}
           <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
             <div className="flex items-center justify-between mb-1">
@@ -375,7 +375,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 3: Attendance Trend + Upcoming Events */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
           {/* Attendance Trend */}
           <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
             <div className="flex items-center justify-between mb-1">
@@ -446,7 +446,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 4: Quick Actions + Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
           {/* Quick Actions */}
           <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
             <h2 className={`text-base font-bold ${textColor}`}>Quick Actions</h2>
@@ -476,7 +476,7 @@ export default function DashboardPage() {
           {/* Recent Activity */}
           <div className={`p-6 rounded-xl border ${borderColor} ${cardBg}`}>
             <h2 className={`text-base font-bold ${textColor}`}>Recent Activity</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Live team updates</p>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-5`}>Live team updates</p>
 
             <div className="space-y-4">
               {recentActivity.map(activity => {
