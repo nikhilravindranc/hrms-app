@@ -203,10 +203,10 @@ export default function DashboardPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4">
         {/* Welcome Banner */}
         <div
-          className="relative overflow-hidden rounded-xl p-8 text-white"
+          className="relative overflow-hidden rounded-xl p-6 text-white"
           style={{ background: 'linear-gradient(135deg, #00755A 0%, #003D2E 100%)' }}
         >
           <div className="absolute -top-10 -right-10 w-56 h-56 rounded-full bg-white/10 blur-2xl" />
@@ -215,7 +215,7 @@ export default function DashboardPage() {
           <div className="relative">
             <p className="text-xs font-medium opacity-90 mb-1">👋 Good morning</p>
             <h1 className="text-xl font-extrabold leading-tight mb-1">Welcome back, {user.firstName} {user.lastName}</h1>
-            <p className="text-xs font-medium opacity-90 mb-5">Here&apos;s your HR snapshot for {today}</p>
+            <p className="text-xs font-medium opacity-90 mb-4">Here&apos;s your HR snapshot for {today}</p>
 
             <div className="flex flex-wrap gap-3">
               {statPills.map((pill, idx) => (
@@ -232,13 +232,13 @@ export default function DashboardPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {kpis.map((kpi, idx) => {
             const Icon = kpi.icon
             return (
               <Link key={idx} href={kpi.link}>
-                <div className={`p-5 rounded-xl border ${borderColor} ${kpi.tint} cursor-pointer transition-transform hover:-translate-y-0.5`}>
-                  <div className="flex items-start justify-between mb-3">
+                <div className={`p-4 rounded-xl border ${borderColor} ${kpi.tint} cursor-pointer transition-transform hover:-translate-y-0.5`}>
+                  <div className="flex items-start justify-between mb-2.5">
                     {/* Field Label tier: 11.5px / 600 / uppercase / 0.05em tracking */}
                     <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${kpi.labelColor}`}>{kpi.label}</p>
                     <div
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                       <Icon size={16} />
                     </div>
                   </div>
-                  <p className={`text-3xl font-bold ${textColor} mb-3`}>{kpi.value}</p>
+                  <p className={`text-3xl font-bold ${textColor} mb-2.5`}>{kpi.value}</p>
                   <div className="flex items-center justify-between">
                     {/* Tag/Pill tier: 12px / 500 */}
                     <div
@@ -270,9 +270,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 2: Today's Workforce + Pending Approvals */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
           {/* Today's Workforce */}
-          <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <div className="flex items-center justify-between mb-1">
               <div>
                 <h2 className={`text-base font-bold ${textColor}`}>Today&apos;s Workforce</h2>
@@ -284,7 +284,7 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center gap-8 mt-4">
+            <div className="flex flex-col md:flex-row items-center gap-6 mt-3">
               <div className="relative w-48 h-48 flex-shrink-0">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -338,11 +338,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Pending Approvals */}
-          <div className={`p-6 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-5`}>Awaiting your review</p>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
 
-            <div className="space-y-3 flex-1">
+            <div className="space-y-2.5 flex-1">
               {pendingApprovalsBreakdown.map(group => {
                 const Icon = pendingIconMap[group.icon]
                 return (
@@ -367,7 +367,7 @@ export default function DashboardPage() {
 
             <Link
               href="/requests"
-              className="mt-5 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
             >
               Review All
             </Link>
@@ -375,9 +375,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 3: Attendance Trend + Upcoming Events */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
           {/* Attendance Trend */}
-          <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <div className="flex items-center justify-between mb-1">
               <div>
                 <h2 className={`text-base font-bold ${textColor}`}>Attendance Trend</h2>
@@ -389,7 +389,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="h-64 mt-4">
+            <div className="h-64 mt-3">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={attendanceTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -432,11 +432,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Upcoming Events */}
-          <div className={`p-6 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <h2 className={`text-base font-bold ${textColor}`}>Upcoming Events</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-5`}>Next 30 days</p>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <EventSection icon={CakeIcon} label="Birthdays" events={upcomingBirthdays} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
               <EventSection icon={TrophyIcon} label="Work Anniversaries" events={upcomingAnniversaries} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
               <EventSection icon={UserPlusIcon} label="New Joiners" events={newJoiners} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
@@ -446,11 +446,11 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 4: Quick Actions + Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
           {/* Quick Actions */}
-          <div className={`lg:col-span-2 p-6 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <h2 className={`text-base font-bold ${textColor}`}>Quick Actions</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-5`}>Common tasks, one click away</p>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Common tasks, one click away</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {quickActions.map(action => {
@@ -474,11 +474,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Recent Activity */}
-          <div className={`p-6 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <h2 className={`text-base font-bold ${textColor}`}>Recent Activity</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-5`}>Live team updates</p>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Live team updates</p>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {recentActivity.map(activity => {
                 const Icon = activityIconMap[activity.icon]
                 return (
@@ -496,15 +496,15 @@ export default function DashboardPage() {
               })}
             </div>
 
-            <Link href="/reports" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-5">
+            <Link href="/reports" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-4">
               View all activity →
             </Link>
           </div>
         </div>
 
         {/* Row 5: Employee Distribution */}
-        <div className={`p-6 rounded-xl border ${borderColor} ${cardBg}`}>
-          <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+        <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
             <div>
               <h2 className={`text-base font-bold ${textColor}`}>Employee Distribution</h2>
               <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Headcount breakdown</p>
