@@ -225,6 +225,51 @@ export function TaskIcon({ className, size }: IconProps) {
   )
 }
 
+export function MailIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3.5 6.5l8.5 6.5 8.5-6.5" />
+    </svg>
+  )
+}
+
+export function LockIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="5" y="10.5" width="14" height="10" rx="2" />
+      <path d="M8 10.5V7.5a4 4 0 018 0v3" />
+    </svg>
+  )
+}
+
+export function EyeIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
+
+export function EyeOffIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M3 3l18 18" />
+      <path d="M10.6 5.6A10.8 10.8 0 0112 5.5c6 0 9.5 6.5 9.5 6.5a15 15 0 01-3.2 4M6.4 6.9C4 8.6 2.5 12 2.5 12s3.5 6.5 9.5 6.5a9.7 9.7 0 004.4-1" />
+      <path d="M9.9 10a3 3 0 004.1 4.1" />
+    </svg>
+  )
+}
+
+export function SparkleIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6z" />
+    </svg>
+  )
+}
+
 export const activityIconMap: Record<string, React.FC<IconProps>> = {
   check: CheckCircleIcon,
   'user-plus': UserPlusIcon,
