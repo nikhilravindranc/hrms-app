@@ -100,6 +100,19 @@ export const mockEmployees: Employee[] = [
   createEmp('EMP-025', 'Sneha', 'Tiwari', 'Associate', 'Finance', 'Bangalore', 'EMP-004', 'Inactive', 680000),
 ]
 
+// Diversify a few employment types so "By Employment Type" distribution is meaningful
+const employmentTypeOverrides: Record<string, Employee['employmentType']> = {
+  'EMP-013': 'Contract',
+  'EMP-015': 'Contract',
+  'EMP-020': 'Intern',
+  'EMP-021': 'Intern',
+}
+mockEmployees.forEach(emp => {
+  if (employmentTypeOverrides[emp.id]) {
+    emp.employmentType = employmentTypeOverrides[emp.id]
+  }
+})
+
 export const mockOrganization: Organization = {
   id: 'org-001',
   name: 'EVOQ HR Systems',
@@ -166,6 +179,7 @@ export const sparklineData = {
   activeEmployees: [16, 17, 17, 18, 19, 19, 20, 20],
   pendingApprovals: [2, 4, 3, 5, 4, 6, 3, 3],
   payroll: [14, 15, 15, 16, 16, 17, 18, 18.6],
+  onLeave: [4, 3, 5, 4, 3, 4, 3, 3],
 }
 
 // ============================================================================
@@ -191,3 +205,110 @@ export const departmentColors: Record<string, string> = {
   Support: '#5E93FF',
   IT: '#2E4A99',
 }
+
+export const locationColors: Record<string, string> = {
+  Bangalore: '#00755A',
+  Delhi: '#5E93FF',
+  Mumbai: '#7A9A1E',
+}
+
+export const employmentTypeColors: Record<string, string> = {
+  'Full Time': '#00755A',
+  Contract: '#5E93FF',
+  Intern: '#7A9A1E',
+}
+
+// ============================================================================
+// TODAY'S WORKFORCE SNAPSHOT (attendance status breakdown)
+// ============================================================================
+export interface WorkforceStatus {
+  label: string
+  count: number
+  color: string
+}
+
+export const todaysWorkforce: WorkforceStatus[] = [
+  { label: 'Present', count: 15, color: '#00755A' },
+  { label: 'WFH', count: 4, color: '#27EAA6' },
+  { label: 'Late', count: 1, color: '#F59E0B' },
+  { label: 'On Leave', count: 3, color: '#5E93FF' },
+  { label: 'Absent', count: 2, color: '#EF4444' },
+]
+
+// ============================================================================
+// PENDING APPROVALS BREAKDOWN (actionable queue)
+// ============================================================================
+export interface PendingApprovalGroup {
+  id: string
+  type: string
+  count: number
+  icon: 'calendar' | 'edit' | 'receipt'
+}
+
+export const pendingApprovalsBreakdown: PendingApprovalGroup[] = [
+  { id: 'leave', type: 'Leave Requests', count: 3, icon: 'calendar' },
+  { id: 'attendance', type: 'Attendance Correction', count: 1, icon: 'edit' },
+  { id: 'expense', type: 'Expense Claim', count: 1, icon: 'receipt' },
+]
+
+// ============================================================================
+// ATTENDANCE TREND (last 30 days, % present)
+// ============================================================================
+const attendancePctSeries = [
+  82, 84, 83, 85, 87, 86, 88, 90, 89, 91,
+  90, 92, 91, 93, 92, 94, 93, 95, 94, 96,
+  95, 94, 96, 95, 97, 96, 95, 97, 96, 98,
+]
+export const attendanceTrend = attendancePctSeries.map((present, i) => ({
+  day: `${i + 1}`,
+  present,
+}))
+
+// ============================================================================
+// UPCOMING EVENTS (birthdays, anniversaries, new joiners, probation ending)
+// ============================================================================
+export interface UpcomingEvent {
+  id: string
+  name: string
+  detail: string
+  date: string
+}
+
+export const upcomingBirthdays: UpcomingEvent[] = [
+  { id: 'b1', name: 'Riya Agarwal', detail: 'IT · Developer', date: 'Jul 18' },
+  { id: 'b2', name: 'Karan Chopra', detail: 'Sales · Associate', date: 'Jul 22' },
+]
+
+export const upcomingAnniversaries: UpcomingEvent[] = [
+  { id: 'a1', name: 'Divya Nair', detail: '3 years · Marketing', date: 'Jul 20' },
+  { id: 'a2', name: 'Neha Verma', detail: '3 years · Support', date: 'Jul 25' },
+]
+
+export const newJoiners: UpcomingEvent[] = [
+  { id: 'n1', name: 'Sneha Tiwari', detail: 'Finance · Associate', date: 'Jul 15' },
+  { id: 'n2', name: 'Abhishek Verma', detail: 'IT · Developer', date: 'Jul 1' },
+]
+
+export const probationEnding: UpcomingEvent[] = [
+  { id: 'p1', name: 'Rohan Banerjee', detail: 'Marketing · Coordinator', date: 'Sep 15' },
+  { id: 'p2', name: 'Pooja Singh', detail: 'Support · Associate', date: 'Nov 6' },
+]
+
+// ============================================================================
+// QUICK ACTIONS (dashboard shortcuts)
+// ============================================================================
+export interface QuickAction {
+  id: string
+  label: string
+  icon: 'user-plus' | 'upload' | 'check' | 'cash' | 'megaphone' | 'file-text'
+  href: string
+}
+
+export const quickActions: QuickAction[] = [
+  { id: 'add-employee', label: 'Add Employee', icon: 'user-plus', href: '/people/employees/new' },
+  { id: 'import-employees', label: 'Import Employees', icon: 'upload', href: '/people/employees' },
+  { id: 'mark-attendance', label: 'Mark Attendance', icon: 'check', href: '/workforce/attendance' },
+  { id: 'run-payroll', label: 'Run Payroll', icon: 'cash', href: '/payroll' },
+  { id: 'create-announcement', label: 'Create Announcement', icon: 'megaphone', href: '/reports' },
+  { id: 'generate-report', label: 'Generate Report', icon: 'file-text', href: '/reports' },
+]

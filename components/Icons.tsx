@@ -270,6 +270,85 @@ export function SparkleIcon({ className, size }: IconProps) {
   )
 }
 
+export function CalendarIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="3.5" y="5" width="17" height="15.5" rx="2" />
+      <path d="M3.5 9.5h17M8 3v3.5M16 3v3.5" />
+    </svg>
+  )
+}
+
+export function CakeIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M4 20v-6.5a2 2 0 012-2h12a2 2 0 012 2V20" />
+      <path d="M2.5 20h19" />
+      <path d="M8 11.5V8M12 11.5V8M16 11.5V8" />
+      <path d="M8 8c-.9 0-1.5-.6-1.5-1.4 0-.9 1.5-2.6 1.5-2.6s1.5 1.7 1.5 2.6c0 .8-.6 1.4-1.5 1.4zM12 8c-.9 0-1.5-.6-1.5-1.4 0-.9 1.5-2.6 1.5-2.6s1.5 1.7 1.5 2.6c0 .8-.6 1.4-1.5 1.4zM16 8c-.9 0-1.5-.6-1.5-1.4 0-.9 1.5-2.6 1.5-2.6s1.5 1.7 1.5 2.6c0 .8-.6 1.4-1.5 1.4z" />
+      <path d="M4 16.5c1 .8 2 .8 3 0s2-.8 3 0 2 .8 3 0 2-.8 3 0 2 .8 3 0" />
+    </svg>
+  )
+}
+
+export function TrophyIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M7 4h10v6a5 5 0 01-10 0V4z" />
+      <path d="M7 5.5H4a1 1 0 00-1 1v1a3.5 3.5 0 003.5 3.5M17 5.5h3a1 1 0 011 1v1a3.5 3.5 0 01-3.5 3.5" />
+      <path d="M12 15v3M9 21h6M9.5 18h5l.5 3H9z" />
+    </svg>
+  )
+}
+
+export function HomeIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M4 11l8-7 8 7" />
+      <path d="M5.5 9.8V20h13V9.8" />
+      <path d="M9.5 20v-6h5v6" />
+    </svg>
+  )
+}
+
+export function ReceiptIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M5 3.5h14v17l-2.5-1.5-2 1.5-2-1.5-2 1.5-2-1.5-2.5 1.5z" />
+      <path d="M8 8h8M8 11.5h8M8 15h5" />
+    </svg>
+  )
+}
+
+export function UploadIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 15.5V4M8 8l4-4 4 4" />
+      <path d="M4.5 15.5V19a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-3.5" />
+    </svg>
+  )
+}
+
+export function MegaphoneIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M3 10.5v3a1.5 1.5 0 001.5 1.5H6l3.5 4V5L6 9H4.5A1.5 1.5 0 003 10.5z" />
+      <path d="M13 8.5c2.5 0 5-1.2 6.5-3v11c-1.5-1.8-4-3-6.5-3" />
+      <path d="M7 15l1 4.5" />
+    </svg>
+  )
+}
+
+export function FileTextIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M6 3.5h8l4 4V20a1 1 0 01-1 1H6a1 1 0 01-1-1V4.5a1 1 0 011-1z" />
+      <path d="M14 3.5V8h4" />
+      <path d="M8 12.5h8M8 16h5" />
+    </svg>
+  )
+}
+
 export const activityIconMap: Record<string, React.FC<IconProps>> = {
   check: CheckCircleIcon,
   'user-plus': UserPlusIcon,
