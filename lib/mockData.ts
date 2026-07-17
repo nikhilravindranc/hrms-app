@@ -136,19 +136,38 @@ export const mockOrganization: Organization = {
 }
 
 export const mockDepartments = [
-  { id: 'dept-001', name: 'HR' },
-  { id: 'dept-002', name: 'Finance' },
-  { id: 'dept-003', name: 'Sales' },
-  { id: 'dept-004', name: 'Marketing' },
-  { id: 'dept-005', name: 'Operations' },
-  { id: 'dept-006', name: 'Support' },
-  { id: 'dept-007', name: 'IT' },
+  { id: 'dept-001', name: 'HR', headId: 'EMP-002' },
+  { id: 'dept-002', name: 'Finance', headId: 'EMP-004' },
+  { id: 'dept-003', name: 'Sales', headId: 'EMP-007' },
+  { id: 'dept-004', name: 'Marketing', headId: 'EMP-008' },
+  { id: 'dept-005', name: 'Operations', headId: 'EMP-009' },
+  { id: 'dept-006', name: 'Support', headId: 'EMP-010' },
+  { id: 'dept-007', name: 'IT', headId: 'EMP-006' },
 ]
 
 export const mockLocations = [
-  { id: 'loc-001', name: 'Bangalore' },
-  { id: 'loc-002', name: 'Delhi' },
-  { id: 'loc-003', name: 'Mumbai' },
+  { id: 'loc-001', name: 'Bangalore', address: 'MG Road, Bengaluru, Karnataka 560001' },
+  { id: 'loc-002', name: 'Delhi', address: 'Connaught Place, New Delhi 110001' },
+  { id: 'loc-003', name: 'Mumbai', address: 'Bandra Kurla Complex, Mumbai, Maharashtra 400051' },
+]
+
+// ============================================================================
+// DESIGNATIONS (derived job-title catalog with a rough seniority rank)
+// ============================================================================
+export interface Designation {
+  id: string
+  title: string
+  level: number
+}
+
+export const mockDesignations: Designation[] = [
+  { id: 'desig-001', title: 'CEO', level: 1 },
+  { id: 'desig-002', title: 'Manager', level: 2 },
+  { id: 'desig-003', title: 'Executive', level: 3 },
+  { id: 'desig-004', title: 'Officer', level: 3 },
+  { id: 'desig-005', title: 'Developer', level: 3 },
+  { id: 'desig-006', title: 'Coordinator', level: 4 },
+  { id: 'desig-007', title: 'Associate', level: 4 },
 ]
 
 // ============================================================================

@@ -357,6 +357,97 @@ export function FileTextIcon({ className, size }: IconProps) {
   )
 }
 
+export function BuildingIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="4" y="3" width="12" height="18" rx="1" />
+      <path d="M16 8h4v13h-4M7.5 7h1M11.5 7h1M7.5 11h1M11.5 11h1M7.5 15h1M11.5 15h1" />
+    </svg>
+  )
+}
+
+export function MapPinIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+  )
+}
+
+export function BadgeIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <circle cx="12" cy="9" r="5.5" />
+      <path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5" />
+    </svg>
+  )
+}
+
+export function SitemapIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="8.5" y="3" width="7" height="5" rx="1" />
+      <rect x="3" y="16" width="7" height="5" rx="1" />
+      <rect x="14" y="16" width="7" height="5" rx="1" />
+      <path d="M12 8v4M6.5 16v-4h11v4" />
+    </svg>
+  )
+}
+
+export function FilterIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M4 5h16l-6 7.5V19l-4 2v-8.5z" />
+    </svg>
+  )
+}
+
+export function DownloadIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 4v11M8 11l4 4 4-4" />
+      <path d="M4.5 16v3a1.5 1.5 0 001.5 1.5h12a1.5 1.5 0 001.5-1.5v-3" />
+    </svg>
+  )
+}
+
+export function MoreVerticalIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className} fill="currentColor" stroke="none">
+      <circle cx="12" cy="5.5" r="1.7" />
+      <circle cx="12" cy="12" r="1.7" />
+      <circle cx="12" cy="18.5" r="1.7" />
+    </svg>
+  )
+}
+
+export function XIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M5 5l14 14M19 5L5 19" />
+    </svg>
+  )
+}
+
+export function ChevronRightIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M9 6l6 6-6 6" />
+    </svg>
+  )
+}
+
+export function LayersIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3l9 5-9 5-9-5 9-5z" />
+      <path d="M4.5 12.2L12 16l7.5-3.8" />
+      <path d="M4.5 16.2L12 20l7.5-3.8" />
+    </svg>
+  )
+}
+
 export const activityIconMap: Record<string, React.FC<IconProps>> = {
   check: CheckCircleIcon,
   'user-plus': UserPlusIcon,
