@@ -269,113 +269,8 @@ export default function DashboardPage() {
           })}
         </div>
 
-        {/* Row 2: Today's Workforce + Pending Approvals */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
-          {/* Today's Workforce */}
-          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
-            <div className="flex items-center justify-between mb-1">
-              <div>
-                <h2 className={`text-base font-bold ${textColor}`}>Today&apos;s Workforce</h2>
-                <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Live attendance snapshot</p>
-              </div>
-              <Link href="/workforce/attendance" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline">
-                View All
-                <ExternalLinkIcon size={13} />
-              </Link>
-            </div>
-
-            <div className="flex flex-col md:flex-row items-center gap-6 mt-3">
-              <div className="relative w-48 h-48 flex-shrink-0">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={todaysWorkforce}
-                      dataKey="count"
-                      nameKey="label"
-                      innerRadius="68%"
-                      outerRadius="100%"
-                      paddingAngle={2}
-                      startAngle={90}
-                      endAngle={-270}
-                    >
-                      {todaysWorkforce.map(w => (
-                        <Cell key={w.label} fill={w.color} stroke="none" />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: isDark ? '#18181B' : '#FFFFFF',
-                        border: `1px solid ${isDark ? '#27272A' : '#E3F2F0'}`,
-                        borderRadius: 8,
-                        fontSize: 12,
-                      }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                  <p className={`text-2xl font-extrabold ${textColor}`}>{presentPct}%</p>
-                  <p className={`text-[10.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Present</p>
-                </div>
-              </div>
-
-              <div className="flex-1 w-full grid grid-cols-2 gap-3">
-                {todaysWorkforce.map((w, idx) => (
-                  <div
-                    key={w.label}
-                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#F7FAF9]'} ${
-                      idx === todaysWorkforce.length - 1 && todaysWorkforce.length % 2 === 1 ? 'col-span-2' : ''
-                    }`}
-                  >
-                    <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: w.color }} />
-                    <div className="min-w-0 flex-1">
-                      <p className={`text-[11.5px] font-medium truncate ${textSecondary}`}>{w.label}</p>
-                      <p className={`text-base font-bold ${textColor}`}>{w.count}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Pending Approvals */}
-          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
-            <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
-
-            <div className="space-y-2.5 flex-1">
-              {pendingApprovalsBreakdown.map(group => {
-                const Icon = pendingIconMap[group.icon]
-                return (
-                  <Link
-                    key={group.id}
-                    href="/requests"
-                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
-                      isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
-                    }`}
-                  >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-                      <Icon size={16} className="text-[#00755A]" />
-                    </div>
-                    <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
-                    <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
-                      {group.count}
-                    </span>
-                  </Link>
-                )
-              })}
-            </div>
-
-            <Link
-              href="/requests"
-              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
-            >
-              Review All
-            </Link>
-          </div>
-        </div>
-
-        {/* Row 3: Attendance Trend + Upcoming Events */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+        {/* Row 2: Attendance Trend + Today's Workforce */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Attendance Trend */}
           <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
             <div className="flex items-center justify-between mb-1">
@@ -389,7 +284,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="h-64 mt-3">
+            <div className="h-72 mt-3">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={attendanceTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
@@ -431,28 +326,73 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Upcoming Events */}
-          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
-            <h2 className={`text-base font-bold ${textColor}`}>Upcoming Events</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
+          {/* Today's Workforce */}
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+            <div className="flex items-center justify-between mb-1">
+              <div>
+                <h2 className={`text-base font-bold ${textColor}`}>Today&apos;s Workforce</h2>
+                <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Live snapshot</p>
+              </div>
+              <Link href="/workforce/attendance" className="flex items-center gap-1 text-xs font-semibold text-[#004D43] hover:underline flex-shrink-0">
+                <ExternalLinkIcon size={12} />
+              </Link>
+            </div>
 
-            <div className="space-y-3">
-              <EventSection icon={CakeIcon} label="Birthdays" events={upcomingBirthdays} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={TrophyIcon} label="Work Anniversaries" events={upcomingAnniversaries} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={UserPlusIcon} label="New Joiners" events={newJoiners} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={CalendarIcon} label="Probation Ending" events={probationEnding} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 py-2">
+              <div className="relative w-36 h-36 flex-shrink-0">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={todaysWorkforce}
+                      dataKey="count"
+                      nameKey="label"
+                      innerRadius="68%"
+                      outerRadius="100%"
+                      paddingAngle={2}
+                      startAngle={90}
+                      endAngle={-270}
+                    >
+                      {todaysWorkforce.map(w => (
+                        <Cell key={w.label} fill={w.color} stroke="none" />
+                      ))}
+                    </Pie>
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: isDark ? '#18181B' : '#FFFFFF',
+                        border: `1px solid ${isDark ? '#27272A' : '#E3F2F0'}`,
+                        borderRadius: 8,
+                        fontSize: 12,
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                  <p className={`text-xl font-extrabold ${textColor}`}>{presentPct}%</p>
+                  <p className={`text-[10px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Present</p>
+                </div>
+              </div>
+
+              <div className="w-full grid grid-cols-2 gap-2">
+                {todaysWorkforce.map(w => (
+                  <div key={w.label} className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: w.color }} />
+                    <span className={`text-xs font-medium ${textSecondary} truncate`}>{w.label}</span>
+                    <span className={`text-xs font-bold ${textColor} ml-auto`}>{w.count}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Row 4: Quick Actions + Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+        {/* Row 3: Quick Actions + Pending Approvals */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Quick Actions */}
-          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Quick Actions</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Common tasks, one click away</p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3 content-center">
               {quickActions.map(action => {
                 const Icon = quickActionIconMap[action.icon]
                 return (
@@ -473,12 +413,64 @@ export default function DashboardPage() {
             </div>
           </div>
 
+          {/* Pending Approvals */}
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+            <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
+
+            <div className="space-y-2.5 flex-1">
+              {pendingApprovalsBreakdown.map(group => {
+                const Icon = pendingIconMap[group.icon]
+                return (
+                  <Link
+                    key={group.id}
+                    href="/requests"
+                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
+                      isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
+                    }`}
+                  >
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
+                      <Icon size={16} className="text-[#00755A]" />
+                    </div>
+                    <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
+                    <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
+                      {group.count}
+                    </span>
+                  </Link>
+                )
+              })}
+            </div>
+
+            <Link
+              href="/requests"
+              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+            >
+              Review All
+            </Link>
+          </div>
+        </div>
+
+        {/* Row 4: Upcoming Events + Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* Upcoming Events */}
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+            <h2 className={`text-base font-bold ${textColor}`}>Upcoming Events</h2>
+            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
+
+            <div className="flex-1 flex flex-col justify-between">
+              <EventSection icon={CakeIcon} label="Birthdays" events={upcomingBirthdays} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection icon={TrophyIcon} label="Work Anniversaries" events={upcomingAnniversaries} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection icon={UserPlusIcon} label="New Joiners" events={newJoiners} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection icon={CalendarIcon} label="Probation Ending" events={probationEnding} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+            </div>
+          </div>
+
           {/* Recent Activity */}
-          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Recent Activity</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Live team updates</p>
 
-            <div className="space-y-3">
+            <div className="flex-1 flex flex-col justify-between">
               {recentActivity.map(activity => {
                 const Icon = activityIconMap[activity.icon]
                 return (
