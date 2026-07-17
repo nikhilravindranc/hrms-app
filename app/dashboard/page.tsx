@@ -103,6 +103,7 @@ export default function DashboardPage() {
   const wfhCount = todaysWorkforce.find(w => w.label === 'WFH')?.count ?? 0
   const lateCount = todaysWorkforce.find(w => w.label === 'Late')?.count ?? 0
   const onLeaveCount = todaysWorkforce.find(w => w.label === 'On Leave')?.count ?? 0
+  const absentCount = todaysWorkforce.find(w => w.label === 'Absent')?.count ?? 0
   const presentTodayTotal = presentCount + wfhCount + lateCount
   const presentPct = Math.round((presentTodayTotal / totalEmployees) * 100)
   const pendingApprovalsTotal = pendingApprovalsBreakdown.reduce((sum, g) => sum + g.count, 0)
@@ -155,7 +156,7 @@ export default function DashboardPage() {
       link: '/people/employees',
     },
     {
-      label: 'Present Today',
+      label: 'At Work Today',
       value: presentTodayTotal.toLocaleString(),
       icon: CheckCircleIcon,
       tint: isDark ? 'bg-[#00755A]/20' : 'bg-[#ABE6D1]/50',
@@ -195,8 +196,8 @@ export default function DashboardPage() {
   const statPills = [
     { icon: '📋', label: `${pendingApprovalsTotal} Pending approvals` },
     { icon: '🏖️', label: `${onLeaveCount} On leave today` },
+    { icon: '⚠️', label: `${absentCount} Absent today` },
     { icon: '👋', label: `${newHiresThisMonth} New hires this month` },
-    { icon: '📈', label: `+${totalEmployees - 19} Employees this year` },
   ]
 
   const distributionTabs: { id: DistributionTab; label: string }[] = [
@@ -372,7 +373,7 @@ export default function DashboardPage() {
                 </ResponsiveContainer>
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                   <p className={`text-xl font-extrabold ${textColor}`}>{presentPct}%</p>
-                  <p className={`text-[10px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Present</p>
+                  <p className={`text-[10px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>At Work</p>
                 </div>
               </div>
 
