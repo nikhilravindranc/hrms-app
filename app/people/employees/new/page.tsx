@@ -18,7 +18,7 @@ export default function NewEmployeePage() {
 
   return (
     <div className="space-y-5 max-w-3xl">
-      <Link href="/people/employees" className={`text-xs font-semibold ${textSecondary} hover:text-[#004D43]`}>
+      <Link href="/people/employees" className={`text-xs font-semibold ${textSecondary} ${isDark ? 'hover:text-[#27EAA6]' : 'hover:text-[#004D43]'}`}>
         ← Back to Employees
       </Link>
 

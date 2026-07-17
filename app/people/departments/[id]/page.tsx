@@ -46,7 +46,7 @@ export default function DepartmentDetailPage() {
     return (
       <div className={`p-8 rounded-xl border ${borderColor} ${cardBg} text-center`}>
         <p className={`text-sm font-semibold ${textColor}`}>Department not found.</p>
-        <Link href="/people/departments" className="text-sm font-semibold text-[#004D43] hover:underline mt-2 inline-block">
+        <Link href="/people/departments" className={`text-sm font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline mt-2 inline-block`}>
           ← Back to Departments
         </Link>
       </div>
@@ -55,7 +55,7 @@ export default function DepartmentDetailPage() {
 
   return (
     <div className="space-y-5">
-      <Link href="/people/departments" className={`text-xs font-semibold ${textSecondary} hover:text-[#004D43]`}>
+      <Link href="/people/departments" className={`text-xs font-semibold ${textSecondary} ${isDark ? 'hover:text-[#27EAA6]' : 'hover:text-[#004D43]'}`}>
         ← Back to Departments
       </Link>
 

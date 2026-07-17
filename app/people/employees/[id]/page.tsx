@@ -69,7 +69,7 @@ export default function EmployeeDetailPage() {
     return (
       <div className={`p-8 rounded-xl border ${borderColor} ${cardBg} text-center`}>
         <p className={`text-sm font-semibold ${textColor}`}>Employee not found.</p>
-        <Link href="/people/employees" className="text-sm font-semibold text-[#004D43] hover:underline mt-2 inline-block">
+        <Link href="/people/employees" className={`text-sm font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline mt-2 inline-block`}>
           ← Back to Employees
         </Link>
       </div>
@@ -104,7 +104,7 @@ export default function EmployeeDetailPage() {
 
   return (
     <div className="space-y-5">
-      <Link href="/people/employees" className={`text-xs font-semibold ${textSecondary} hover:text-[#004D43]`}>
+      <Link href="/people/employees" className={`text-xs font-semibold ${textSecondary} ${isDark ? 'hover:text-[#27EAA6]' : 'hover:text-[#004D43]'}`}>
         ← Back to Employees
       </Link>
 
@@ -346,7 +346,7 @@ export default function EmployeeDetailPage() {
                     <FileTextIcon size={15} className="text-[#00755A]" />
                     <p className={`text-sm font-medium ${textColor}`}>Payslip - {month}</p>
                   </div>
-                  <button className="text-xs font-semibold text-[#004D43] hover:underline">Download</button>
+                  <button className={`text-xs font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline`}>Download</button>
                 </div>
               ))}
             </div>
@@ -368,7 +368,7 @@ export default function EmployeeDetailPage() {
                     <p className={`text-xs font-medium ${textSecondary}`}>Not uploaded</p>
                   </div>
                 </div>
-                <button className="text-xs font-semibold text-[#004D43] hover:underline">Upload</button>
+                <button className={`text-xs font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline`}>Upload</button>
               </div>
             ))}
           </div>
@@ -477,7 +477,7 @@ function TimelineRow({
   return (
     <div className="flex items-start gap-3">
       <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-        <Icon size={15} className="text-[#004D43]" />
+        <Icon size={15} className={isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} />
       </div>
       <div className="min-w-0 flex-1">
         <p className={`text-sm font-semibold ${textColor}`}>{title}</p>

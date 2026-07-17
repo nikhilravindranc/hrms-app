@@ -347,7 +347,7 @@ export default function DashboardPage() {
                 <h2 className={`text-base font-bold ${textColor}`}>Today&apos;s Workforce</h2>
                 <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Live snapshot</p>
               </div>
-              <Link href="/workforce/attendance" className="flex items-center gap-1 text-xs font-semibold text-[#004D43] hover:underline flex-shrink-0">
+              <Link href="/workforce/attendance" className={`flex items-center gap-1 text-xs font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline flex-shrink-0`}>
                 <ExternalLinkIcon size={12} />
               </Link>
             </div>
@@ -500,7 +500,7 @@ export default function DashboardPage() {
               ))}
             </div>
 
-            <Link href="/requests" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-4">
+            <Link href="/requests" className={`flex items-center gap-1 text-sm font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline mt-4`}>
               View all tasks →
             </Link>
           </div>
@@ -539,7 +539,7 @@ export default function DashboardPage() {
                 return (
                   <div key={activity.id} className="flex items-start gap-3">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-                      <Icon size={15} className="text-[#004D43]" />
+                      <Icon size={15} className={isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} />
                     </div>
                     <div className="min-w-0">
                       {/* Body/Value tier: 14px / 600 */}
@@ -551,7 +551,7 @@ export default function DashboardPage() {
               })}
             </div>
 
-            <Link href="/reports" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-4">
+            <Link href="/reports" className={`flex items-center gap-1 text-sm font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'} hover:underline mt-4`}>
               View all activity →
             </Link>
           </div>
@@ -567,7 +567,7 @@ export default function DashboardPage() {
               <h2 className={`text-base font-bold ${textColor}`}>Employee Distribution</h2>
               <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Headcount breakdown</p>
             </div>
-            <span className={`flex items-center gap-1 text-sm font-semibold text-[#004D43]`}>
+            <span className={`flex items-center gap-1 text-sm font-semibold ${isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'}`}>
               {showDistribution ? 'Hide Analytics' : 'Show Analytics'}
               <span className={`transition-transform ${showDistribution ? 'rotate-180' : ''}`}>▼</span>
             </span>
