@@ -1,10 +1,23 @@
 'use client'
 
 import { useMemo } from 'react'
-import Link from 'next/link'
+import {
+  ReactFlow,
+  Background,
+  Controls,
+  MiniMap,
+  BackgroundVariant,
+  Node,
+  Edge,
+} from '@xyflow/react'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
-import { Employee } from '@/lib/mockData'
+import { layoutTree } from '@/lib/treeLayout'
+import { EmployeeNode, EmployeeNodeData } from '@/components/tree/EmployeeNode'
+
+const nodeTypes = { employee: EmployeeNode }
+const NODE_WIDTH = 240
+const NODE_HEIGHT = 64
 
 export default function EmployeeTreePage() {
   const { isDark } = useTheme()
@@ -15,17 +28,38 @@ export default function EmployeeTreePage() {
   const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
   const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
 
-  const roots = useMemo(() => employees.filter(e => !e.manager), [employees])
-  const childrenOf = useMemo(() => {
-    const map: Record<string, Employee[]> = {}
+  const { nodes, edges } = useMemo(() => {
+    const reportCounts: Record<string, number> = {}
     employees.forEach(e => {
-      if (e.manager) {
-        if (!map[e.manager]) map[e.manager] = []
-        map[e.manager].push(e)
-      }
+      if (e.manager) reportCounts[e.manager] = (reportCounts[e.manager] ?? 0) + 1
     })
-    return map
-  }, [employees])
+
+    const rawNodes: Node<EmployeeNodeData>[] = employees.map(e => ({
+      id: e.id,
+      type: 'employee',
+      position: { x: 0, y: 0 },
+      data: {
+        id: e.id,
+        firstName: e.firstName,
+        lastName: e.lastName,
+        designation: e.designation,
+        department: e.department,
+        reportCount: reportCounts[e.id] ?? 0,
+      },
+    }))
+
+    const rawEdges: Edge[] = employees
+      .filter(e => e.manager)
+      .map(e => ({
+        id: `${e.manager}-${e.id}`,
+        source: e.manager as string,
+        target: e.id,
+        type: 'smoothstep',
+        style: { stroke: isDark ? '#27272A' : '#D4E8E0', strokeWidth: 2 },
+      }))
+
+    return layoutTree(rawNodes, rawEdges, NODE_WIDTH, NODE_HEIGHT)
+  }, [employees, isDark])
 
   return (
     <div className="space-y-5">
@@ -34,54 +68,37 @@ export default function EmployeeTreePage() {
         <p className={`text-xs font-medium mt-0.5 ${textSecondary}`}>Reporting hierarchy across the organization</p>
       </div>
 
-      <div className={`p-6 rounded-xl border ${borderColor} ${cardBg} overflow-x-auto`}>
-        {roots.map(root => (
-          <TreeNode key={root.id} employee={root} childrenOf={childrenOf} isDark={isDark} depth={0} />
-        ))}
+      <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`} style={{ height: 620 }}>
+        <ReactFlow
+          style={{ width: '100%', height: '100%' }}
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          minZoom={0.2}
+          maxZoom={1.5}
+          proOptions={{ hideAttribution: true }}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          elementsSelectable={true}
+          colorMode={isDark ? 'dark' : 'light'}
+        >
+          <Background
+            variant={BackgroundVariant.Dots}
+            color={isDark ? '#27272A' : '#D4E8E0'}
+            gap={20}
+          />
+          <Controls showInteractive={false} />
+          <MiniMap
+            pannable
+            zoomable
+            nodeColor={isDark ? '#27272A' : '#E8EFF6'}
+            maskColor={isDark ? 'rgba(10,10,10,0.6)' : 'rgba(232,239,246,0.6)'}
+            style={{ backgroundColor: isDark ? '#18181B' : '#FFFFFF' }}
+          />
+        </ReactFlow>
       </div>
-    </div>
-  )
-}
-
-function TreeNode({
-  employee,
-  childrenOf,
-  isDark,
-  depth,
-}: {
-  employee: Employee
-  childrenOf: Record<string, Employee[]>
-  isDark: boolean
-  depth: number
-}) {
-  const children = childrenOf[employee.id] ?? []
-  const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
-  const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
-  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
-  const hoverBg = isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'
-
-  return (
-    <div className={depth > 0 ? `ml-6 pl-6 border-l ${borderColor}` : ''}>
-      <Link
-        href={`/people/employees/${employee.id}`}
-        className={`flex items-center gap-3 px-3 py-2.5 rounded-lg my-1 transition-colors group ${hoverBg} w-fit min-w-[260px]`}
-      >
-        <span className="w-9 h-9 rounded-full bg-[#004D43] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">
-          {employee.firstName[0]}{employee.lastName[0]}
-        </span>
-        <div className="min-w-0">
-          <p className={`text-sm font-semibold group-hover:text-[#00755A] ${textColor}`}>{employee.firstName} {employee.lastName}</p>
-          <p className={`text-[11px] font-medium ${textSecondary}`}>{employee.designation} · {employee.department}</p>
-        </div>
-        {children.length > 0 && (
-          <span className={`ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isDark ? 'bg-[#0F0F0F] text-[#9CA3AF]' : 'bg-[#E8EFF6] text-[#004D43]'}`}>
-            {children.length}
-          </span>
-        )}
-      </Link>
-      {children.map(child => (
-        <TreeNode key={child.id} employee={child} childrenOf={childrenOf} isDark={isDark} depth={depth + 1} />
-      ))}
     </div>
   )
 }
