@@ -97,7 +97,7 @@ export const mockEmployees: Employee[] = [
   createEmp('EMP-024', 'Abhishek', 'Verma', 'Developer', 'IT', 'Bangalore', 'EMP-006', 'Active', 950000),
 
   // Finance Associate (1)
-  createEmp('EMP-025', 'Sneha', 'Tiwari', 'Associate', 'Finance', 'Bangalore', 'EMP-004', 'Inactive', 680000),
+  createEmp('EMP-025', 'Sneha', 'Tiwari', 'Associate', 'Finance', 'Bangalore', 'EMP-004', 'Active', 680000),
 ]
 
 // Diversify a few employment types so "By Employment Type" distribution is meaningful
@@ -110,6 +110,19 @@ const employmentTypeOverrides: Record<string, Employee['employmentType']> = {
 mockEmployees.forEach(emp => {
   if (employmentTypeOverrides[emp.id]) {
     emp.employmentType = employmentTypeOverrides[emp.id]
+  }
+})
+
+// Recent joining dates so "New Joiners" and "new hires this month" stats
+// reflect actual employee records instead of a hardcoded number
+const joiningDateOverrides: Record<string, string> = {
+  'EMP-024': '2026-07-01', // Abhishek Verma
+  'EMP-018': '2026-07-10', // Zara Kapoor
+  'EMP-025': '2026-07-15', // Sneha Tiwari
+}
+mockEmployees.forEach(emp => {
+  if (joiningDateOverrides[emp.id]) {
+    emp.joiningDate = new Date(joiningDateOverrides[emp.id])
   }
 })
 
@@ -187,10 +200,12 @@ export const sparklineData = {
 // ============================================================================
 export const recentActivity = [
   { id: 1, icon: 'check', title: 'Leave request approved: Anjali Malik', actor: 'Arjun Reddy', time: '5m ago' },
-  { id: 2, icon: 'user-plus', title: 'New employee added: Sophia Fernandes', actor: 'Admin', time: '23m ago' },
+  { id: 2, icon: 'user-plus', title: 'New employee added: Sneha Tiwari', actor: 'Priya Sharma', time: '18m ago' },
   { id: 3, icon: 'edit', title: 'Employee record updated: Karan Chopra', actor: 'Priya Sharma', time: '1h ago' },
   { id: 4, icon: 'task', title: 'Task: Review payroll done', actor: 'Vikram Singh', time: '2h ago' },
   { id: 5, icon: 'cash', title: 'Payroll processed for July', actor: 'Admin', time: '3h ago' },
+  { id: 6, icon: 'user-plus', title: 'New employee added: Zara Kapoor', actor: 'Divya Nair', time: '5h ago' },
+  { id: 7, icon: 'check', title: 'Attendance correction approved: Aryan Mishra', actor: 'Neha Verma', time: '1d ago' },
 ]
 
 // ============================================================================
@@ -286,7 +301,8 @@ export const upcomingAnniversaries: UpcomingEvent[] = [
 
 export const newJoiners: UpcomingEvent[] = [
   { id: 'n1', name: 'Sneha Tiwari', detail: 'Finance · Associate', date: 'Jul 15' },
-  { id: 'n2', name: 'Abhishek Verma', detail: 'IT · Developer', date: 'Jul 1' },
+  { id: 'n2', name: 'Zara Kapoor', detail: 'Marketing · Executive', date: 'Jul 10' },
+  { id: 'n3', name: 'Abhishek Verma', detail: 'IT · Developer', date: 'Jul 1' },
 ]
 
 export const probationEnding: UpcomingEvent[] = [

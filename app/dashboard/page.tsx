@@ -93,7 +93,11 @@ export default function DashboardPage() {
   }
 
   const totalEmployees = employees.length
-  const newHiresThisMonth = 3
+  const now = new Date()
+  const newHiresThisMonth = employees.filter(e => {
+    const joined = new Date(e.joiningDate)
+    return joined.getFullYear() === now.getFullYear() && joined.getMonth() === now.getMonth()
+  }).length
 
   const presentCount = todaysWorkforce.find(w => w.label === 'Present')?.count ?? 0
   const wfhCount = todaysWorkforce.find(w => w.label === 'WFH')?.count ?? 0
@@ -471,7 +475,7 @@ export default function DashboardPage() {
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Live team updates</p>
 
             <div className="flex-1 flex flex-col justify-between">
-              {recentActivity.map(activity => {
+              {recentActivity.slice(0, 5).map(activity => {
                 const Icon = activityIconMap[activity.icon]
                 return (
                   <div key={activity.id} className="flex items-start gap-3">
