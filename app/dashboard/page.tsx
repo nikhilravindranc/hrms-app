@@ -22,6 +22,7 @@ import { Sparkline } from '@/components/Sparkline'
 import {
   UsersIcon,
   CheckCircleIcon,
+  CheckIcon,
   ClipboardCheckIcon,
   ClockIcon,
   ArrowUpRightIcon,
@@ -52,7 +53,6 @@ import {
   probationEnding,
   quickActions,
   myTasks,
-  type UpcomingEvent,
 } from '@/lib/mockData'
 
 const pendingIconMap = {
@@ -69,13 +69,6 @@ const quickActionIconMap = {
   megaphone: MegaphoneIcon,
   'file-text': FileTextIcon,
   'clipboard-check': ClipboardCheckIcon,
-}
-
-const eventEmoji: Record<string, string> = {
-  Birthdays: '🎂',
-  'Work Anniversaries': '🎉',
-  'New Joiners': '👋',
-  'Probation Ending': '⏳',
 }
 
 type DistributionTab = 'department' | 'location' | 'employmentType'
@@ -113,6 +106,16 @@ export default function DashboardPage() {
   const presentTodayTotal = presentCount + wfhCount + lateCount
   const presentPct = Math.round((presentTodayTotal / totalEmployees) * 100)
   const pendingApprovalsTotal = pendingApprovalsBreakdown.reduce((sum, g) => sum + g.count, 0)
+
+  const doneTasks = myTasks.filter(t => t.done).length
+  const taskProgress = Math.round((doneTasks / myTasks.length) * 100)
+
+  const upcomingEvents = [
+    ...upcomingBirthdays.map(e => ({ ...e, emoji: '🎂', kind: 'Birthday' })),
+    ...upcomingAnniversaries.map(e => ({ ...e, emoji: '🎉', kind: 'Work Anniversary' })),
+    ...newJoiners.map(e => ({ ...e, emoji: '👋', kind: 'New Joiner' })),
+    ...probationEnding.map(e => ({ ...e, emoji: '⏳', kind: 'Probation Ending' })),
+  ].slice(0, 6)
 
   const departments = [...new Set(employees.map(e => e.department))]
   const deptCounts = departments
@@ -397,114 +400,140 @@ export default function DashboardPage() {
         </div>
 
         {/* Row 3: Quick Actions + Pending Approvals */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
           {/* Quick Actions */}
           <div className={`lg:col-span-2 p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Quick Actions</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Common tasks, one click away</p>
 
-            <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3 content-center">
+            <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3">
               {quickActions.map(action => {
                 const Icon = quickActionIconMap[action.icon]
                 return (
                   <Link
                     key={action.id}
                     href={action.href}
-                    className={`flex flex-col items-start gap-3 p-4 rounded-xl border ${borderColor} transition-colors ${
-                      isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
+                    className={`group flex items-center gap-3 p-3.5 rounded-xl border ${borderColor} transition-all hover:-translate-y-0.5 ${
+                      isDark ? 'hover:bg-[#27272A] hover:border-[#00755A]/40' : 'hover:bg-[#E8EFF6] hover:border-[#00755A]/30'
                     }`}
                   >
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#00755A]/15 text-[#00755A]">
-                      <Icon size={17} />
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#00755A]/15 text-[#00755A] transition-colors group-hover:bg-[#00755A] group-hover:text-white">
+                      <Icon size={18} />
                     </div>
-                    <p className={`text-sm font-semibold ${textColor}`}>{action.label}</p>
+                    <p className={`text-sm font-semibold leading-tight ${textColor}`}>{action.label}</p>
                   </Link>
                 )
               })}
             </div>
           </div>
 
-          {/* Pending Approvals + My Tasks */}
-          <div className="flex flex-col gap-4">
-            <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
-              <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
-              <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
-
-              <div className="space-y-2.5 flex-1">
-                {pendingApprovalsBreakdown.map(group => {
-                  const Icon = pendingIconMap[group.icon]
-                  return (
-                    <Link
-                      key={group.id}
-                      href="/requests"
-                      className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
-                        isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
-                      }`}
-                    >
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-                        <Icon size={16} className="text-[#00755A]" />
-                      </div>
-                      <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
-                      <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
-                        {group.count}
-                      </span>
-                    </Link>
-                  )
-                })}
+          {/* Pending Approvals */}
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
+                <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Awaiting your review</p>
               </div>
-
-              <Link
-                href="/requests"
-                className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
-              >
-                Review All
-              </Link>
+              <span className={`flex items-center justify-center min-w-7 h-7 px-2 rounded-full bg-[#D0FF71]/25 text-sm font-bold ${isDark ? 'text-[#E3FFAE]' : 'text-[#4D6612]'}`}>
+                {pendingApprovalsTotal}
+              </span>
             </div>
 
-            {/* My Tasks */}
-            <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
-              <h2 className={`text-base font-bold ${textColor}`}>My Tasks</h2>
-              <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>{myTasks.filter(t => !t.done).length} open</p>
-
-              <div className="space-y-2.5">
-                {myTasks.map(task => (
-                  <div key={task.id} className="flex items-center gap-2.5">
-                    <span
-                      className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${
-                        task.done ? 'bg-[#00755A] border-[#00755A]' : borderColor
-                      }`}
-                    />
-                    <p className={`text-xs font-medium ${task.done ? `${textSecondary} line-through` : textColor}`}>
-                      {task.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
+            <div className="space-y-2.5 flex-1">
+              {pendingApprovalsBreakdown.map(group => {
+                const Icon = pendingIconMap[group.icon]
+                return (
+                  <Link
+                    key={group.id}
+                    href="/requests"
+                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
+                      isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
+                    }`}
+                  >
+                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
+                      <Icon size={16} className="text-[#00755A]" />
+                    </div>
+                    <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
+                    <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
+                      {group.count}
+                    </span>
+                  </Link>
+                )
+              })}
             </div>
+
+            <Link
+              href="/requests"
+              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+            >
+              Review All
+            </Link>
           </div>
         </div>
 
-        {/* Row 4: Upcoming Events + Recent Activity */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Row 4: My Tasks + Upcoming Events + Recent Activity */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">
+          {/* My Tasks */}
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+            <div className="flex items-center justify-between">
+              <h2 className={`text-base font-bold ${textColor}`}>My Tasks</h2>
+              <span className={`text-xs font-semibold ${textSecondary}`}>{doneTasks}/{myTasks.length}</span>
+            </div>
+            <div className={`h-1.5 rounded-full mt-2 mb-4 overflow-hidden ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
+              <div className="h-full rounded-full bg-[#00755A] transition-all" style={{ width: `${taskProgress}%` }} />
+            </div>
+
+            <div className="flex-1 flex flex-col justify-between gap-2">
+              {myTasks.map(task => (
+                <div key={task.id} className="flex items-center gap-2.5">
+                  <span
+                    className={`w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center ${
+                      task.done ? 'bg-[#00755A] border-[#00755A] text-white' : borderColor
+                    }`}
+                  >
+                    {task.done && <CheckIcon size={10} />}
+                  </span>
+                  <p className={`text-xs font-medium ${task.done ? `${textSecondary} line-through` : textColor}`}>
+                    {task.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <Link href="/requests" className="flex items-center gap-1 text-sm font-semibold text-[#004D43] hover:underline mt-4">
+              View all tasks →
+            </Link>
+          </div>
+
           {/* Upcoming Events */}
           <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Upcoming Events</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
 
-            <div className="flex-1 flex flex-col justify-between">
-              <EventSection emoji={eventEmoji['Birthdays']} label="Birthdays" events={upcomingBirthdays} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection emoji={eventEmoji['Work Anniversaries']} label="Work Anniversaries" events={upcomingAnniversaries} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection emoji={eventEmoji['New Joiners']} label="New Joiners" events={newJoiners} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection emoji={eventEmoji['Probation Ending']} label="Probation Ending" events={probationEnding} textColor={textColor} textSecondary={textSecondary} />
+            <div className="flex-1 flex flex-col gap-2.5">
+              {upcomingEvents.map(event => (
+                <div key={event.id} className="flex items-center gap-3">
+                  <span className={`w-9 h-9 rounded-lg flex items-center justify-center text-sm flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
+                    {event.emoji}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className={`text-xs font-semibold truncate ${textColor}`}>{event.name}</p>
+                    <p className={`text-[11px] font-medium ${textSecondary}`}>{event.kind}</p>
+                  </div>
+                  <span className={`text-[11px] font-semibold px-2 py-1 rounded-md flex-shrink-0 ${isDark ? 'bg-[#27272A] text-[#9CA3AF]' : 'bg-[#E8EFF6] text-[#004D43]'}`}>
+                    {event.date}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Recent Activity */}
-          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col md:col-span-2 lg:col-span-1`}>
             <h2 className={`text-base font-bold ${textColor}`}>Recent Activity</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Live team updates</p>
 
-            <div className="flex-1 flex flex-col justify-between">
+            <div className="flex-1 flex flex-col gap-3.5">
               {recentActivity.slice(0, 5).map(activity => {
                 const Icon = activityIconMap[activity.icon]
                 return (
@@ -588,36 +617,5 @@ export default function DashboardPage() {
         </div>
       </div>
     </MainLayout>
-  )
-}
-
-function EventSection({
-  emoji,
-  label,
-  events,
-  textColor,
-  textSecondary,
-}: {
-  emoji: string
-  label: string
-  events: UpcomingEvent[]
-  textColor: string
-  textSecondary: string
-}) {
-  return (
-    <div>
-      <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary} mb-2`}>{label}</p>
-      <div className="space-y-1.5">
-        {events.map(event => (
-          <div key={event.id} className="flex items-center justify-between gap-2">
-            <p className={`text-xs font-medium truncate ${textColor}`}>
-              <span className="mr-1.5">{emoji}</span>
-              {event.name}
-            </p>
-            <span className={`text-[11px] font-semibold flex-shrink-0 ${textSecondary}`}>{event.date}</span>
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }

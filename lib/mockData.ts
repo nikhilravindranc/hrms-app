@@ -342,5 +342,6 @@ export const myTasks: MyTask[] = [
   { id: 't1', label: 'Review leave request - Rohit Iyer', done: false },
   { id: 't2', label: 'Approve attendance correction', done: false },
   { id: 't3', label: 'Complete payroll review', done: false },
-  { id: 't4', label: 'Finish onboarding checklist - Zara', done: true },
+  { id: 't4', label: 'Confirm interview slot - Ops role', done: false },
+  { id: 't5', label: 'Finish onboarding checklist - Zara', done: true },
 ]

@@ -188,6 +188,14 @@ export function CheckCircleIcon({ className, size }: IconProps) {
   )
 }
 
+export function CheckIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className} strokeWidth={3}>
+      <path d="M5 12.5l4.5 4.5L19 6.5" />
+    </svg>
+  )
+}
+
 export function UserPlusIcon({ className, size }: IconProps) {
   return (
     <svg {...base(size)} className={className}>
