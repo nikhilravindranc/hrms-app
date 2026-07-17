@@ -29,8 +29,6 @@ import {
   ExternalLinkIcon,
   activityIconMap,
   CalendarIcon,
-  CakeIcon,
-  TrophyIcon,
   EditIcon,
   ReceiptIcon,
   UserPlusIcon,
@@ -53,6 +51,7 @@ import {
   newJoiners,
   probationEnding,
   quickActions,
+  myTasks,
   type UpcomingEvent,
 } from '@/lib/mockData'
 
@@ -69,11 +68,17 @@ const quickActionIconMap = {
   cash: CashIcon,
   megaphone: MegaphoneIcon,
   'file-text': FileTextIcon,
+  'clipboard-check': ClipboardCheckIcon,
+}
+
+const eventEmoji: Record<string, string> = {
+  Birthdays: '🎂',
+  'Work Anniversaries': '🎉',
+  'New Joiners': '👋',
+  'Probation Ending': '⏳',
 }
 
 type DistributionTab = 'department' | 'location' | 'employmentType'
-
-type IconComponent = React.FC<{ size?: number; className?: string }>
 
 export default function DashboardPage() {
   const { user, isAuthenticated, isLoading } = useAuth()
@@ -81,6 +86,7 @@ export default function DashboardPage() {
   const router = useRouter()
   const { isDark } = useTheme()
   const [distributionTab, setDistributionTab] = useState<DistributionTab>('department')
+  const [showDistribution, setShowDistribution] = useState(false)
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
@@ -418,40 +424,63 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Pending Approvals */}
-          <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
-            <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
-            <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
+          {/* Pending Approvals + My Tasks */}
+          <div className="flex flex-col gap-4">
+            <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
+              <h2 className={`text-base font-bold ${textColor}`}>Pending Approvals</h2>
+              <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Awaiting your review</p>
 
-            <div className="space-y-2.5 flex-1">
-              {pendingApprovalsBreakdown.map(group => {
-                const Icon = pendingIconMap[group.icon]
-                return (
-                  <Link
-                    key={group.id}
-                    href="/requests"
-                    className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
-                      isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
-                    }`}
-                  >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-                      <Icon size={16} className="text-[#00755A]" />
-                    </div>
-                    <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
-                    <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
-                      {group.count}
-                    </span>
-                  </Link>
-                )
-              })}
+              <div className="space-y-2.5 flex-1">
+                {pendingApprovalsBreakdown.map(group => {
+                  const Icon = pendingIconMap[group.icon]
+                  return (
+                    <Link
+                      key={group.id}
+                      href="/requests"
+                      className={`flex items-center gap-3 p-3 rounded-lg border ${borderColor} transition-colors ${
+                        isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#E8EFF6]'
+                      }`}
+                    >
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
+                        <Icon size={16} className="text-[#00755A]" />
+                      </div>
+                      <p className={`text-sm font-semibold flex-1 ${textColor}`}>{group.type}</p>
+                      <span className="w-6 h-6 rounded-full bg-[#5E93FF]/15 text-[#5E93FF] text-xs font-bold flex items-center justify-center flex-shrink-0">
+                        {group.count}
+                      </span>
+                    </Link>
+                  )
+                })}
+              </div>
+
+              <Link
+                href="/requests"
+                className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+              >
+                Review All
+              </Link>
             </div>
 
-            <Link
-              href="/requests"
-              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
-            >
-              Review All
-            </Link>
+            {/* My Tasks */}
+            <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
+              <h2 className={`text-base font-bold ${textColor}`}>My Tasks</h2>
+              <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>{myTasks.filter(t => !t.done).length} open</p>
+
+              <div className="space-y-2.5">
+                {myTasks.map(task => (
+                  <div key={task.id} className="flex items-center gap-2.5">
+                    <span
+                      className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${
+                        task.done ? 'bg-[#00755A] border-[#00755A]' : borderColor
+                      }`}
+                    />
+                    <p className={`text-xs font-medium ${task.done ? `${textSecondary} line-through` : textColor}`}>
+                      {task.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -463,10 +492,10 @@ export default function DashboardPage() {
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
 
             <div className="flex-1 flex flex-col justify-between">
-              <EventSection icon={CakeIcon} label="Birthdays" events={upcomingBirthdays} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={TrophyIcon} label="Work Anniversaries" events={upcomingAnniversaries} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={UserPlusIcon} label="New Joiners" events={newJoiners} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
-              <EventSection icon={CalendarIcon} label="Probation Ending" events={probationEnding} isDark={isDark} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection emoji={eventEmoji['Birthdays']} label="Birthdays" events={upcomingBirthdays} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection emoji={eventEmoji['Work Anniversaries']} label="Work Anniversaries" events={upcomingAnniversaries} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection emoji={eventEmoji['New Joiners']} label="New Joiners" events={newJoiners} textColor={textColor} textSecondary={textSecondary} />
+              <EventSection emoji={eventEmoji['Probation Ending']} label="Probation Ending" events={probationEnding} textColor={textColor} textSecondary={textSecondary} />
             </div>
           </div>
 
@@ -499,51 +528,63 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Row 5: Employee Distribution */}
+        {/* Row 5: Employee Distribution (collapsible) */}
         <div className={`p-5 rounded-xl border ${borderColor} ${cardBg}`}>
-          <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-            <div>
+          <button
+            onClick={() => setShowDistribution(prev => !prev)}
+            className="w-full flex items-center justify-between flex-wrap gap-3"
+          >
+            <div className="text-left">
               <h2 className={`text-base font-bold ${textColor}`}>Employee Distribution</h2>
               <p className={`text-xs font-medium ${textSecondary} mt-0.5`}>Headcount breakdown</p>
             </div>
-            <div className={`flex items-center gap-1 p-1 rounded-lg ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#E8EFF6]'}`}>
-              {distributionTabs.map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setDistributionTab(tab.id)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
-                    distributionTab === tab.id
-                      ? 'bg-[#00755A] text-white'
-                      : isDark
-                      ? 'text-[#9CA3AF] hover:text-[#D4D4D8]'
-                      : 'text-[#94A3B8] hover:text-[#0C2472]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
+            <span className={`flex items-center gap-1 text-sm font-semibold text-[#004D43]`}>
+              {showDistribution ? 'Hide Analytics' : 'Show Analytics'}
+              <span className={`transition-transform ${showDistribution ? 'rotate-180' : ''}`}>▼</span>
+            </span>
+          </button>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3.5">
-            {distributionData.data.map(item => (
-              <div key={item.name}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className={`text-xs font-medium ${textColor}`}>{item.name}</span>
-                  <span className={`text-xs font-semibold ${textSecondary}`}>{item.count}</span>
-                </div>
-                <div className={`h-2 rounded-full ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'} overflow-hidden`}>
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{
-                      width: `${(item.count / maxDistributionCount) * 100}%`,
-                      backgroundColor: distributionData.colors[item.name] || '#004D43',
-                    }}
-                  />
-                </div>
+          {showDistribution && (
+            <>
+              <div className={`flex items-center gap-1 p-1 rounded-lg mt-4 w-fit ${isDark ? 'bg-[#0F0F0F]' : 'bg-[#E8EFF6]'}`}>
+                {distributionTabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setDistributionTab(tab.id)}
+                    className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+                      distributionTab === tab.id
+                        ? 'bg-[#00755A] text-white'
+                        : isDark
+                        ? 'text-[#9CA3AF] hover:text-[#D4D4D8]'
+                        : 'text-[#94A3B8] hover:text-[#0C2472]'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3.5 mt-4">
+                {distributionData.data.map(item => (
+                  <div key={item.name}>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-xs font-medium ${textColor}`}>{item.name}</span>
+                      <span className={`text-xs font-semibold ${textSecondary}`}>{item.count}</span>
+                    </div>
+                    <div className={`h-2 rounded-full ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'} overflow-hidden`}>
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${(item.count / maxDistributionCount) * 100}%`,
+                          backgroundColor: distributionData.colors[item.name] || '#004D43',
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </MainLayout>
@@ -551,32 +592,28 @@ export default function DashboardPage() {
 }
 
 function EventSection({
-  icon: Icon,
+  emoji,
   label,
   events,
-  isDark,
   textColor,
   textSecondary,
 }: {
-  icon: IconComponent
+  emoji: string
   label: string
   events: UpcomingEvent[]
-  isDark: boolean
   textColor: string
   textSecondary: string
 }) {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-2">
-        <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-[#27272A]' : 'bg-[#E8EFF6]'}`}>
-          <Icon size={13} className="text-[#00755A]" />
-        </div>
-        <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{label}</p>
-      </div>
-      <div className="space-y-1.5 pl-8">
+      <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary} mb-2`}>{label}</p>
+      <div className="space-y-1.5">
         {events.map(event => (
           <div key={event.id} className="flex items-center justify-between gap-2">
-            <p className={`text-xs font-medium truncate ${textColor}`}>{event.name}</p>
+            <p className={`text-xs font-medium truncate ${textColor}`}>
+              <span className="mr-1.5">{emoji}</span>
+              {event.name}
+            </p>
             <span className={`text-[11px] font-semibold flex-shrink-0 ${textSecondary}`}>{event.date}</span>
           </div>
         ))}

@@ -316,15 +316,31 @@ export const probationEnding: UpcomingEvent[] = [
 export interface QuickAction {
   id: string
   label: string
-  icon: 'user-plus' | 'upload' | 'check' | 'cash' | 'megaphone' | 'file-text'
+  icon: 'user-plus' | 'upload' | 'check' | 'cash' | 'megaphone' | 'file-text' | 'clipboard-check'
   href: string
 }
 
 export const quickActions: QuickAction[] = [
   { id: 'add-employee', label: 'Add Employee', icon: 'user-plus', href: '/people/employees/new' },
-  { id: 'import-employees', label: 'Import Employees', icon: 'upload', href: '/people/employees' },
   { id: 'mark-attendance', label: 'Mark Attendance', icon: 'check', href: '/workforce/attendance' },
+  { id: 'approve-requests', label: 'Approve Requests', icon: 'clipboard-check', href: '/requests' },
+  { id: 'import-employees', label: 'Import Employees', icon: 'upload', href: '/people/employees' },
   { id: 'run-payroll', label: 'Run Payroll', icon: 'cash', href: '/payroll' },
-  { id: 'create-announcement', label: 'Create Announcement', icon: 'megaphone', href: '/reports' },
   { id: 'generate-report', label: 'Generate Report', icon: 'file-text', href: '/reports' },
+]
+
+// ============================================================================
+// MY TASKS (small personal task checklist widget)
+// ============================================================================
+export interface MyTask {
+  id: string
+  label: string
+  done: boolean
+}
+
+export const myTasks: MyTask[] = [
+  { id: 't1', label: 'Review leave request - Rohit Iyer', done: false },
+  { id: 't2', label: 'Approve attendance correction', done: false },
+  { id: 't3', label: 'Complete payroll review', done: false },
+  { id: 't4', label: 'Finish onboarding checklist - Zara', done: true },
 ]
