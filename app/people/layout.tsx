@@ -7,7 +7,6 @@ import { TopBar } from '@/components/TopBar'
 import { PeopleSecondaryNav } from '@/components/PeopleSecondaryNav'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
-import '@xyflow/react/dist/style.css'
 
 export default function PeopleLayout({ children }: { children: React.ReactNode }) {
   const { isDark } = useTheme()

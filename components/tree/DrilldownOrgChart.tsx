@@ -1,51 +1,11 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { ExternalLinkIcon } from '@/components/Icons'
 import { Employee } from '@/lib/mockData'
-
-function initialsOf(e: Employee) {
-  return `${e.firstName[0]}${e.lastName[0]}`
-}
-
-// Deterministic photo per employee: pravatar.cc serves 70 stock headshots by index
-function photoIndex(id: string) {
-  let hash = 0
-  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) >>> 0
-  return (hash % 70) + 1
-}
-
-function Avatar({ employee, size, tone }: { employee: Employee; size: number; tone: 'root' | 'normal' }) {
-  const [errored, setErrored] = useState(false)
-
-  if (errored) {
-    return (
-      <span
-        className={`rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white ${
-          tone === 'root' ? 'bg-[#004D43]' : 'bg-[#00755A]'
-        }`}
-        style={{ width: size, height: size, fontSize: size * 0.36 }}
-      >
-        {initialsOf(employee)}
-      </span>
-    )
-  }
-
-  return (
-    <Image
-      src={`https://i.pravatar.cc/150?img=${photoIndex(employee.id)}`}
-      alt={`${employee.firstName} ${employee.lastName}`}
-      width={size}
-      height={size}
-      onError={() => setErrored(true)}
-      className="rounded-full object-cover flex-shrink-0"
-      style={{ width: size, height: size }}
-    />
-  )
-}
+import { PersonAvatar } from '@/components/tree/Avatar'
 
 export function DrilldownOrgChart({ employees }: { employees: Employee[] }) {
   const { isDark } = useTheme()
@@ -100,7 +60,7 @@ export function DrilldownOrgChart({ employees }: { employees: Employee[] }) {
           onClick={e => goToProfile(root.id, e)}
           className={`flex flex-col items-center gap-2 p-3 rounded-xl border ${borderColor} ${cardBg} cursor-pointer hover:border-[#00755A] transition-colors group w-32`}
         >
-          <Avatar employee={root} size={44} tone="root" />
+          <PersonAvatar employee={root} size={44} tone="root" />
           <div className="text-center min-w-0">
             <p className={`text-xs font-bold truncate w-full group-hover:text-[#00755A] ${textColor}`}>{root.firstName} {root.lastName}</p>
             <p className={`text-[10px] font-medium truncate w-full ${textSecondary}`}>{root.designation}</p>
@@ -132,7 +92,7 @@ export function DrilldownOrgChart({ employees }: { employees: Employee[] }) {
                         isSelected ? selectedRing : `${borderColor} hover:border-[#00755A]`
                       } ${cardBg} transition-colors group ${kids.length > 0 ? 'cursor-pointer' : ''}`}
                     >
-                      <Avatar employee={node} size={34} tone="normal" />
+                      <PersonAvatar employee={node} size={34} tone="normal" />
                       <div className="min-w-0 flex-1">
                         <p className={`text-[13px] font-semibold truncate ${textColor}`}>{node.firstName} {node.lastName}</p>
                         <p className={`text-[11px] font-medium truncate ${textSecondary}`}>{node.designation}</p>
