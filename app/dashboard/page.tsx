@@ -505,7 +505,7 @@ export default function DashboardPage() {
             </Link>
           </div>
 
-          {/* Upcoming Events */}
+          {/* Upcoming Events — birthdays, anniversaries, new joiners, probation */}
           <div className={`p-5 rounded-xl border ${borderColor} ${cardBg} flex flex-col`}>
             <h2 className={`text-base font-bold ${textColor}`}>Upcoming Events</h2>
             <p className={`text-xs font-medium ${textSecondary} mt-0.5 mb-4`}>Next 30 days</p>
