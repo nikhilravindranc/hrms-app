@@ -40,10 +40,10 @@ export function PeopleSecondaryNav() {
   const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
   const textPrimary = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
-  const textActive = 'text-[#004D43]'
+  const textActive = isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'
   const iconInactive = isDark ? 'text-[#9CA3AF]' : 'text-[#64748B]'
   const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-[#F7FAF9]'
-  const activeBg = isDark ? 'bg-[#004D43]/15' : 'bg-[#ABE6D1]/30'
+  const activeBg = isDark ? 'bg-[#27EAA6]/10' : 'bg-[#ABE6D1]/30'
 
   return (
     <aside className={`w-60 flex-shrink-0 h-full overflow-y-auto border-r ${borderColor} ${panelBg}`}>
