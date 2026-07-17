@@ -114,7 +114,6 @@ export function DrilldownOrgChart({ employees }: { employees: Employee[] }) {
       </div>
 
       {columns.map((nodes, level) => {
-        const isThumbnailLevel = level === 0
         const selectedId = path[level]
 
         return (
@@ -123,28 +122,6 @@ export function DrilldownOrgChart({ employees }: { employees: Employee[] }) {
               {nodes.map(node => {
                 const kids = childrenOf[node.id] ?? []
                 const isSelected = selectedId === node.id
-
-                if (isThumbnailLevel) {
-                  return (
-                    <div key={node.id} className="relative flex items-center">
-                      <span className="absolute -left-6 top-1/2 w-6 h-0.5" style={{ backgroundColor: lineColor }} />
-                      <button
-                        title={`${node.firstName} ${node.lastName} · ${node.designation}`}
-                        onClick={() => selectAt(level, node.id)}
-                        className={`relative rounded-full border-2 transition-colors ${
-                          isSelected ? selectedRing : `${borderColor} hover:border-[#00755A]`
-                        }`}
-                      >
-                        <Avatar employee={node} size={40} tone="normal" />
-                        {kids.length > 0 && (
-                          <span className={`absolute -bottom-1 -right-1 text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border ${borderColor} ${isDark ? 'bg-[#0A0A0A] text-[#9CA3AF]' : 'bg-white text-[#004D43]'}`}>
-                            {kids.length}
-                          </span>
-                        )}
-                      </button>
-                    </div>
-                  )
-                }
 
                 return (
                   <div key={node.id} className="relative flex items-center">
