@@ -33,9 +33,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
         setUser(JSON.parse(saved))
+      } else {
+        // Auto-login for demo/mock app if no saved session
+        const defaultUser: User = {
+          id: 'user-admin',
+          email: 'admin@evoq.one',
+          firstName: 'Admin',
+          lastName: 'User',
+          role: 'Admin',
+          organizationId: 'org-001',
+        }
+        setUser(defaultUser)
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultUser))
       }
     } catch {
-      localStorage.removeItem(STORAGE_KEY)
+      // Fallback to default user if localStorage fails
+      const defaultUser: User = {
+        id: 'user-admin',
+        email: 'admin@evoq.one',
+        firstName: 'Admin',
+        lastName: 'User',
+        role: 'Admin',
+        organizationId: 'org-001',
+      }
+      setUser(defaultUser)
     } finally {
       setIsLoading(false)
     }
