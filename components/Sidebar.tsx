@@ -43,12 +43,12 @@ export function Sidebar() {
 
   const sidebarBg = isDark ? 'bg-[#0A0A0A]' : 'bg-[#E8EFF6]'
   const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
-  const textActive = 'text-[#004D43]'
+  const textActive = isDark ? 'text-[#27EAA6]' : 'text-[#004D43]'
   // Nav item default color = Primary text (navy/light-gray), per typography spec
   const textInactive = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const iconInactive = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-white'
-  const activeBg = isDark ? 'bg-[#004D43]/15' : 'bg-[#ABE6D1]/30'
+  const activeBg = isDark ? 'bg-[#27EAA6]/10' : 'bg-[#ABE6D1]/30'
   // Count badge = 10px/700/white on app primary, per Component Typography spec
   const badgeBg = 'bg-[#004D43] text-white'
 
