@@ -130,13 +130,10 @@ export default function TodaysWorkforcePage() {
 
   return (
     <div className="space-y-5">
-      {/* Header */}
-      <div>
-        <h1 className={`text-xl font-extrabold ${textColor}`}>Today&apos;s Workforce</h1>
-        <p className={`flex items-center gap-1.5 text-xs font-medium mt-1 ${textSecondary}`}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00755A] flex-shrink-0" />
-          Good morning, {user?.firstName ?? 'there'}! Here&apos;s what&apos;s happening today.
-        </p>
+      {/* Hero */}
+      <div className="rounded-2xl p-6 bg-gradient-to-br from-[#004D43] to-[#00755A]">
+        <p className="text-white/70 text-sm font-semibold">Good morning, {user?.firstName ?? 'there'}</p>
+        <h1 className="text-2xl font-extrabold text-white mt-1">Here&apos;s today&apos;s workforce.</h1>
       </div>
 
       {/* Attention Center */}
