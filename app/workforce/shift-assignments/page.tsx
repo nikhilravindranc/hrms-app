@@ -304,11 +304,18 @@ function ShiftCalendar({
     return map
   }, [assignments])
 
-  const handleDragStart = (shiftId: string) => {
+  const handleDragStart = (e: React.DragEvent, shiftId: string) => {
+    e.dataTransfer.effectAllowed = 'copy'
     setDraggedShift(shiftId)
   }
 
-  const handleDropOnEmployee = (employeeId: string) => {
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'copy'
+  }
+
+  const handleDropOnEmployee = (e: React.DragEvent, employeeId: string) => {
+    e.preventDefault()
     if (!draggedShift) return
     setAssignments((prev: any) => prev.map((a: any) => a.employeeId === employeeId ? { ...a, shiftId: draggedShift } : a))
     setDraggedShift(null)
@@ -331,7 +338,7 @@ function ShiftCalendar({
             <div
               key={shift.id}
               draggable
-              onDragStart={() => handleDragStart(shift.id)}
+              onDragStart={(e) => handleDragStart(e, shift.id)}
               className={`px-3 py-1.5 rounded-lg text-sm font-semibold cursor-move transition-opacity ${shiftColors[shift.id] || 'bg-[#9CA3AF]/20 text-[#9CA3AF]'} ${draggedShift === shift.id ? 'opacity-50' : 'opacity-100'}`}
             >
               {shift.name}
@@ -357,8 +364,8 @@ function ShiftCalendar({
                 return (
                   <tr
                     key={emp.id}
-                    onDragOver={e => e.preventDefault()}
-                    onDrop={() => handleDropOnEmployee(emp.id)}
+                    onDragOver={handleDragOver}
+                    onDrop={(e) => handleDropOnEmployee(e, emp.id)}
                     className={`border-b ${borderColor} last:border-b-0 transition-colors ${isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'}`}
                   >
                     <td className={`px-4 py-3 text-sm font-semibold ${textColor}`}>{emp.firstName} {emp.lastName}</td>
