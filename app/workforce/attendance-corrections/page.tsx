@@ -1,18 +1,34 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { XIcon, CheckIcon, HistoryIcon } from '@/components/Icons'
 import { mockAttendanceCorrections, AttendanceCorrection } from '@/lib/workforceData'
 
 type Tab = 'Pending' | 'Approved' | 'Rejected'
+const TAB_VALUES: Tab[] = ['Pending', 'Approved', 'Rejected']
 
 export default function AttendanceCorrectionsPage() {
+  return (
+    <Suspense fallback={null}>
+      <AttendanceCorrectionsPageInner />
+    </Suspense>
+  )
+}
+
+function AttendanceCorrectionsPageInner() {
   const { isDark } = useTheme()
+  const searchParams = useSearchParams()
   const [tab, setTab] = useState<Tab>('Pending')
   const [corrections, setCorrections] = useState(mockAttendanceCorrections)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [openId, setOpenId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const t = searchParams.get('tab')
+    if (t && TAB_VALUES.includes(t as Tab)) setTab(t as Tab)
+  }, [searchParams])
 
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'

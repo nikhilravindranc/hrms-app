@@ -282,10 +282,10 @@ export interface AttentionItem {
 }
 
 export const attentionItems: AttentionItem[] = [
-  { id: 'not-checked-in', label: "Employees haven't checked in", count: notCheckedInIds.length, actionLabel: 'Review', href: '/workforce/attendance' },
-  { id: 'leave-pending', label: 'Leave requests waiting', count: mockWorkforceLeaveRequests.filter(r => r.status === 'Pending').length, actionLabel: 'Open', href: '/workforce/leave' },
-  { id: 'corrections-pending', label: 'Attendance corrections', count: mockAttendanceCorrections.filter(c => c.status === 'Pending').length, actionLabel: 'Review', href: '/workforce/attendance-corrections' },
-  { id: 'shift-conflict', label: 'Shift conflict', count: shiftConflicts.length, actionLabel: 'Resolve', href: '/workforce/shift-assignments' },
+  { id: 'not-checked-in', label: "Employees haven't checked in", count: notCheckedInIds.length, actionLabel: 'Review', href: '/workforce/attendance?filter=not-checked-in' },
+  { id: 'leave-pending', label: 'Leave requests waiting', count: mockWorkforceLeaveRequests.filter(r => r.status === 'Pending').length, actionLabel: 'Open', href: '/workforce/leave?view=Pending' },
+  { id: 'corrections-pending', label: 'Attendance corrections', count: mockAttendanceCorrections.filter(c => c.status === 'Pending').length, actionLabel: 'Review', href: '/workforce/attendance-corrections?tab=Pending' },
+  { id: 'shift-conflict', label: 'Shift conflict', count: shiftConflicts.length, actionLabel: 'Resolve', href: '/workforce/shift-assignments?tab=employee&highlight=' + shiftConflicts[0]?.employeeId },
 ]
 
 // ============================================================================

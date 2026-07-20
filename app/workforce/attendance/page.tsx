@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import {
@@ -12,8 +13,9 @@ import {
   ChevronRightIcon,
   SearchIcon,
   XIcon,
+  UserXIcon,
 } from '@/components/Icons'
-import { todayAttendance, mockShiftAssignments, mockShifts } from '@/lib/workforceData'
+import { todayAttendance, mockShiftAssignments, mockShifts, notCheckedInIds } from '@/lib/workforceData'
 import { getAttendanceStatus, getMonthMatrix, attendanceStatusColors, AttendanceStatus } from '@/lib/attendanceCalendar'
 
 type Tab = 'daily' | 'monthly' | 'employee' | 'bulk' | 'import'
@@ -35,8 +37,17 @@ const TABS: { id: Tab; label: string }[] = [
 ]
 
 export default function AttendancePage() {
+  return (
+    <Suspense fallback={null}>
+      <AttendancePageInner />
+    </Suspense>
+  )
+}
+
+function AttendancePageInner() {
   const { isDark } = useTheme()
   const { employees } = useEmployee()
+  const searchParams = useSearchParams()
   const [tab, setTab] = useState<Tab>('daily')
   const [openMenuId, setOpenMenuId] = useState<string | null>(null)
   const [date, setDate] = useState('2026-07-20')
@@ -45,6 +56,14 @@ export default function AttendancePage() {
   const [shiftFilter, setShiftFilter] = useState('')
   const [locationFilter, setLocationFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [notCheckedInOnly, setNotCheckedInOnly] = useState(false)
+
+  useEffect(() => {
+    if (searchParams.get('filter') === 'not-checked-in') {
+      setNotCheckedInOnly(true)
+      setTab('daily')
+    }
+  }, [searchParams])
 
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
@@ -76,6 +95,7 @@ export default function AttendancePage() {
   const dailyRows = useMemo(() => {
     const q = search.trim().toLowerCase()
     return employees.filter(e => {
+      if (notCheckedInOnly && !notCheckedInIds.includes(e.id)) return false
       if (deptFilter && e.department !== deptFilter) return false
       if (locationFilter && e.location !== locationFilter) return false
       const shiftId = assignmentByEmployee[e.id]
@@ -88,7 +108,7 @@ export default function AttendancePage() {
       }
       return true
     })
-  }, [employees, search, deptFilter, shiftFilter, locationFilter, statusFilter, assignmentByEmployee, attendanceByEmployee])
+  }, [employees, search, deptFilter, shiftFilter, locationFilter, statusFilter, notCheckedInOnly, assignmentByEmployee, attendanceByEmployee])
 
   const clearFilters = () => { setDeptFilter(''); setShiftFilter(''); setLocationFilter(''); setStatusFilter('') }
 
@@ -98,6 +118,19 @@ export default function AttendancePage() {
         <h1 className={`text-xl font-extrabold ${textColor}`}>Attendance</h1>
         <p className={`text-xs font-medium mt-0.5 ${textSecondary}`}>Manage daily, monthly and bulk attendance records</p>
       </div>
+
+      {notCheckedInOnly && (
+        <div className="flex items-center justify-between gap-2 px-4 py-2.5 rounded-lg border border-[#EF4444]/30 bg-[#EF4444]/10">
+          <span className="flex items-center gap-2 text-xs font-semibold text-[#EF4444]">
+            <UserXIcon size={15} />
+            Showing employees who haven&apos;t checked in yet today
+          </span>
+          <button onClick={() => setNotCheckedInOnly(false)} className="flex items-center gap-1 text-xs font-semibold text-[#EF4444] hover:underline">
+            <XIcon size={12} />
+            Clear
+          </button>
+        </div>
+      )}
 
       <div className={`flex items-center gap-1 p-1 rounded-lg border ${borderColor} ${cardBg} w-fit flex-wrap`}>
         {TABS.map(t => (

@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import { AlertTriangleIcon } from '@/components/Icons'
@@ -23,8 +24,17 @@ const assignmentHistory = [
 ]
 
 export default function ShiftAssignmentsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ShiftAssignmentsPageInner />
+    </Suspense>
+  )
+}
+
+function ShiftAssignmentsPageInner() {
   const { isDark } = useTheme()
   const { employees } = useEmployee()
+  const searchParams = useSearchParams()
   const [tab, setTab] = useState<Tab>('employee')
   const [assignments, setAssignments] = useState(mockShiftAssignments)
   const [deptShift, setDeptShift] = useState('')
@@ -32,6 +42,14 @@ export default function ShiftAssignmentsPage() {
   const [locShift, setLocShift] = useState('')
   const [selectedLoc, setSelectedLoc] = useState('')
   const [bulkMsg, setBulkMsg] = useState('')
+  const [highlightId, setHighlightId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const t = searchParams.get('tab')
+    if (t === 'employee' || t === 'department' || t === 'location' || t === 'future' || t === 'history') setTab(t)
+    const h = searchParams.get('highlight')
+    if (h) setHighlightId(h)
+  }, [searchParams])
 
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
@@ -114,8 +132,11 @@ export default function ShiftAssignmentsPage() {
             </thead>
             <tbody>
               {employees.map(emp => (
-                <tr key={emp.id} className={`border-b ${borderColor} last:border-b-0 ${rowHover}`}>
-                  <td className={`px-4 py-2.5 text-sm font-semibold whitespace-nowrap ${textColor}`}>{emp.firstName} {emp.lastName}</td>
+                <tr key={emp.id} className={`border-b ${borderColor} last:border-b-0 ${rowHover} ${emp.id === highlightId ? 'bg-[#EF4444]/10' : ''}`}>
+                  <td className={`px-4 py-2.5 text-sm font-semibold whitespace-nowrap ${textColor}`}>
+                    {emp.firstName} {emp.lastName}
+                    {emp.id === highlightId && <span className="ml-2 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-[#EF4444]/15 text-[#EF4444]">Conflict</span>}
+                  </td>
                   <td className={`px-4 py-2.5 text-sm font-medium whitespace-nowrap ${textSecondary}`}>{emp.department}</td>
                   <td className="px-4 py-2.5">
                     <select

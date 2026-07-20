@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import { CheckIcon, XIcon } from '@/components/Icons'
@@ -18,10 +19,24 @@ const statusColors: Record<string, { bg: string; text: string }> = {
 }
 
 export default function LeavePage() {
+  return (
+    <Suspense fallback={null}>
+      <LeavePageInner />
+    </Suspense>
+  )
+}
+
+function LeavePageInner() {
   const { isDark } = useTheme()
+  const searchParams = useSearchParams()
   const [view, setView] = useState<View>('Pending')
   const [requests, setRequests] = useState(mockWorkforceLeaveRequests)
   const [selected, setSelected] = useState<Set<string>>(new Set())
+
+  useEffect(() => {
+    const v = searchParams.get('view')
+    if (v && VIEWS.includes(v as View)) setView(v as View)
+  }, [searchParams])
 
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
