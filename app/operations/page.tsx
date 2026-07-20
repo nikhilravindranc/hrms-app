@@ -31,7 +31,7 @@ import {
   workforceActivity,
   mockHolidays,
   mockWorkforceLeaveRequests,
-} from '@/lib/workforceData'
+} from '@/lib/operationsData'
 import { upcomingBirthdays } from '@/lib/mockData'
 
 const statusStyles: Record<string, { bg: string; text: string; dot: string }> = {

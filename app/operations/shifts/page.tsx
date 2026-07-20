@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { PlusIcon, ClockIcon, XIcon } from '@/components/Icons'
-import { mockShifts, Shift } from '@/lib/workforceData'
+import { mockShifts, Shift } from '@/lib/operationsData'
 
 export default function ShiftsPage() {
   const { isDark } = useTheme()

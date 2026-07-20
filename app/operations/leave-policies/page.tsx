@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { ChevronRightIcon } from '@/components/Icons'
-import { mockLeavePolicies, mockLeaveTypes } from '@/lib/workforceData'
+import { mockLeavePolicies, mockLeaveTypes } from '@/lib/operationsData'
 
 export default function LeavePoliciesPage() {
   const { isDark } = useTheme()

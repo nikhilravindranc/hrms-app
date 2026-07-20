@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import { AlertTriangleIcon } from '@/components/Icons'
-import { mockShifts, mockShiftAssignments, upcomingShiftChanges, shiftConflicts } from '@/lib/workforceData'
+import { mockShifts, mockShiftAssignments, upcomingShiftChanges, shiftConflicts } from '@/lib/operationsData'
 
 type Tab = 'employee' | 'department' | 'location' | 'calendar' | 'future' | 'history'
 

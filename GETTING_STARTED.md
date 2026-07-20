@@ -172,12 +172,12 @@ D:\HRMS-App\
   ├── Employees → /people/employees
   ├── Organization → /people/organization
   └── Documents → /people/documents
-⏰ Workforce
-  ├── Attendance → /workforce/attendance
-  ├── Leave → /workforce/leave
-  ├── Shifts → /workforce/shifts
-  ├── Holidays → /workforce/holidays
-  └── Timesheets → /workforce/timesheets
+⏰ Operations
+  ├── Attendance → /operations/attendance
+  ├── Leave → /operations/leave
+  ├── Shifts → /operations/shifts
+  ├── Holidays → /operations/holidays
+  └── Timesheets → /operations/timesheets
 💰 Payroll → /payroll
 📋 Requests → /requests
 📈 Reports → /reports
@@ -247,8 +247,8 @@ export default function MyPage() {
 1. **Employee List** - `/people/employees`
 2. **Employee Detail** - `/people/employees/[id]`
 3. **Employee Create** - `/people/employees/new`
-4. **Leave Management** - `/workforce/leave`
-5. **Attendance** - `/workforce/attendance`
+4. **Leave Management** - `/operations/leave`
+5. **Attendance** - `/operations/attendance`
 6. **Payroll** - `/payroll`
 7. **Reports** - `/reports`
 8. **Administration** - `/administration`

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { CheckIcon, XIcon } from '@/components/Icons'
-import { mockLeaveTypes } from '@/lib/workforceData'
+import { mockLeaveTypes } from '@/lib/operationsData'
 
 export default function LeaveTypesPage() {
   const { isDark } = useTheme()

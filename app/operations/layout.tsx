@@ -4,11 +4,11 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Sidebar } from '@/components/Sidebar'
 import { TopBar } from '@/components/TopBar'
-import { WorkforceSecondaryNav } from '@/components/WorkforceSecondaryNav'
+import { OperationsSecondaryNav } from '@/components/OperationsSecondaryNav'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
 
-export default function WorkforceLayout({ children }: { children: React.ReactNode }) {
+export default function OperationsLayout({ children }: { children: React.ReactNode }) {
   const { isDark } = useTheme()
   const { isAuthenticated, isLoading } = useAuth()
   const router = useRouter()
@@ -32,7 +32,7 @@ export default function WorkforceLayout({ children }: { children: React.ReactNod
         <TopBar />
 
         <div className="flex-1 min-w-0 flex overflow-hidden pt-16">
-          <WorkforceSecondaryNav />
+          <OperationsSecondaryNav />
 
           <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
             <div className="px-8 py-6">{children}</div>

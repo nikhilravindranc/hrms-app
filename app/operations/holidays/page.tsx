@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { PlusIcon, UploadIcon, XIcon, MoreVerticalIcon, EditIcon } from '@/components/Icons'
-import { mockHolidays, Holiday } from '@/lib/workforceData'
+import { mockHolidays, Holiday } from '@/lib/operationsData'
 import { mockLocations } from '@/lib/mockData'
 
 const typeColors: Record<Holiday['type'], { bg: string; text: string }> = {

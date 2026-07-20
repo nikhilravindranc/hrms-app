@@ -15,7 +15,7 @@ import {
   XIcon,
   UserXIcon,
 } from '@/components/Icons'
-import { todayAttendance, mockShiftAssignments, mockShifts, notCheckedInIds } from '@/lib/workforceData'
+import { todayAttendance, mockShiftAssignments, mockShifts, notCheckedInIds } from '@/lib/operationsData'
 import { getAttendanceStatus, getMonthMatrix, attendanceStatusColors, AttendanceStatus } from '@/lib/attendanceCalendar'
 
 type Tab = 'daily' | 'monthly' | 'employee' | 'bulk' | 'import'

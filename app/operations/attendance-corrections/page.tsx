@@ -4,7 +4,7 @@ import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { XIcon, CheckIcon, HistoryIcon } from '@/components/Icons'
-import { mockAttendanceCorrections, AttendanceCorrection } from '@/lib/workforceData'
+import { mockAttendanceCorrections, AttendanceCorrection } from '@/lib/operationsData'
 
 type Tab = 'Pending' | 'Approved' | 'Rejected'
 const TAB_VALUES: Tab[] = ['Pending', 'Approved', 'Rejected']

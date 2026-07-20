@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import { useTheme } from '@/context/ThemeContext'
 import { CalendarIcon } from '@/components/Icons'
-import { mockHolidays, Holiday } from '@/lib/workforceData'
+import { mockHolidays, Holiday } from '@/lib/operationsData'
 
 const typeColors: Record<Holiday['type'], { bg: string; text: string }> = {
   National: { bg: 'bg-[#00755A]/15', text: 'text-[#00755A]' },

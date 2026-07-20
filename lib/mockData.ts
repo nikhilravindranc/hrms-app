@@ -341,7 +341,7 @@ export interface QuickAction {
 
 export const quickActions: QuickAction[] = [
   { id: 'add-employee', label: 'Add Employee', icon: 'user-plus', href: '/people/employees/new' },
-  { id: 'mark-attendance', label: 'Mark Attendance', icon: 'check', href: '/workforce/attendance' },
+  { id: 'mark-attendance', label: 'Mark Attendance', icon: 'check', href: '/operations/attendance' },
   { id: 'approve-requests', label: 'Approve Requests', icon: 'clipboard-check', href: '/requests' },
   { id: 'import-employees', label: 'Import Employees', icon: 'upload', href: '/people/employees' },
   { id: 'run-payroll', label: 'Run Payroll', icon: 'cash', href: '/payroll' },

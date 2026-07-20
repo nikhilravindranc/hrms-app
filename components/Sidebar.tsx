@@ -21,7 +21,7 @@ import {
 const navigationMenu = [
   { id: 'dashboard', label: 'Dashboard', icon: GridIcon, href: '/dashboard' },
   { id: 'people', label: 'People', icon: UsersIcon, href: '/people/employees', badgeKey: 'employees' },
-  { id: 'workforce', label: 'Workforce', icon: ClockIcon, href: '/workforce' },
+  { id: 'operations', label: 'Operations', icon: ClockIcon, href: '/operations' },
   { id: 'payroll', label: 'Payroll', icon: WalletIcon, href: '/payroll' },
   { id: 'requests', label: 'Requests', icon: ClipboardCheckIcon, href: '/requests', badgeKey: 'requests' },
   { id: 'reports', label: 'Reports', icon: BarChartIcon, href: '/reports' },

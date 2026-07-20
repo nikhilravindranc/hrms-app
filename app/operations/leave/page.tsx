@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import { CheckIcon, XIcon } from '@/components/Icons'
-import { mockWorkforceLeaveRequests, mockLeaveTypes, mockLeaveBalances, LeaveRequest } from '@/lib/workforceData'
+import { mockWorkforceLeaveRequests, mockLeaveTypes, mockLeaveBalances, LeaveRequest } from '@/lib/operationsData'
 
 type View = 'Pending' | 'Approved' | 'Rejected' | 'Cancelled' | 'Calendar' | 'Employee Timeline' | 'Leave Balance'
 

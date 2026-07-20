@@ -18,41 +18,41 @@ const sections = [
   {
     label: 'Today',
     items: [
-      { id: 'today', label: "Today's Workforce", icon: HomeIcon, href: '/workforce' },
+      { id: 'today', label: "Today's Workforce", icon: HomeIcon, href: '/operations' },
     ],
   },
   {
     label: 'Attendance',
     items: [
-      { id: 'attendance', label: 'Attendance', icon: ClockIcon, href: '/workforce/attendance' },
-      { id: 'attendance-corrections', label: 'Attendance Corrections', icon: EditIcon, href: '/workforce/attendance-corrections' },
+      { id: 'attendance', label: 'Attendance', icon: ClockIcon, href: '/operations/attendance' },
+      { id: 'attendance-corrections', label: 'Attendance Corrections', icon: EditIcon, href: '/operations/attendance-corrections' },
     ],
   },
   {
     label: 'Time Off',
     items: [
-      { id: 'leave', label: 'Leave', icon: CalendarIcon, href: '/workforce/leave' },
-      { id: 'holiday-calendar', label: 'Holiday Calendar', icon: CalendarIcon, href: '/workforce/holiday-calendar' },
+      { id: 'leave', label: 'Leave', icon: CalendarIcon, href: '/operations/leave' },
+      { id: 'holiday-calendar', label: 'Holiday Calendar', icon: CalendarIcon, href: '/operations/holiday-calendar' },
     ],
   },
   {
     label: 'Scheduling',
     items: [
-      { id: 'shifts', label: 'Shifts', icon: LayersIcon, href: '/workforce/shifts' },
-      { id: 'shift-assignments', label: 'Shift Assignments', icon: ListIcon, href: '/workforce/shift-assignments' },
+      { id: 'shifts', label: 'Shifts', icon: LayersIcon, href: '/operations/shifts' },
+      { id: 'shift-assignments', label: 'Shift Assignments', icon: ListIcon, href: '/operations/shift-assignments' },
     ],
   },
   {
     label: 'Setup',
     items: [
-      { id: 'leave-types', label: 'Leave Types', icon: SettingsIcon, href: '/workforce/leave-types' },
-      { id: 'leave-policies', label: 'Leave Policies', icon: SettingsIcon, href: '/workforce/leave-policies' },
-      { id: 'holidays', label: 'Holidays', icon: SettingsIcon, href: '/workforce/holidays' },
+      { id: 'leave-types', label: 'Leave Types', icon: SettingsIcon, href: '/operations/leave-types' },
+      { id: 'leave-policies', label: 'Leave Policies', icon: SettingsIcon, href: '/operations/leave-policies' },
+      { id: 'holidays', label: 'Holidays', icon: SettingsIcon, href: '/operations/holidays' },
     ],
   },
 ]
 
-export function WorkforceSecondaryNav() {
+export function OperationsSecondaryNav() {
   const { isDark } = useTheme()
   const pathname = usePathname()
 
@@ -65,7 +65,7 @@ export function WorkforceSecondaryNav() {
   const hoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-[#F7FAF9]'
   const activeBg = isDark ? 'bg-[#27EAA6]/10' : 'bg-[#ABE6D1]/30'
 
-  const isItemActive = (href: string) => (href === '/workforce' ? pathname === '/workforce' : pathname === href || pathname?.startsWith(href + '/'))
+  const isItemActive = (href: string) => (href === '/operations' ? pathname === '/operations' : pathname === href || pathname?.startsWith(href + '/'))
 
   return (
     <aside className={`w-60 flex-shrink-0 h-full overflow-y-auto border-r ${borderColor} ${panelBg}`}>
