@@ -13,15 +13,8 @@ import {
   UploadIcon,
   PlusIcon,
   MoreVerticalIcon,
-  UsersIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  UserPlusIcon,
   XIcon,
-  ArrowUpRightIcon,
-  ArrowDownRightIcon,
 } from '@/components/Icons'
-import { Sparkline } from '@/components/Sparkline'
 
 type SavedView = 'all' | 'my-team' | 'my-department' | 'direct-reports' | 'new-joiners' | 'inactive'
 
@@ -150,59 +143,6 @@ export default function EmployeesPage() {
   const formatDate = (d: Date) =>
     new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
-  const sparklineData = {
-    total: [45, 52, 48, 55, 60, 58, 62, 65, 63, 68, 70, 72],
-    active: [38, 42, 40, 45, 48, 46, 50, 52, 51, 54, 56, 58],
-    onLeave: [2, 2, 3, 2, 3, 4, 3, 4, 5, 4, 3, 4],
-    newJoiners: [1, 1, 2, 1, 2, 2, 2, 2, 1, 2, 2, 3],
-  }
-
-  const statCards = [
-    {
-      label: 'Total Employees',
-      value: stats.total,
-      icon: UsersIcon,
-      tint: isDark ? 'bg-[#004D43]/20' : 'bg-[#ABE6D1]/40',
-      iconColor: '#004D43',
-      labelColor: isDark ? 'text-[#8FD9C4]' : 'text-[#004D43]',
-      trend: 8.2,
-      trendUp: true,
-      spark: sparklineData.total,
-    },
-    {
-      label: 'Active Employees',
-      value: stats.active,
-      icon: CheckCircleIcon,
-      tint: isDark ? 'bg-[#00755A]/20' : 'bg-[#ABE6D1]/50',
-      iconColor: '#00755A',
-      labelColor: isDark ? 'text-[#8FD9C4]' : 'text-[#00543F]',
-      trend: 3.5,
-      trendUp: true,
-      spark: sparklineData.active,
-    },
-    {
-      label: 'On Leave',
-      value: stats.onLeave,
-      icon: ClockIcon,
-      tint: isDark ? 'bg-[#5E93FF]/20' : 'bg-[#5E93FF]/15',
-      iconColor: '#5E93FF',
-      labelColor: isDark ? 'text-[#B4C6FF]' : 'text-[#1E3A8A]',
-      trend: 1.2,
-      trendUp: false,
-      spark: sparklineData.onLeave,
-    },
-    {
-      label: 'New Joiners',
-      value: stats.newJoiners,
-      icon: UserPlusIcon,
-      tint: isDark ? 'bg-[#7A9A1E]/20' : 'bg-[#D0FF71]/25',
-      iconColor: '#7A9A1E',
-      labelColor: isDark ? 'text-[#C5E25C]' : 'text-[#4D6612]',
-      trend: 12.1,
-      trendUp: false,
-      spark: sparklineData.newJoiners,
-    },
-  ]
 
   return (
     <div className="space-y-5">
@@ -252,40 +192,6 @@ export default function EmployeesPage() {
             Add Employee
           </Link>
         </div>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {statCards.map(card => {
-          const Icon = card.icon
-          return (
-            <div key={card.label} className={`p-4 rounded-xl border ${borderColor} ${card.tint} cursor-pointer transition-transform hover:-translate-y-0.5`}>
-              <div className="flex items-start justify-between mb-2.5">
-                <p className={`text-[11.5px] font-semibold uppercase tracking-[0.05em] ${card.labelColor}`}>{card.label}</p>
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: `${card.iconColor}22`, color: card.iconColor }}
-                >
-                  <Icon size={16} />
-                </div>
-              </div>
-              <p className={`text-3xl font-bold ${textColor} mb-2.5`}>{card.value}</p>
-              <div className="flex items-center justify-between">
-                <div
-                  className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
-                    card.trendUp
-                      ? 'bg-[#10B981]/15 text-[#10B981]'
-                      : 'bg-[#EF4444]/15 text-[#EF4444]'
-                  }`}
-                >
-                  {card.trendUp ? <ArrowUpRightIcon size={12} /> : <ArrowDownRightIcon size={12} />}
-                  {card.trend}%
-                </div>
-                <Sparkline data={card.spark} color={card.iconColor} />
-              </div>
-            </div>
-          )
-        })}
       </div>
 
       {/* Saved Views */}
