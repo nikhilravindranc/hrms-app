@@ -206,6 +206,25 @@ export function UserPlusIcon({ className, size }: IconProps) {
   )
 }
 
+export function UserXIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5" />
+      <path d="M14.5 7.5l5 5M19.5 7.5l-5 5" />
+    </svg>
+  )
+}
+
+export function ShuffleIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M3 6h3.5c2 0 3.3 1 4.2 2.3M20.5 6H17c-1.3 0-2.3.4-3.1 1.1M20.5 18H17c-2 0-3.3-1-4.2-2.3M3 18h3.5c1.3 0 2.3-.4 3.1-1.1" />
+      <path d="M17.5 3l3 3-3 3M17.5 15l3 3-3 3" />
+    </svg>
+  )
+}
+
 export function EditIcon({ className, size }: IconProps) {
   return (
     <svg {...base(size)} className={className}>
