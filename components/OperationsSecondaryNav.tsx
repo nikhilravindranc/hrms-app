@@ -75,7 +75,7 @@ export function OperationsSecondaryNav() {
             <ClockIcon size={16} />
           </div>
           <div>
-            <h1 className={`text-sm font-bold ${textPrimary}`}>Workforce</h1>
+            <h1 className={`text-sm font-bold ${textPrimary}`}>Operations</h1>
           </div>
         </div>
         <p className={`text-xs font-medium mt-2 ${textSecondary}`}>Attendance, leave, schedules & availability.</p>

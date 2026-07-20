@@ -120,12 +120,12 @@ export default function TodaysWorkforcePage() {
     .slice(0, 2)
 
   const quickActions = [
-    { id: 'mark-attendance', label: 'Mark Attendance', icon: CheckIcon, href: '/workforce/attendance', iconBg: 'bg-[#00755A]/15', iconColor: 'text-[#00755A]' },
-    { id: 'approve-leave', label: 'Approve Leave', icon: CalendarIcon, href: '/workforce/leave', iconBg: 'bg-[#F59E0B]/15', iconColor: 'text-[#F59E0B]' },
-    { id: 'review-corrections', label: 'Review Corrections', icon: EditIcon, href: '/workforce/attendance-corrections', iconBg: 'bg-[#EAB308]/15', iconColor: 'text-[#EAB308]' },
-    { id: 'assign-shift', label: 'Assign Shift', icon: ShuffleIcon, href: '/workforce/shift-assignments', iconBg: 'bg-[#8B5CF6]/15', iconColor: 'text-[#8B5CF6]' },
-    { id: 'add-holiday', label: 'Add Holiday', icon: CalendarIcon, href: '/workforce/holidays', iconBg: 'bg-[#5E93FF]/15', iconColor: 'text-[#5E93FF]' },
-    { id: 'import-attendance', label: 'Import Attendance', icon: UploadIcon, href: '/workforce/attendance', iconBg: 'bg-[#27EAA6]/15', iconColor: 'text-[#0B8F6E]' },
+    { id: 'mark-attendance', label: 'Mark Attendance', icon: CheckIcon, href: '/operations/attendance', iconBg: 'bg-[#00755A]/15', iconColor: 'text-[#00755A]' },
+    { id: 'approve-leave', label: 'Approve Leave', icon: CalendarIcon, href: '/operations/leave', iconBg: 'bg-[#F59E0B]/15', iconColor: 'text-[#F59E0B]' },
+    { id: 'review-corrections', label: 'Review Corrections', icon: EditIcon, href: '/operations/attendance-corrections', iconBg: 'bg-[#EAB308]/15', iconColor: 'text-[#EAB308]' },
+    { id: 'assign-shift', label: 'Assign Shift', icon: ShuffleIcon, href: '/operations/shift-assignments', iconBg: 'bg-[#8B5CF6]/15', iconColor: 'text-[#8B5CF6]' },
+    { id: 'add-holiday', label: 'Add Holiday', icon: CalendarIcon, href: '/operations/holidays', iconBg: 'bg-[#5E93FF]/15', iconColor: 'text-[#5E93FF]' },
+    { id: 'import-attendance', label: 'Import Attendance', icon: UploadIcon, href: '/operations/attendance', iconBg: 'bg-[#27EAA6]/15', iconColor: 'text-[#0B8F6E]' },
   ]
 
   return (
@@ -219,7 +219,7 @@ export default function TodaysWorkforcePage() {
                   <option value="">All Shifts</option>
                   {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </select>
-                <Link href="/workforce/attendance" className={`px-3 py-1.5 rounded-lg border ${borderColor} text-xs font-semibold ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'} transition-colors`}>
+                <Link href="/operations/attendance" className={`px-3 py-1.5 rounded-lg border ${borderColor} text-xs font-semibold ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'} transition-colors`}>
                   View All
                 </Link>
               </div>
@@ -275,7 +275,7 @@ export default function TodaysWorkforcePage() {
                           {openMenuId === emp.id && (
                             <div className={`absolute right-4 top-10 z-10 w-40 rounded-lg border ${borderColor} ${cardBg} shadow-lg py-1`}>
                               <Link href={`/people/employees/${emp.id}`} className={`block px-3 py-2 text-sm font-medium ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}>View Profile</Link>
-                              <Link href="/workforce/attendance" className={`block px-3 py-2 text-sm font-medium ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}>Mark Attendance</Link>
+                              <Link href="/operations/attendance" className={`block px-3 py-2 text-sm font-medium ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}>Mark Attendance</Link>
                             </div>
                           )}
                         </td>
@@ -291,7 +291,7 @@ export default function TodaysWorkforcePage() {
               )}
             </div>
             <div className={`px-5 py-3 border-t ${borderColor} text-center`}>
-              <Link href="/workforce/attendance" className="inline-flex items-center gap-1 text-xs font-bold text-[#00755A] hover:underline">
+              <Link href="/operations/attendance" className="inline-flex items-center gap-1 text-xs font-bold text-[#00755A] hover:underline">
                 View full attendance
                 <ArrowRightIcon size={12} />
               </Link>
@@ -354,7 +354,7 @@ export default function TodaysWorkforcePage() {
                 </div>
               ))}
             </div>
-            <Link href="/workforce/holiday-calendar" className="inline-flex items-center gap-1 text-xs font-bold text-[#00755A] hover:underline mt-3">
+            <Link href="/operations/holiday-calendar" className="inline-flex items-center gap-1 text-xs font-bold text-[#00755A] hover:underline mt-3">
               View calendar
               <ArrowRightIcon size={12} />
             </Link>
