@@ -11,6 +11,7 @@ import {
   MapPinIcon,
   SitemapIcon,
   LayersIcon,
+  CalendarIcon,
 } from './Icons'
 
 const sections = [
@@ -21,6 +22,12 @@ const sections = [
       { id: 'departments', label: 'Departments', icon: BuildingIcon, href: '/people/departments' },
       { id: 'designations', label: 'Designations', icon: BadgeIcon, href: '/people/designations' },
       { id: 'locations', label: 'Locations', icon: MapPinIcon, href: '/people/locations' },
+    ],
+  },
+  {
+    label: 'Attendance',
+    items: [
+      { id: 'attendance-calendar', label: 'Attendance Calendar', icon: CalendarIcon, href: '/people/attendance-calendar' },
     ],
   },
   {
