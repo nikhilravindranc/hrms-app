@@ -10,6 +10,8 @@ import {
   CheckCircleIcon,
   UploadIcon,
   ChevronRightIcon,
+  SearchIcon,
+  XIcon,
 } from '@/components/Icons'
 import { todayAttendance, mockShiftAssignments, mockShifts } from '@/lib/workforceData'
 import { getAttendanceStatus, getMonthMatrix, attendanceStatusColors, AttendanceStatus } from '@/lib/attendanceCalendar'
@@ -37,11 +39,18 @@ export default function AttendancePage() {
   const { employees } = useEmployee()
   const [tab, setTab] = useState<Tab>('daily')
   const [openMenuId, setOpenMenuId] = useState<string | null>(null)
+  const [date, setDate] = useState('2026-07-20')
+  const [search, setSearch] = useState('')
+  const [deptFilter, setDeptFilter] = useState('')
+  const [shiftFilter, setShiftFilter] = useState('')
+  const [locationFilter, setLocationFilter] = useState('')
+  const [statusFilter, setStatusFilter] = useState('')
 
   const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
   const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
   const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
+  const inputBg = isDark ? 'bg-[#0F0F0F]' : 'bg-[#F7FAF9]'
   const rowHover = isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'
 
   const shiftById = useMemo(() => {
@@ -59,6 +68,29 @@ export default function AttendancePage() {
     todayAttendance.forEach(a => { map[a.employeeId] = a })
     return map
   }, [])
+
+  const departments = useMemo(() => Array.from(new Set(employees.map(e => e.department))), [employees])
+  const locations = useMemo(() => Array.from(new Set(employees.map(e => e.location))), [employees])
+  const activeFilterCount = [deptFilter, shiftFilter, locationFilter, statusFilter].filter(Boolean).length
+
+  const dailyRows = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    return employees.filter(e => {
+      if (deptFilter && e.department !== deptFilter) return false
+      if (locationFilter && e.location !== locationFilter) return false
+      const shiftId = assignmentByEmployee[e.id]
+      if (shiftFilter && shiftId !== shiftFilter) return false
+      const status = attendanceByEmployee[e.id]?.status
+      if (statusFilter && status !== statusFilter) return false
+      if (q) {
+        const hay = `${e.firstName} ${e.lastName} ${e.id}`.toLowerCase()
+        if (!hay.includes(q)) return false
+      }
+      return true
+    })
+  }, [employees, search, deptFilter, shiftFilter, locationFilter, statusFilter, assignmentByEmployee, attendanceByEmployee])
+
+  const clearFilters = () => { setDeptFilter(''); setShiftFilter(''); setLocationFilter(''); setStatusFilter('') }
 
   return (
     <div className="space-y-5">
@@ -82,7 +114,61 @@ export default function AttendancePage() {
       </div>
 
       {tab === 'daily' && (
-        <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
+        <div className="space-y-4">
+          <div className={`rounded-xl border ${borderColor} ${cardBg} p-4 flex items-end gap-3 flex-wrap`}>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Date</label>
+              <input type="date" value={date} onChange={e => setDate(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none`} />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Search</label>
+              <div className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${borderColor} ${inputBg} w-52`}>
+                <SearchIcon size={15} className={textSecondary} />
+                <input
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                  placeholder="Name or ID..."
+                  className={`bg-transparent outline-none text-sm flex-1 ${textColor}`}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Department</label>
+              <select value={deptFilter} onChange={e => setDeptFilter(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[140px]`}>
+                <option value="">All</option>
+                {departments.map(d => <option key={d} value={d}>{d}</option>)}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Shift</label>
+              <select value={shiftFilter} onChange={e => setShiftFilter(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[140px]`}>
+                <option value="">All</option>
+                {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Location</label>
+              <select value={locationFilter} onChange={e => setLocationFilter(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[140px]`}>
+                <option value="">All</option>
+                {locations.map(l => <option key={l} value={l}>{l}</option>)}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Status</label>
+              <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[140px]`}>
+                <option value="">All</option>
+                {Object.keys(statusStyles).map(s => <option key={s} value={s}>{s}</option>)}
+              </select>
+            </div>
+            {activeFilterCount > 0 && (
+              <button onClick={clearFilters} className={`flex items-center gap-1 px-3 py-2 text-xs font-semibold ${textSecondary} hover:text-[#EF4444] transition-colors`}>
+                <XIcon size={13} />
+                Clear filters ({activeFilterCount})
+              </button>
+            )}
+          </div>
+
+          <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -93,7 +179,7 @@ export default function AttendancePage() {
                 </tr>
               </thead>
               <tbody>
-                {employees.map(emp => {
+                {dailyRows.map(emp => {
                   const att = attendanceByEmployee[emp.id]
                   const shiftName = shiftById[assignmentByEmployee[emp.id]] ?? '—'
                   const style = statusStyles[att?.status ?? 'Present']
@@ -150,6 +236,12 @@ export default function AttendancePage() {
                 })}
               </tbody>
             </table>
+            {dailyRows.length === 0 && (
+              <div className="py-12 text-center">
+                <p className={`text-sm font-medium ${textSecondary}`}>No employees match these filters.</p>
+              </div>
+            )}
+          </div>
           </div>
         </div>
       )}
