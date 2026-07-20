@@ -2,7 +2,6 @@
 
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core'
 import { useTheme } from '@/context/ThemeContext'
 import { useEmployee } from '@/context/EmployeeContext'
 import { AlertTriangleIcon } from '@/components/Icons'
@@ -287,7 +286,6 @@ interface ShiftCalendarProps {
 function ShiftCalendar({
   employees,
   assignments,
-  setAssignments,
   mockShifts,
   shiftById,
   isDark,
@@ -296,30 +294,11 @@ function ShiftCalendar({
   cardBg,
   borderColor,
 }: ShiftCalendarProps) {
-  const [draggedShift, setDraggedShift] = useState<string | null>(null)
-
   const assignmentByEmployee = useMemo(() => {
     const map: Record<string, string> = {}
     assignments.forEach((a: any) => { map[a.employeeId] = a.shiftId })
     return map
   }, [assignments])
-
-  const handleDragStart = (e: React.DragEvent, shiftId: string) => {
-    e.dataTransfer.effectAllowed = 'copy'
-    setDraggedShift(shiftId)
-  }
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'copy'
-  }
-
-  const handleDropOnEmployee = (e: React.DragEvent, employeeId: string) => {
-    e.preventDefault()
-    if (!draggedShift) return
-    setAssignments((prev: any) => prev.map((a: any) => a.employeeId === employeeId ? { ...a, shiftId: draggedShift } : a))
-    setDraggedShift(null)
-  }
 
   const shiftColors: Record<string, string> = {
     'shift-001': 'bg-[#00755A]/20 text-[#00755A]',
@@ -330,57 +309,37 @@ function ShiftCalendar({
   }
 
   return (
-    <div className="space-y-4">
-      <div className={`rounded-xl border ${borderColor} ${cardBg} p-5`}>
-        <h3 className={`text-sm font-bold mb-3 ${textColor}`}>Drag shifts to assign</h3>
-        <div className="flex items-center gap-2 flex-wrap">
-          {mockShifts.map(shift => (
-            <div
-              key={shift.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, shift.id)}
-              className={`px-3 py-1.5 rounded-lg text-sm font-semibold cursor-move transition-opacity ${shiftColors[shift.id] || 'bg-[#9CA3AF]/20 text-[#9CA3AF]'} ${draggedShift === shift.id ? 'opacity-50' : 'opacity-100'}`}
-            >
-              {shift.name}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className={`border-b ${borderColor}`}>
-                <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Employee</th>
-                <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Department</th>
-                <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Current Shift (Drop here)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {employees.map(emp => {
-                const currentShiftId = assignmentByEmployee[emp.id]
-                const currentShiftName = shiftById[currentShiftId] ?? '—'
-                return (
-                  <tr
-                    key={emp.id}
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => handleDropOnEmployee(e, emp.id)}
-                    className={`border-b ${borderColor} last:border-b-0 transition-colors ${isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'}`}
-                  >
-                    <td className={`px-4 py-3 text-sm font-semibold ${textColor}`}>{emp.firstName} {emp.lastName}</td>
-                    <td className={`px-4 py-3 text-sm font-medium ${textSecondary}`}>{emp.department}</td>
-                    <td className="px-4 py-3">
-                      <span className={`px-2 py-1.5 rounded-lg text-sm font-semibold inline-block min-w-[120px] text-center ${shiftColors[currentShiftId] || 'bg-[#9CA3AF]/20 text-[#9CA3AF]'}`}>
-                        {currentShiftName}
-                      </span>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+    <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className={`border-b ${borderColor}`}>
+              <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Employee</th>
+              <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Department</th>
+              <th className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Current Shift</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map(emp => {
+              const currentShiftId = assignmentByEmployee[emp.id]
+              const currentShiftName = shiftById[currentShiftId] ?? '—'
+              return (
+                <tr
+                  key={emp.id}
+                  className={`border-b ${borderColor} last:border-b-0 transition-colors ${isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'}`}
+                >
+                  <td className={`px-4 py-3 text-sm font-semibold ${textColor}`}>{emp.firstName} {emp.lastName}</td>
+                  <td className={`px-4 py-3 text-sm font-medium ${textSecondary}`}>{emp.department}</td>
+                  <td className="px-4 py-3">
+                    <span className={`px-2 py-1.5 rounded-lg text-sm font-semibold inline-block min-w-[120px] text-center ${shiftColors[currentShiftId] || 'bg-[#9CA3AF]/20 text-[#9CA3AF]'}`}>
+                      {currentShiftName}
+                    </span>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   )
