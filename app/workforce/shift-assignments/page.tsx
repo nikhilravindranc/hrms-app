@@ -1,0 +1,234 @@
+'use client'
+
+import { useMemo, useState } from 'react'
+import { useTheme } from '@/context/ThemeContext'
+import { useEmployee } from '@/context/EmployeeContext'
+import { AlertTriangleIcon } from '@/components/Icons'
+import { mockShifts, mockShiftAssignments, upcomingShiftChanges, shiftConflicts } from '@/lib/workforceData'
+
+type Tab = 'employee' | 'department' | 'location' | 'future' | 'history'
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'employee', label: 'By Employee' },
+  { id: 'department', label: 'By Department' },
+  { id: 'location', label: 'By Location' },
+  { id: 'future', label: 'Future Schedule' },
+  { id: 'history', label: 'History' },
+]
+
+const assignmentHistory = [
+  { id: 'h1', employeeName: 'Vikram Kumar', from: 'General', to: 'Night', date: '2026-07-01', by: 'Sneha Gupta' },
+  { id: 'h2', employeeName: 'Karan Chopra', from: 'Morning', to: 'Flexible', date: '2026-06-15', by: 'Arjun Reddy' },
+  { id: 'h3', employeeName: 'Pooja Singh', from: 'Morning', to: 'General', date: '2026-05-20', by: 'Neha Verma' },
+]
+
+export default function ShiftAssignmentsPage() {
+  const { isDark } = useTheme()
+  const { employees } = useEmployee()
+  const [tab, setTab] = useState<Tab>('employee')
+  const [assignments, setAssignments] = useState(mockShiftAssignments)
+  const [deptShift, setDeptShift] = useState('')
+  const [selectedDept, setSelectedDept] = useState('')
+  const [locShift, setLocShift] = useState('')
+  const [selectedLoc, setSelectedLoc] = useState('')
+  const [bulkMsg, setBulkMsg] = useState('')
+
+  const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
+  const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
+  const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
+  const inputBg = isDark ? 'bg-[#0F0F0F]' : 'bg-[#F7FAF9]'
+  const rowHover = isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'
+
+  const shiftById = useMemo(() => {
+    const map: Record<string, string> = {}
+    mockShifts.forEach(s => { map[s.id] = s.name })
+    return map
+  }, [])
+  const assignmentByEmployee = useMemo(() => {
+    const map: Record<string, string> = {}
+    assignments.forEach(a => { map[a.employeeId] = a.shiftId })
+    return map
+  }, [assignments])
+
+  const departments = useMemo(() => Array.from(new Set(employees.map(e => e.department))), [employees])
+  const locations = useMemo(() => Array.from(new Set(employees.map(e => e.location))), [employees])
+
+  const setEmployeeShift = (employeeId: string, shiftId: string) => {
+    setAssignments(prev => prev.map(a => a.employeeId === employeeId ? { ...a, shiftId } : a))
+  }
+
+  const bulkAssignDept = () => {
+    if (!selectedDept || !deptShift) return
+    const ids = new Set(employees.filter(e => e.department === selectedDept).map(e => e.id))
+    setAssignments(prev => prev.map(a => ids.has(a.employeeId) ? { ...a, shiftId: deptShift } : a))
+    setBulkMsg(`Assigned ${shiftById[deptShift]} shift to ${ids.size} employees in ${selectedDept}`)
+  }
+  const bulkAssignLoc = () => {
+    if (!selectedLoc || !locShift) return
+    const ids = new Set(employees.filter(e => e.location === selectedLoc).map(e => e.id))
+    setAssignments(prev => prev.map(a => ids.has(a.employeeId) ? { ...a, shiftId: locShift } : a))
+    setBulkMsg(`Assigned ${shiftById[locShift]} shift to ${ids.size} employees in ${selectedLoc}`)
+  }
+
+  return (
+    <div className="space-y-5">
+      <div>
+        <h1 className={`text-xl font-extrabold ${textColor}`}>Shift Assignments</h1>
+        <p className={`text-xs font-medium mt-0.5 ${textSecondary}`}>Assign shifts by employee, department or location</p>
+      </div>
+
+      {shiftConflicts.length > 0 && (
+        <div className="flex items-center gap-2 px-4 py-3 rounded-lg border border-[#EF4444]/30 bg-[#EF4444]/10">
+          <AlertTriangleIcon size={16} className="text-[#EF4444] flex-shrink-0" />
+          {shiftConflicts.map(c => (
+            <p key={c.id} className="text-xs font-semibold text-[#EF4444]">{c.employeeName}: {c.detail}</p>
+          ))}
+        </div>
+      )}
+
+      <div className={`flex items-center gap-1 p-1 rounded-lg border ${borderColor} ${cardBg} w-fit flex-wrap`}>
+        {TABS.map(t => (
+          <button
+            key={t.id}
+            onClick={() => { setTab(t.id); setBulkMsg('') }}
+            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${
+              tab === t.id ? 'bg-[#00755A] text-white' : `${textSecondary} ${isDark ? 'hover:text-[#D4D4D8]' : 'hover:text-[#0C2472]'}`
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab === 'employee' && (
+        <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
+          <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className={`border-b ${borderColor}`}>
+                {['Employee', 'Department', 'Current Shift'].map(h => (
+                  <th key={h} className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {employees.map(emp => (
+                <tr key={emp.id} className={`border-b ${borderColor} last:border-b-0 ${rowHover}`}>
+                  <td className={`px-4 py-2.5 text-sm font-semibold whitespace-nowrap ${textColor}`}>{emp.firstName} {emp.lastName}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium whitespace-nowrap ${textSecondary}`}>{emp.department}</td>
+                  <td className="px-4 py-2.5">
+                    <select
+                      value={assignmentByEmployee[emp.id] ?? ''}
+                      onChange={e => setEmployeeShift(emp.id, e.target.value)}
+                      className={`px-2.5 py-1.5 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-xs font-medium outline-none`}
+                    >
+                      {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        </div>
+      )}
+
+      {tab === 'department' && (
+        <div className={`rounded-xl border ${borderColor} ${cardBg} p-5 flex items-end gap-3 flex-wrap`}>
+          <div className="flex flex-col gap-1">
+            <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Department</label>
+            <select value={selectedDept} onChange={e => setSelectedDept(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[160px]`}>
+              <option value="">Select department</option>
+              {departments.map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Shift</label>
+            <select value={deptShift} onChange={e => setDeptShift(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[160px]`}>
+              <option value="">Select shift</option>
+              {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+          </div>
+          <button disabled={!selectedDept || !deptShift} onClick={bulkAssignDept} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+            Bulk Assign
+          </button>
+          {bulkMsg && <span className="text-xs font-semibold text-[#00755A]">{bulkMsg}</span>}
+        </div>
+      )}
+
+      {tab === 'location' && (
+        <div className={`rounded-xl border ${borderColor} ${cardBg} p-5 flex items-end gap-3 flex-wrap`}>
+          <div className="flex flex-col gap-1">
+            <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Location</label>
+            <select value={selectedLoc} onChange={e => setSelectedLoc(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[160px]`}>
+              <option value="">Select location</option>
+              {locations.map(l => <option key={l} value={l}>{l}</option>)}
+            </select>
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Shift</label>
+            <select value={locShift} onChange={e => setLocShift(e.target.value)} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none min-w-[160px]`}>
+              <option value="">Select shift</option>
+              {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+            </select>
+          </div>
+          <button disabled={!selectedLoc || !locShift} onClick={bulkAssignLoc} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+            Bulk Assign
+          </button>
+          {bulkMsg && <span className="text-xs font-semibold text-[#00755A]">{bulkMsg}</span>}
+        </div>
+      )}
+
+      {tab === 'future' && (
+        <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
+          <table className="w-full">
+            <thead>
+              <tr className={`border-b ${borderColor}`}>
+                {['Employee', 'From', 'To', 'Effective From'].map(h => (
+                  <th key={h} className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {upcomingShiftChanges.map(c => (
+                <tr key={c.id} className={`border-b ${borderColor} last:border-b-0 ${rowHover}`}>
+                  <td className={`px-4 py-2.5 text-sm font-semibold ${textColor}`}>{c.employeeName}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium ${textSecondary}`}>{c.fromShift}</td>
+                  <td className="px-4 py-2.5 text-sm font-semibold text-[#00755A]">{c.toShift}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium ${textSecondary}`}>{new Date(c.effectiveFrom).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {upcomingShiftChanges.length === 0 && <div className="py-16 text-center"><p className={`text-sm font-medium ${textSecondary}`}>No upcoming shift changes.</p></div>}
+        </div>
+      )}
+
+      {tab === 'history' && (
+        <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
+          <table className="w-full">
+            <thead>
+              <tr className={`border-b ${borderColor}`}>
+                {['Employee', 'From', 'To', 'Date', 'Changed By'].map(h => (
+                  <th key={h} className={`text-left px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {assignmentHistory.map(h => (
+                <tr key={h.id} className={`border-b ${borderColor} last:border-b-0 ${rowHover}`}>
+                  <td className={`px-4 py-2.5 text-sm font-semibold ${textColor}`}>{h.employeeName}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium ${textSecondary}`}>{h.from}</td>
+                  <td className={`px-4 py-2.5 text-sm font-semibold ${textColor}`}>{h.to}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium ${textSecondary}`}>{new Date(h.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</td>
+                  <td className={`px-4 py-2.5 text-sm font-medium ${textSecondary}`}>{h.by}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
+}
