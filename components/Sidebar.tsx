@@ -27,6 +27,11 @@ import {
   BadgeIcon,
   MapPinIcon,
   SitemapIcon,
+  RefreshIcon,
+  HistoryIcon,
+  ReceiptIcon,
+  TrophyIcon,
+  FileTextIcon,
 } from './Icons'
 
 const peopleSections = [
@@ -86,11 +91,54 @@ const operationsSections = [
   },
 ]
 
+const payrollSections = [
+  {
+    label: 'Processing',
+    items: [
+      { id: 'payroll-run', label: 'Payroll Run', icon: RefreshIcon, href: '/payroll/run' },
+      { id: 'payroll-history', label: 'Payroll History', icon: HistoryIcon, href: '/payroll/history' },
+    ],
+  },
+  {
+    label: 'Compensation',
+    items: [
+      { id: 'salary-structures', label: 'Salary Structures', icon: LayersIcon, href: '/payroll/salary-structures' },
+      { id: 'compensation', label: 'Employee Compensation', icon: WalletIcon, href: '/payroll/compensation' },
+    ],
+  },
+  {
+    label: 'Payments',
+    items: [
+      { id: 'reimbursements', label: 'Reimbursements', icon: ReceiptIcon, href: '/payroll/reimbursements' },
+      { id: 'bonuses', label: 'Bonuses & Adjustments', icon: TrophyIcon, href: '/payroll/bonuses' },
+    ],
+  },
+  {
+    label: 'Compliance',
+    items: [
+      { id: 'statutory-deductions', label: 'Statutory Deductions', icon: ShieldIcon, href: '/payroll/statutory-deductions' },
+      { id: 'tax-declarations', label: 'Tax Declarations', icon: EditIcon, href: '/payroll/tax-declarations' },
+    ],
+  },
+  {
+    label: 'Documents',
+    items: [
+      { id: 'payslips', label: 'Payslips', icon: FileTextIcon, href: '/payroll/payslips' },
+    ],
+  },
+  {
+    label: 'Setup',
+    items: [
+      { id: 'payroll-settings', label: 'Payroll Settings', icon: SettingsIcon, href: '/payroll/settings' },
+    ],
+  },
+]
+
 const navigationMenu = [
   { id: 'dashboard', label: 'Dashboard', icon: GridIcon, href: '/dashboard' },
   { id: 'people', label: 'People', icon: UsersIcon, href: '/people/employees', badgeKey: 'employees', sections: peopleSections },
   { id: 'operations', label: 'Operations', icon: ClockIcon, href: '/operations', sections: operationsSections },
-  { id: 'payroll', label: 'Payroll', icon: WalletIcon, href: '/payroll' },
+  { id: 'payroll', label: 'Payroll', icon: WalletIcon, href: '/payroll', sections: payrollSections },
   { id: 'requests', label: 'Requests', icon: ClipboardCheckIcon, href: '/requests', badgeKey: 'requests' },
   { id: 'reports', label: 'Reports', icon: BarChartIcon, href: '/reports' },
   { id: 'security', label: 'Security', icon: ShieldIcon, href: '/security' },
