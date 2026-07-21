@@ -15,7 +15,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col ml-64">
+      <div className="flex-1 flex flex-col ml-[280px]">
         {/* TopBar */}
         <TopBar />
 

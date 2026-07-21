@@ -28,7 +28,7 @@ export default function PeopleLayout({ children }: { children: React.ReactNode }
     <div className={`flex h-screen ${mainBg}`}>
       <Sidebar />
 
-      <div className="flex-1 min-w-0 flex flex-col ml-64">
+      <div className="flex-1 min-w-0 flex flex-col ml-[280px]">
         <TopBar />
 
         <div className="flex-1 min-w-0 flex overflow-hidden pt-16">
