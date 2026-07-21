@@ -57,7 +57,7 @@ const snapshotConfig = [
   { key: 'On Leave', icon: CalendarIcon, iconBg: 'bg-[#8B5CF6]/15', iconColor: 'text-[#8B5CF6]', trend: 4.2, trendUp: true, good: null },
 ] as const
 
-export default function TodaysWorkforcePage() {
+export default function TodaysOperationsPage() {
   const { isDark } = useTheme()
   const { user } = useAuth()
   const { employees, getEmployee } = useEmployee()
@@ -133,7 +133,7 @@ export default function TodaysWorkforcePage() {
       {/* Hero */}
       <div className="rounded-2xl p-6 bg-gradient-to-br from-[#004D43] to-[#00755A]">
         <p className="text-white/70 text-sm font-semibold">Good morning, {user?.firstName ?? 'there'}</p>
-        <h1 className="text-2xl font-extrabold text-white mt-1">Here&apos;s today&apos;s workforce.</h1>
+        <h1 className="text-2xl font-extrabold text-white mt-1">Here&apos;s today&apos;s operations.</h1>
       </div>
 
       {/* Attention Center */}
@@ -166,7 +166,7 @@ export default function TodaysWorkforcePage() {
         </div>
       </div>
 
-      {/* Workforce Snapshot + Upcoming Leave */}
+      {/* Operations Snapshot + Upcoming Leave */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {snapshotConfig.map(cfg => {
           const Icon = cfg.icon
@@ -206,10 +206,10 @@ export default function TodaysWorkforcePage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2 space-y-5">
-          {/* Today's Workforce table */}
+          {/* Daily Operations table */}
           <div className={`rounded-xl border ${borderColor} ${cardBg} overflow-hidden`}>
             <div className={`px-5 py-3.5 border-b ${borderColor} flex items-center justify-between flex-wrap gap-2`}>
-              <h2 className={`text-sm font-bold ${textColor}`}>Today&apos;s Workforce</h2>
+              <h2 className={`text-sm font-bold ${textColor}`}>Daily Operations</h2>
               <div className="flex items-center gap-2 flex-wrap">
                 <select value={deptFilter} onChange={e => setDeptFilter(e.target.value)} className={`px-2.5 py-1.5 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-xs font-medium outline-none`}>
                   <option value="">All Departments</option>

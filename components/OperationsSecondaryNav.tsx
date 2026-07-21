@@ -18,7 +18,7 @@ const sections = [
   {
     label: 'Today',
     items: [
-      { id: 'today', label: "Today's Workforce", icon: HomeIcon, href: '/operations' },
+      { id: 'today', label: "Today's Operations", icon: HomeIcon, href: '/operations' },
     ],
   },
   {
