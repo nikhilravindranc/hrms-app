@@ -23,7 +23,30 @@ import {
   LayersIcon,
   ListIcon,
   SettingsIcon,
+  BuildingIcon,
+  BadgeIcon,
+  MapPinIcon,
+  SitemapIcon,
 } from './Icons'
+
+const peopleSections = [
+  {
+    label: 'Employee Management',
+    items: [
+      { id: 'employees', label: 'Employees', icon: UsersIcon, href: '/people/employees' },
+      { id: 'departments', label: 'Departments', icon: BuildingIcon, href: '/people/departments' },
+      { id: 'designations', label: 'Designations', icon: BadgeIcon, href: '/people/designations' },
+      { id: 'locations', label: 'Locations', icon: MapPinIcon, href: '/people/locations' },
+    ],
+  },
+  {
+    label: 'Organization',
+    items: [
+      { id: 'employee-tree', label: 'Employee Tree', icon: SitemapIcon, href: '/people/employee-tree' },
+      { id: 'department-tree', label: 'Department Tree', icon: LayersIcon, href: '/people/department-tree' },
+    ],
+  },
+]
 
 const operationsSections = [
   {
@@ -65,7 +88,7 @@ const operationsSections = [
 
 const navigationMenu = [
   { id: 'dashboard', label: 'Dashboard', icon: GridIcon, href: '/dashboard' },
-  { id: 'people', label: 'People', icon: UsersIcon, href: '/people/employees', badgeKey: 'employees' },
+  { id: 'people', label: 'People', icon: UsersIcon, href: '/people/employees', badgeKey: 'employees', sections: peopleSections },
   { id: 'operations', label: 'Operations', icon: ClockIcon, href: '/operations', sections: operationsSections },
   { id: 'payroll', label: 'Payroll', icon: WalletIcon, href: '/payroll' },
   { id: 'requests', label: 'Requests', icon: ClipboardCheckIcon, href: '/requests', badgeKey: 'requests' },

@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Sidebar } from '@/components/Sidebar'
 import { TopBar } from '@/components/TopBar'
-import { PeopleSecondaryNav } from '@/components/PeopleSecondaryNav'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
 
@@ -31,13 +30,9 @@ export default function PeopleLayout({ children }: { children: React.ReactNode }
       <div className="flex-1 min-w-0 flex flex-col ml-[280px]">
         <TopBar />
 
-        <div className="flex-1 min-w-0 flex overflow-hidden pt-16">
-          <PeopleSecondaryNav />
-
-          <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden">
-            <div className="px-8 py-6">{children}</div>
-          </main>
-        </div>
+        <main className="flex-1 min-w-0 overflow-y-auto overflow-x-hidden pt-16">
+          <div className="px-8 py-6">{children}</div>
+        </main>
       </div>
     </div>
   )
