@@ -42,11 +42,11 @@ const statusStyles: Record<string, { bg: string; text: string; dot: string }> = 
   Absent: { bg: 'bg-[#EF4444]/15', text: 'text-[#EF4444]', dot: '#EF4444' },
 }
 
-const attentionVisuals: Record<string, { icon: React.FC<{ size?: number; className?: string }>; iconBg: string; iconColor: string }> = {
-  'not-checked-in': { icon: UserXIcon, iconBg: 'bg-[#EF4444]/15', iconColor: 'text-[#EF4444]' },
-  'leave-pending': { icon: CalendarIcon, iconBg: 'bg-[#F59E0B]/15', iconColor: 'text-[#F59E0B]' },
-  'corrections-pending': { icon: EditIcon, iconBg: 'bg-[#EAB308]/15', iconColor: 'text-[#EAB308]' },
-  'shift-conflict': { icon: ShuffleIcon, iconBg: 'bg-[#8B5CF6]/15', iconColor: 'text-[#8B5CF6]' },
+const attentionVisuals: Record<string, { icon: React.FC<{ size?: number; className?: string }>; hex: string }> = {
+  'not-checked-in': { icon: UserXIcon, hex: '#EF4444' },
+  'leave-pending': { icon: CalendarIcon, hex: '#F59E0B' },
+  'corrections-pending': { icon: EditIcon, hex: '#EAB308' },
+  'shift-conflict': { icon: ShuffleIcon, hex: '#8B5CF6' },
 }
 
 const snapshotConfig = [
@@ -120,12 +120,12 @@ export default function TodaysOperationsPage() {
     .slice(0, 2)
 
   const quickActions = [
-    { id: 'mark-attendance', label: 'Mark Attendance', icon: CheckIcon, href: '/operations/attendance', iconBg: 'bg-[#00755A]/15', iconColor: 'text-[#00755A]' },
-    { id: 'approve-leave', label: 'Approve Leave', icon: CalendarIcon, href: '/operations/leave', iconBg: 'bg-[#F59E0B]/15', iconColor: 'text-[#F59E0B]' },
-    { id: 'review-corrections', label: 'Review Corrections', icon: EditIcon, href: '/operations/attendance-corrections', iconBg: 'bg-[#EAB308]/15', iconColor: 'text-[#EAB308]' },
-    { id: 'assign-shift', label: 'Assign Shift', icon: ShuffleIcon, href: '/operations/shift-assignments', iconBg: 'bg-[#8B5CF6]/15', iconColor: 'text-[#8B5CF6]' },
-    { id: 'add-holiday', label: 'Add Holiday', icon: CalendarIcon, href: '/operations/holidays', iconBg: 'bg-[#5E93FF]/15', iconColor: 'text-[#5E93FF]' },
-    { id: 'import-attendance', label: 'Import Attendance', icon: UploadIcon, href: '/operations/attendance', iconBg: 'bg-[#27EAA6]/15', iconColor: 'text-[#0B8F6E]' },
+    { id: 'mark-attendance', label: 'Mark Attendance', icon: CheckIcon, href: '/operations/attendance', hex: '#00755A' },
+    { id: 'approve-leave', label: 'Approve Leave', icon: CalendarIcon, href: '/operations/leave', hex: '#F59E0B' },
+    { id: 'review-corrections', label: 'Review Corrections', icon: EditIcon, href: '/operations/attendance-corrections', hex: '#EAB308' },
+    { id: 'assign-shift', label: 'Assign Shift', icon: ShuffleIcon, href: '/operations/shift-assignments', hex: '#8B5CF6' },
+    { id: 'add-holiday', label: 'Add Holiday', icon: CalendarIcon, href: '/operations/holidays', hex: '#5E93FF' },
+    { id: 'import-attendance', label: 'Import Attendance', icon: UploadIcon, href: '/operations/attendance', hex: '#0B8F6E' },
   ]
 
   return (
@@ -147,15 +147,21 @@ export default function TodaysOperationsPage() {
             const Icon = visual.icon
             return (
               <Link key={item.id} href={item.href}>
-                <div className={`p-4 rounded-xl border ${borderColor} ${cardBg} transition-transform hover:-translate-y-0.5 cursor-pointer`}>
+                <div
+                  className={`p-4 rounded-xl border ${borderColor} transition-transform hover:-translate-y-0.5 cursor-pointer`}
+                  style={{ backgroundColor: `${visual.hex}${isDark ? '1F' : '14'}` }}
+                >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${visual.iconBg} ${visual.iconColor}`}>
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: `${visual.hex}33`, color: visual.hex }}
+                    >
                       <Icon size={18} />
                     </div>
                     <p className={`text-2xl font-extrabold ${textColor}`}>{item.count}</p>
                   </div>
                   <p className={`text-xs font-semibold mb-1.5 ${textColor}`}>{item.label}</p>
-                  <span className="flex items-center gap-1 text-xs font-bold text-[#00755A]">
+                  <span className="flex items-center gap-1 text-xs font-bold" style={{ color: visual.hex }}>
                     {item.actionLabel}
                     <ArrowRightIcon size={12} />
                   </span>
@@ -306,8 +312,14 @@ export default function TodaysOperationsPage() {
                 const Icon = action.icon
                 return (
                   <Link key={action.id} href={action.href}>
-                    <div className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border ${borderColor} transition-colors cursor-pointer hover:border-[#00755A] ${isDark ? 'hover:bg-[#0F0F0F]' : 'hover:bg-[#F7FAF9]'}`}>
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${action.iconBg} ${action.iconColor}`}>
+                    <div
+                      className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-transform hover:-translate-y-0.5 cursor-pointer"
+                      style={{ backgroundColor: `${action.hex}${isDark ? '1F' : '14'}`, borderColor: `${action.hex}${isDark ? '40' : '30'}` }}
+                    >
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center"
+                        style={{ backgroundColor: `${action.hex}33`, color: action.hex }}
+                      >
                         <Icon size={18} />
                       </div>
                       <p className={`text-xs font-semibold text-center ${textColor}`}>{action.label}</p>
