@@ -127,6 +127,10 @@ export function Sidebar() {
   const subActiveBg = isDark ? 'bg-[#27EAA6]/10' : 'bg-[#ABE6D1]/40'
   const subHoverBg = isDark ? 'hover:bg-[#18181B]' : 'hover:bg-white/60'
   const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
+  // Sub-item label/icon default = darker than textSecondary for readability against the light sidebar bg
+  const subTextInactive = isDark ? 'text-[#9CA3AF]' : 'text-[#475569]'
+  const subIconInactive = isDark ? 'text-[#9CA3AF]' : 'text-[#64748B]'
+  const sectionLabelColor = isDark ? 'text-[#71717A]' : 'text-[#64748B]'
   // Count badge = 10px/700/white on app primary, per Component Typography spec
   const badgeBg = 'bg-[#004D43] text-white'
 
@@ -192,7 +196,7 @@ export function Sidebar() {
                 <div className="mt-0.5 mb-1.5 space-y-2.5">
                   {item.sections!.map(section => (
                     <div key={section.label}>
-                      <p className={`px-3 pt-2 pb-1 text-[9.5px] font-bold uppercase tracking-[0.06em] ${textSecondary} opacity-70`}>
+                      <p className={`px-3 pt-2 pb-1 text-[9.5px] font-bold uppercase tracking-[0.06em] ${sectionLabelColor}`}>
                         {section.label}
                       </p>
                       <div className="space-y-0.5">
@@ -208,8 +212,8 @@ export function Sidebar() {
                                   ${subActive ? subActiveBg : subHoverBg}
                                 `}
                               >
-                                <SubIcon size={14} className={subActive ? textActive : textSecondary} />
-                                <span className={`text-xs ${subActive ? `${textActive} font-semibold` : `font-medium ${textSecondary}`}`}>
+                                <SubIcon size={14} className={subActive ? textActive : subIconInactive} />
+                                <span className={`text-xs ${subActive ? `${textActive} font-semibold` : `font-medium ${subTextInactive}`}`}>
                                   {sub.label}
                                 </span>
                               </div>
