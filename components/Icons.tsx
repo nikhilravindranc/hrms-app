@@ -527,6 +527,30 @@ export function SettingsIcon({ className, size }: IconProps) {
   )
 }
 
+export function PlugIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M9 2v5" />
+      <path d="M15 2v5" />
+      <path d="M7 7h10a1 1 0 0 1 1 1v3a6 6 0 0 1-6 6h0a6 6 0 0 1-6-6V8a1 1 0 0 1 1-1z" />
+      <path d="M12 17v5" />
+    </svg>
+  )
+}
+
+export function BuildingBankIcon({ className, size }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M3 10 12 4l9 6" />
+      <path d="M5 10v9" />
+      <path d="M9 10v9" />
+      <path d="M15 10v9" />
+      <path d="M19 10v9" />
+      <path d="M3 21h18" />
+    </svg>
+  )
+}
+
 export const activityIconMap: Record<string, React.FC<IconProps>> = {
   check: CheckCircleIcon,
   'user-plus': UserPlusIcon,

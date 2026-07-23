@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/context/AuthContext'
 import { ThemeProvider } from '@/context/ThemeContext'
 import { EmployeeProvider } from '@/context/EmployeeContext'
+import { PayrollConnectionProvider } from '@/context/PayrollConnectionContext'
 import { mockEmployees } from '@/lib/mockData'
 import './globals.css'
 
@@ -42,7 +43,9 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider>
             <EmployeeProvider initialEmployees={mockEmployees}>
-              {children}
+              <PayrollConnectionProvider>
+                {children}
+              </PayrollConnectionProvider>
             </EmployeeProvider>
           </ThemeProvider>
         </AuthProvider>

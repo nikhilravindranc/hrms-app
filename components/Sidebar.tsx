@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
 import { useEmployee } from '@/context/EmployeeContext'
+import { usePayrollConnection } from '@/context/PayrollConnectionContext'
 import { mockLeaveRequests } from '@/lib/mockData'
 import {
   GridIcon,
@@ -32,6 +33,7 @@ import {
   ReceiptIcon,
   TrophyIcon,
   FileTextIcon,
+  BuildingBankIcon,
 } from './Icons'
 
 interface NavSection {
@@ -46,6 +48,7 @@ interface NavItem {
   href: string
   badgeKey?: string
   sections?: NavSection[]
+  statusPill?: { label: string; hex: string }
 }
 
 const peopleSections = [
@@ -141,9 +144,12 @@ const payrollSections = [
     ],
   },
   {
-    label: 'Setup',
+    label: 'Configuration',
     items: [
       { id: 'payroll-settings', label: 'Payroll Settings', icon: SettingsIcon, href: '/payroll/settings' },
+      { id: 'payroll-calendar', label: 'Payroll Calendar', icon: CalendarIcon, href: '/payroll/calendar' },
+      { id: 'payment-methods', label: 'Payment Methods', icon: BuildingBankIcon, href: '/payroll/payment-methods' },
+      { id: 'statutory-configuration', label: 'Statutory Configuration', icon: ShieldIcon, href: '/payroll/statutory-configuration' },
     ],
   },
 ]
@@ -157,15 +163,12 @@ const navigationMenu: NavItem[] = [
   { id: 'security', label: 'Security', icon: ShieldIcon, href: '/security' },
 ]
 
-const integrationsMenu: NavItem[] = [
-  { id: 'payroll', label: 'Payroll', icon: WalletIcon, href: '/payroll', sections: payrollSections },
-]
-
 export function Sidebar() {
   const { isDark } = useTheme()
   const pathname = usePathname()
   const { user } = useAuth()
   const { employees } = useEmployee()
+  const { isConnected, isConfigured } = usePayrollConnection()
 
   const pendingApprovals = mockLeaveRequests.filter(r => r.status === 'Pending').length
 
@@ -176,6 +179,23 @@ export function Sidebar() {
 
   const isItemActive = (item: NavItem) =>
     pathname === item.href || (item.href !== '/dashboard' && pathname?.startsWith(item.href.split('/').slice(0, 2).join('/')))
+
+  // Payroll's sub-navigation only exists once setup is complete — before that,
+  // there's nothing to link to yet, so the accordion has no sections to expand.
+  const integrationsMenu: NavItem[] = [
+    {
+      id: 'payroll',
+      label: 'Payroll',
+      icon: WalletIcon,
+      href: '/payroll',
+      sections: isConfigured ? payrollSections : undefined,
+      statusPill: !isConnected
+        ? { label: 'Not Connected', hex: '#94A3B8' }
+        : !isConfigured
+        ? { label: 'Setup Pending', hex: '#F59E0B' }
+        : undefined,
+    },
+  ]
 
   const [expandedId, setExpandedId] = useState<string | null>(
     [...navigationMenu, ...integrationsMenu].find(item => item.sections && isItemActive(item))?.id ?? null
@@ -230,13 +250,21 @@ export function Sidebar() {
               {badgeValue}
             </span>
           )}
+          {item.statusPill && (
+            <span
+              className="text-[9.5px] font-bold px-1.5 py-0.5 rounded-full whitespace-nowrap"
+              style={{ backgroundColor: `${item.statusPill.hex}22`, color: item.statusPill.hex }}
+            >
+              {item.statusPill.label}
+            </span>
+          )}
           {hasSections ? (
             <ChevronRightIcon
               size={14}
               className={`transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''} ${isActive ? textActive : textSecondary}`}
             />
           ) : (
-            isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#004D43]" />
+            !item.statusPill && isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#004D43]" />
           )}
         </div>
       </div>

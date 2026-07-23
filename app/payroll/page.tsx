@@ -4,6 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
+import { usePayrollConnection } from '@/context/PayrollConnectionContext'
 import {
   ArrowRightIcon,
   UsersIcon,
@@ -15,6 +16,7 @@ import {
   EditIcon,
   FileTextIcon,
   CalendarIcon,
+  PlugIcon,
   activityIconMap,
 } from '@/components/Icons'
 import {
@@ -53,6 +55,79 @@ const quickActions = [
 ]
 
 export default function PayrollLandingPage() {
+  const { isConnected, isConfigured, isLoaded } = usePayrollConnection()
+
+  if (!isLoaded) return null
+  if (!isConnected) return <ConnectPayrollScreen />
+  if (!isConfigured) return <PayrollConnectedScreen />
+  return <PayrollReadinessWorkspace />
+}
+
+function ConnectPayrollScreen() {
+  const { isDark } = useTheme()
+  const { connectPayroll } = usePayrollConnection()
+
+  const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
+  const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
+  const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
+
+  return (
+    <div className="flex items-center justify-center min-h-[70vh]">
+      <div className={`max-w-md w-full rounded-2xl border ${borderColor} ${cardBg} p-8 text-center`}>
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 bg-[#00755A]/15 text-[#00755A]">
+          <PlugIcon size={28} />
+        </div>
+        <h1 className={`text-lg font-extrabold mb-2 ${textColor}`}>Connect Payroll</h1>
+        <p className={`text-sm font-medium mb-6 ${textSecondary}`}>
+          Payroll is a separate connected application. Once connected, you&apos;ll configure salary
+          structures, statutory compliance, and payment details before running your first payroll.
+        </p>
+        <button
+          onClick={connectPayroll}
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+        >
+          <PlugIcon size={16} />
+          Connect Payroll
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function PayrollConnectedScreen() {
+  const { isDark } = useTheme()
+
+  const textColor = isDark ? 'text-[#D4D4D8]' : 'text-[#0C2472]'
+  const textSecondary = isDark ? 'text-[#9CA3AF]' : 'text-[#94A3B8]'
+  const cardBg = isDark ? 'bg-[#18181B]' : 'bg-white'
+  const borderColor = isDark ? 'border-[#27272A]' : 'border-[#D4E8E0]'
+
+  return (
+    <div className="flex items-center justify-center min-h-[70vh]">
+      <div className={`max-w-md w-full rounded-2xl border ${borderColor} ${cardBg} p-8 text-center`}>
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 bg-[#00755A]/15 text-[#00755A]">
+          <CheckCircleIcon size={28} />
+        </div>
+        <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#00755A] mb-1">Payroll Connected</p>
+        <h1 className={`text-lg font-extrabold mb-2 ${textColor}`}>Payroll hasn&apos;t been configured yet</h1>
+        <p className={`text-sm font-medium mb-6 ${textSecondary}`}>
+          Before you can run payroll, we&apos;ll walk you through a one-time setup — company details,
+          salary components, salary structures, statutory compliance, employee mapping, and bank details.
+        </p>
+        <Link
+          href="/payroll/setup"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+        >
+          Start Payroll Setup
+          <ArrowRightIcon size={16} />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+function PayrollReadinessWorkspace() {
   const { isDark } = useTheme()
   const { user } = useAuth()
 
@@ -76,6 +151,7 @@ export default function PayrollLandingPage() {
       <div className="rounded-2xl p-6 bg-gradient-to-br from-[#004D43] to-[#00755A]">
         <p className="text-white/70 text-sm font-semibold">Good morning, {user?.firstName ?? 'there'}</p>
         <h1 className="text-2xl font-extrabold text-white mt-1">Payroll for July is ready to process.</h1>
+        <p className="text-white/60 text-xs font-semibold uppercase tracking-[0.06em] mt-3">Payroll Readiness — your monthly control center</p>
       </div>
 
       {/* Attention Center */}

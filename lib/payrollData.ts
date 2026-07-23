@@ -338,3 +338,99 @@ export const payrollActivity = [
   { id: 5, icon: 'check', title: 'Reimbursement approved: Arjun Reddy', actor: 'Vikram Singh', time: '1w ago' },
   { id: 6, icon: 'edit', title: 'Salary structure updated: Sales', actor: 'Amrita Patel', time: '1w ago' },
 ]
+
+// ============================================================================
+// PAYROLL SETUP WIZARD (first-time configuration options)
+// ============================================================================
+export const wizardCountries = [
+  { id: 'IN', name: 'India', currency: 'INR' },
+  { id: 'US', name: 'United States', currency: 'USD' },
+]
+
+export const wizardFinancialYears = ['2026-27', '2025-26']
+export const wizardPayrollFrequencies = ['Monthly', 'Bi-Weekly', 'Weekly']
+export const wizardPayrollCycles = ['Calendar Month (1st – last day)', 'Custom Cycle (26th – 25th)']
+export const wizardPayDayOptions = ['1st working day of the month', 'Last working day of the month', '25th of the month']
+
+export interface WizardSalaryComponentGroup {
+  id: string
+  label: string
+  items: string[]
+}
+
+export const wizardSalaryComponentGroups: WizardSalaryComponentGroup[] = [
+  { id: 'earnings', label: 'Earnings', items: ['Basic', 'Special Allowance'] },
+  { id: 'allowances', label: 'Allowances', items: ['HRA', 'Conveyance Allowance', 'Medical Allowance', 'LTA'] },
+  { id: 'deductions', label: 'Deductions', items: ['Provident Fund (Employee)', 'ESI (Employee)', 'Professional Tax', 'TDS'] },
+  { id: 'employer', label: 'Employer Contributions', items: ['Provident Fund (Employer)', 'ESI (Employer)'] },
+]
+
+export interface WizardStatutoryItem {
+  id: string
+  label: string
+}
+
+export const wizardStatutoryByCountry: Record<string, WizardStatutoryItem[]> = {
+  IN: [
+    { id: 'pf', label: 'Provident Fund (PF)' },
+    { id: 'esi', label: 'Employee State Insurance (ESI)' },
+    { id: 'pt', label: 'Professional Tax (PT)' },
+    { id: 'tds', label: 'Tax Deducted at Source (TDS)' },
+    { id: 'lwf', label: 'Labour Welfare Fund (LWF)' },
+  ],
+  US: [
+    { id: 'federal', label: 'Federal Income Tax' },
+    { id: 'state', label: 'State Income Tax' },
+    { id: 'ss', label: 'Social Security' },
+    { id: 'medicare', label: 'Medicare' },
+  ],
+}
+
+export const wizardPaymentMethods = ['NEFT', 'RTGS', 'IMPS', 'Cheque']
+export const wizardFileFormats = ['Generic Bank CSV', 'SBI Corporate File', 'HDFC Corporate File', 'ICICI Corporate File']
+
+// Employee readiness for payroll mapping — reuses the same "missing bank details" flag
+// surfaced elsewhere in the module so the wizard reflects real employee-record gaps.
+export const employeeMappingReadiness = {
+  total: mockEmployees.length,
+  ready: mockEmployees.length - employeesMissingBank.length,
+  missing: employeesMissingBank.length,
+  missingReason: 'Missing bank account details',
+  missingEmployees: employeesMissingBank,
+}
+
+export const wizardValidationChecks = [
+  'Salary Structures',
+  'Tax Rules',
+  'Employee Mapping',
+  'Bank Configuration',
+  'Payroll Calendar',
+]
+
+// ============================================================================
+// PAYROLL CALENDAR (Configuration)
+// ============================================================================
+export const payrollCalendarEntries = [
+  { id: 'pc-1', month: 'July 2026', cutOff: '2026-07-25', payDate: '2026-07-31' },
+  { id: 'pc-2', month: 'August 2026', cutOff: '2026-08-25', payDate: '2026-08-31' },
+  { id: 'pc-3', month: 'September 2026', cutOff: '2026-09-25', payDate: '2026-09-30' },
+  { id: 'pc-4', month: 'October 2026', cutOff: '2026-10-25', payDate: '2026-10-31' },
+  { id: 'pc-5', month: 'November 2026', cutOff: '2026-11-25', payDate: '2026-11-30' },
+  { id: 'pc-6', month: 'December 2026', cutOff: '2026-12-24', payDate: '2026-12-31' },
+]
+
+// ============================================================================
+// PAYMENT METHODS (Configuration)
+// ============================================================================
+export interface PaymentMethodConfig {
+  id: string
+  label: string
+  fileFormat: string
+  isDefault: boolean
+}
+
+export const mockPaymentMethods: PaymentMethodConfig[] = [
+  { id: 'pm-neft', label: 'NEFT', fileFormat: 'HDFC Corporate File', isDefault: true },
+  { id: 'pm-rtgs', label: 'RTGS', fileFormat: 'HDFC Corporate File', isDefault: false },
+  { id: 'pm-cheque', label: 'Cheque', fileFormat: 'Not applicable', isDefault: false },
+]
