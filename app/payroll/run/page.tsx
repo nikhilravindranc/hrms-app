@@ -82,45 +82,62 @@ export default function PayrollRunPage() {
         </div>
 
         <div className={`pt-4 border-t ${borderColor} flex flex-wrap items-center gap-2.5`}>
-          <button
-            onClick={() => advance('Calculated')}
-            disabled={currentIdx >= 1}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#5E93FF] hover:bg-[#4A7FE8] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <RefreshIcon size={15} />
-            Calculate
-          </button>
-          <button
-            onClick={() => advance('Locked')}
-            disabled={currentIdx < 1 || currentIdx >= 2}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#F59E0B] hover:bg-[#D97706] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <LockIcon size={15} />
-            Lock
-          </button>
-          <button
-            onClick={() => advance('Approved')}
-            disabled={currentIdx < 2 || currentIdx >= 3}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <CheckIcon size={15} />
-            Approve
-          </button>
-          <button
-            onClick={() => advance('Processed')}
-            disabled={currentIdx < 3}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-          >
-            <FileTextIcon size={15} />
-            Generate Payslips
-          </button>
-          <button
-            disabled={currentIdx < 3}
-            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold border ${borderColor} ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'} disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
-          >
-            <DownloadIcon size={15} />
-            Export Bank File
-          </button>
+          {(() => {
+            const disabledClass = isDark
+              ? 'bg-[#27272A] text-[#71717A] cursor-not-allowed'
+              : 'bg-[#E8EFF6] text-[#94A3B8] cursor-not-allowed'
+            const btnBase = 'flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors'
+
+            const calculateDisabled = currentIdx >= 1
+            const lockDisabled = currentIdx < 1 || currentIdx >= 2
+            const approveDisabled = currentIdx < 2 || currentIdx >= 3
+            const payslipsDisabled = currentIdx < 3
+            const exportDisabled = currentIdx < 3
+
+            return (
+              <>
+                <button
+                  onClick={() => advance('Calculated')}
+                  disabled={calculateDisabled}
+                  className={`${btnBase} ${calculateDisabled ? disabledClass : 'text-white bg-[#5E93FF] hover:bg-[#4A7FE8]'}`}
+                >
+                  <RefreshIcon size={15} />
+                  Calculate
+                </button>
+                <button
+                  onClick={() => advance('Locked')}
+                  disabled={lockDisabled}
+                  className={`${btnBase} ${lockDisabled ? disabledClass : 'text-white bg-[#F59E0B] hover:bg-[#D97706]'}`}
+                >
+                  <LockIcon size={15} />
+                  Lock
+                </button>
+                <button
+                  onClick={() => advance('Approved')}
+                  disabled={approveDisabled}
+                  className={`${btnBase} ${approveDisabled ? disabledClass : 'text-white bg-[#8B5CF6] hover:bg-[#7C3AED]'}`}
+                >
+                  <CheckIcon size={15} />
+                  Approve
+                </button>
+                <button
+                  onClick={() => advance('Processed')}
+                  disabled={payslipsDisabled}
+                  className={`${btnBase} ${payslipsDisabled ? disabledClass : 'text-white bg-[#00755A] hover:bg-[#27EAA6]'}`}
+                >
+                  <FileTextIcon size={15} />
+                  Generate Payslips
+                </button>
+                <button
+                  disabled={exportDisabled}
+                  className={`${btnBase} border ${exportDisabled ? `${disabledClass} border-transparent` : `${borderColor} ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}`}
+                >
+                  <DownloadIcon size={15} />
+                  Export Bank File
+                </button>
+              </>
+            )
+          })()}
         </div>
       </div>
 
