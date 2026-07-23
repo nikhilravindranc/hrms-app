@@ -65,64 +65,62 @@ export default function PayrollRunPage() {
       </div>
 
       {/* Summary bar */}
-      <div className={`rounded-xl border ${borderColor} ${cardBg} p-5`}>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex flex-wrap gap-8">
-            {summaryFields.map(f => (
-              <div key={f.label}>
-                <p className={`text-[10.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{f.label}</p>
-                <p className={`text-sm font-bold mt-0.5 ${textColor}`}>{f.value}</p>
-              </div>
-            ))}
-            <div>
-              <p className={`text-[10.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Status</p>
-              <span className={`inline-block mt-1 px-2.5 py-1 rounded-full text-xs font-bold ${statusStyles[status].bg} ${statusStyles[status].text}`}>
-                {status}
-              </span>
+      <div className={`rounded-xl border ${borderColor} ${cardBg} p-5 space-y-4`}>
+        <div className="flex flex-wrap gap-8">
+          {summaryFields.map(f => (
+            <div key={f.label}>
+              <p className={`text-[10.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>{f.label}</p>
+              <p className={`text-sm font-bold mt-0.5 ${textColor}`}>{f.value}</p>
             </div>
+          ))}
+          <div>
+            <p className={`text-[10.5px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Status</p>
+            <span className={`inline-block mt-1 px-2.5 py-1 rounded-full text-xs font-bold ${statusStyles[status].bg} ${statusStyles[status].text}`}>
+              {status}
+            </span>
           </div>
+        </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={() => advance('Calculated')}
-              disabled={currentIdx >= 1}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-[#5E93FF] hover:bg-[#4A7FE8] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              <RefreshIcon size={14} />
-              Calculate
-            </button>
-            <button
-              onClick={() => advance('Locked')}
-              disabled={currentIdx < 1 || currentIdx >= 2}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-[#F59E0B] hover:bg-[#D97706] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              <LockIcon size={14} />
-              Lock
-            </button>
-            <button
-              onClick={() => advance('Approved')}
-              disabled={currentIdx < 2 || currentIdx >= 3}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              <CheckIcon size={14} />
-              Approve
-            </button>
-            <button
-              onClick={() => advance('Processed')}
-              disabled={currentIdx < 3}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            >
-              <FileTextIcon size={14} />
-              Generate Payslips
-            </button>
-            <button
-              disabled={currentIdx < 3}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold border ${borderColor} ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'} disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
-            >
-              <DownloadIcon size={14} />
-              Export Bank File
-            </button>
-          </div>
+        <div className={`pt-4 border-t ${borderColor} flex flex-wrap items-center gap-2.5`}>
+          <button
+            onClick={() => advance('Calculated')}
+            disabled={currentIdx >= 1}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#5E93FF] hover:bg-[#4A7FE8] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <RefreshIcon size={15} />
+            Calculate
+          </button>
+          <button
+            onClick={() => advance('Locked')}
+            disabled={currentIdx < 1 || currentIdx >= 2}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#F59E0B] hover:bg-[#D97706] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <LockIcon size={15} />
+            Lock
+          </button>
+          <button
+            onClick={() => advance('Approved')}
+            disabled={currentIdx < 2 || currentIdx >= 3}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#8B5CF6] hover:bg-[#7C3AED] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <CheckIcon size={15} />
+            Approve
+          </button>
+          <button
+            onClick={() => advance('Processed')}
+            disabled={currentIdx < 3}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            <FileTextIcon size={15} />
+            Generate Payslips
+          </button>
+          <button
+            disabled={currentIdx < 3}
+            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-semibold border ${borderColor} ${textColor} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'} disabled:opacity-40 disabled:cursor-not-allowed transition-colors`}
+          >
+            <DownloadIcon size={15} />
+            Export Bank File
+          </button>
         </div>
       </div>
 
