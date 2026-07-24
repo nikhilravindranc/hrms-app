@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { useTheme } from '@/context/ThemeContext'
 import { useAuth } from '@/context/AuthContext'
-import { MenuIcon, SearchIcon, PlusIcon, BellIcon, MoonIcon, SunIcon } from './Icons'
+import { MenuIcon, SearchIcon, BellIcon, MoonIcon, SunIcon } from './Icons'
 
 export function TopBar() {
   const { isDark, toggleTheme } = useTheme()
@@ -68,14 +68,6 @@ export function TopBar() {
             ⌘K
           </kbd>
         </div>
-
-        {/* Primary Action — 14px/600, padding 10px 20px per Primary Button spec */}
-        <Link href="/people/employees/new">
-          <button className="hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white text-button transition-colors">
-            <PlusIcon size={16} />
-            New Employee
-          </button>
-        </Link>
 
         {/* Theme Toggle */}
         <button
