@@ -318,7 +318,7 @@ export default function PayrollSetupWizard() {
         {step < STEPS.length - 1 ? (
           <button
             onClick={goNext}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+            className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] active:bg-[#003D30] shadow-sm hover:shadow-md transition-all duration-150"
           >
             Next
             <ArrowRightIcon size={15} />
@@ -326,7 +326,7 @@ export default function PayrollSetupWizard() {
         ) : (
           <button
             onClick={finish}
-            className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+            className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] active:bg-[#003D30] shadow-sm hover:shadow-md transition-all duration-150"
           >
             <CheckIcon size={15} />
             Finish — Payroll Ready
