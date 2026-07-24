@@ -172,7 +172,7 @@ function ShiftAssignmentsPageInner() {
               {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
-          <button disabled={!selectedDept || !deptShift} onClick={bulkAssignDept} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          <button disabled={!selectedDept || !deptShift} onClick={bulkAssignDept} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
             Bulk Assign
           </button>
           {bulkMsg && <span className="text-xs font-semibold text-[#00755A]">{bulkMsg}</span>}
@@ -195,7 +195,7 @@ function ShiftAssignmentsPageInner() {
               {mockShifts.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
             </select>
           </div>
-          <button disabled={!selectedLoc || !locShift} onClick={bulkAssignLoc} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+          <button disabled={!selectedLoc || !locShift} onClick={bulkAssignLoc} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
             Bulk Assign
           </button>
           {bulkMsg && <span className="text-xs font-semibold text-[#00755A]">{bulkMsg}</span>}

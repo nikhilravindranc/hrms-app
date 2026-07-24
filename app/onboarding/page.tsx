@@ -119,7 +119,7 @@ const Step1Organization = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -177,7 +177,7 @@ const Step2HRSettings = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -221,7 +221,7 @@ const Step3Structure = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -251,7 +251,7 @@ const Step4Employees = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Skip for Now →
       </button>
@@ -289,7 +289,7 @@ const Step5Policies = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -326,7 +326,7 @@ const Step6Integrations = ({ onNext }: { onNext: () => void }) => {
 
       <button
         onClick={onNext}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors"
       >
         Continue →
       </button>
@@ -352,7 +352,7 @@ const Step7Finish = ({ onFinish }: { onFinish: () => void }) => {
 
       <button
         onClick={onFinish}
-        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#27EAA6] text-white font-medium transition-colors text-lg"
+        className="w-full py-2 rounded-lg bg-[#004D43] hover:bg-[#003830] text-white font-medium transition-colors text-lg"
       >
         Go to Dashboard →
       </button>

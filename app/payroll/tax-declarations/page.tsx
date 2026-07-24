@@ -76,7 +76,7 @@ export default function TaxDeclarationsPage() {
                   <td className="px-4 py-3 whitespace-nowrap">
                     {d.proofStatus === 'Pending' && (
                       <div className="flex items-center gap-2">
-                        <button onClick={() => setProofStatus(d.id, 'Verified')} className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+                        <button onClick={() => setProofStatus(d.id, 'Verified')} className="flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
                           <CheckIcon size={12} />
                           Verify
                         </button>

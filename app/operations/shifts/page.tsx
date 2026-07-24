@@ -44,7 +44,7 @@ export default function ShiftsPage() {
         </div>
         <button
           onClick={() => setShowForm(prev => !prev)}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors"
         >
           <PlusIcon size={15} />
           Add Shift
@@ -73,7 +73,7 @@ export default function ShiftsPage() {
             <label className={`text-[11px] font-semibold uppercase tracking-[0.05em] ${textSecondary}`}>Grace (min)</label>
             <input type="number" value={form.graceMinutes} onChange={e => setForm(f => ({ ...f, graceMinutes: Number(e.target.value) }))} className={`px-3 py-2 rounded-lg border ${borderColor} ${inputBg} ${textColor} text-sm font-medium outline-none w-24`} />
           </div>
-          <button onClick={addShift} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Save</button>
+          <button onClick={addShift} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Save</button>
           <button onClick={() => setShowForm(false)} className={`p-2 rounded-lg ${textSecondary} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}><XIcon size={16} /></button>
         </div>
       )}

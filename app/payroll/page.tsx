@@ -85,7 +85,7 @@ function ConnectPayrollScreen() {
         </p>
         <button
           onClick={connectPayroll}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors"
         >
           <PlugIcon size={16} />
           Connect Payroll
@@ -117,7 +117,7 @@ function PayrollConnectedScreen() {
         </p>
         <Link
           href="/payroll/setup"
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors"
         >
           Start Payroll Setup
           <ArrowRightIcon size={16} />

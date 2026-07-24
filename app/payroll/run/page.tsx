@@ -123,7 +123,7 @@ export default function PayrollRunPage() {
                 <button
                   onClick={() => advance('Processed')}
                   disabled={payslipsDisabled}
-                  className={`${btnBase} ${payslipsDisabled ? disabledClass : 'text-white bg-[#00755A] hover:bg-[#27EAA6]'}`}
+                  className={`${btnBase} ${payslipsDisabled ? disabledClass : 'text-white bg-[#00755A] hover:bg-[#004A3A]'}`}
                 >
                   <FileTextIcon size={15} />
                   Generate Payslips

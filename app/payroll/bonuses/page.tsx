@@ -82,7 +82,7 @@ export default function BonusesAdjustmentsPage() {
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     {b.status === 'Pending' && (
-                      <button onClick={() => approve(b.id)} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Approve</button>
+                      <button onClick={() => approve(b.id)} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Approve</button>
                     )}
                   </td>
                 </tr>

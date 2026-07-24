@@ -55,7 +55,7 @@ export default function NewDesignationPage() {
           >
             Cancel
           </Link>
-          <button className="px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+          <button className="px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
             Save Designation
           </button>
         </div>

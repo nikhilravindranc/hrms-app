@@ -464,7 +464,7 @@ export default function DashboardPage() {
 
             <Link
               href="/requests"
-              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+              className="mt-4 w-full py-2.5 rounded-lg text-center text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors"
             >
               Review All
             </Link>

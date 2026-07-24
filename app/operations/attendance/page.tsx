@@ -451,7 +451,7 @@ function BulkAttendance() {
         <button
           disabled={selected.size === 0}
           onClick={() => setApplied(true)}
-          className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Apply to {selected.size} selected
         </button>
@@ -500,7 +500,7 @@ function ImportAttendance() {
         <p className={`text-sm font-bold ${textColor}`}>Import attendance from a file</p>
         <p className={`text-xs font-medium mt-1 ${textSecondary}`}>Upload a biometric device export or CSV with Employee ID, Date, Check In and Check Out columns.</p>
       </div>
-      <button className="mt-2 flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+      <button className="mt-2 flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
         <UploadIcon size={15} />
         Choose File
       </button>

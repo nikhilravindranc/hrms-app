@@ -58,7 +58,7 @@ export default function HolidaysSetupPage() {
             <UploadIcon size={15} />
             Import
           </button>
-          <button onClick={() => { setShowForm(prev => !prev); setShowImport(false) }} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+          <button onClick={() => { setShowForm(prev => !prev); setShowImport(false) }} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
             <PlusIcon size={15} />
             Create Holiday
           </button>
@@ -70,7 +70,7 @@ export default function HolidaysSetupPage() {
           <UploadIcon size={20} className="text-[#00755A]" />
           <p className={`text-sm font-bold ${textColor}`}>Import holiday list from CSV</p>
           <p className={`text-xs font-medium ${textSecondary}`}>Columns: Name, Date, Type, Locations</p>
-          <button className="mt-1 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Choose File</button>
+          <button className="mt-1 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Choose File</button>
         </div>
       )}
 
@@ -104,7 +104,7 @@ export default function HolidaysSetupPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={addHoliday} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Save Holiday</button>
+            <button onClick={addHoliday} className="px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Save Holiday</button>
             <button onClick={() => setShowForm(false)} className={`p-2 rounded-lg ${textSecondary} ${isDark ? 'hover:bg-[#27272A]' : 'hover:bg-[#F7FAF9]'}`}><XIcon size={16} /></button>
           </div>
         </div>

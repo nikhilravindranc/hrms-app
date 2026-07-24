@@ -42,7 +42,7 @@ export default function PayslipsPage() {
         {generatedCount > 0 && (
           <button
             onClick={() => setPayslips(prev => prev.map(p => ({ ...p, status: 'Published' })))}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors"
           >
             <CheckIcon size={15} />
             Publish All ({generatedCount})
@@ -98,7 +98,7 @@ export default function PayslipsPage() {
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className="flex items-center gap-2">
                       {p.status === 'Generated' && (
-                        <button onClick={() => publish(p.id)} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+                        <button onClick={() => publish(p.id)} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
                           Publish
                         </button>
                       )}

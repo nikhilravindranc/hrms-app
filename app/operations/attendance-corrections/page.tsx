@@ -87,7 +87,7 @@ function AttendanceCorrectionsPageInner() {
           ))}
         </div>
         {tab === 'Pending' && selected.size > 0 && (
-          <button onClick={bulkApprove} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">
+          <button onClick={bulkApprove} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">
             <CheckIcon size={15} />
             Bulk Approve ({selected.size})
           </button>
@@ -122,7 +122,7 @@ function AttendanceCorrectionsPageInner() {
                 <td className="px-4 py-3 whitespace-nowrap" onClick={e => e.stopPropagation()}>
                   {c.status === 'Pending' ? (
                     <div className="flex items-center gap-2">
-                      <button onClick={() => setStatus(c.id, 'Approved')} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Approve</button>
+                      <button onClick={() => setStatus(c.id, 'Approved')} className="px-2.5 py-1 rounded-md text-xs font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Approve</button>
                       <button onClick={() => setStatus(c.id, 'Rejected')} className="px-2.5 py-1 rounded-md text-xs font-semibold text-[#EF4444] border border-[#EF4444]/30 hover:bg-[#EF4444]/10 transition-colors">Reject</button>
                     </div>
                   ) : (
@@ -202,7 +202,7 @@ function AttendanceCorrectionsPageInner() {
 
               {open.status === 'Pending' && (
                 <div className="flex items-center gap-2 pt-2">
-                  <button onClick={() => { setStatus(open.id, 'Approved'); setOpenId(null) }} className="flex-1 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#27EAA6] transition-colors">Approve</button>
+                  <button onClick={() => { setStatus(open.id, 'Approved'); setOpenId(null) }} className="flex-1 px-3.5 py-2 rounded-lg text-sm font-semibold text-white bg-[#00755A] hover:bg-[#004A3A] transition-colors">Approve</button>
                   <button onClick={() => { setStatus(open.id, 'Rejected'); setOpenId(null) }} className="flex-1 px-3.5 py-2 rounded-lg text-sm font-semibold text-[#EF4444] border border-[#EF4444]/30 hover:bg-[#EF4444]/10 transition-colors">Reject</button>
                 </div>
               )}
